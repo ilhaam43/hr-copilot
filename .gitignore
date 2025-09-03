@@ -205,3 +205,24 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Python
+.venv/
+ai/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node / Playwright
+node_modules/
+playwright/.cache/
+.playwright/
+
+# OS/IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Env & logs
+.env
+*.log
