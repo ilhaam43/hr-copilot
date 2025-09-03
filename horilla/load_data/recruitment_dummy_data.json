@@ -1,0 +1,7021 @@
+[
+  {
+    "model": "base.jobposition",
+    "pk": 100,
+    "fields": {
+      "created_at": "2025-04-21T23:37:06.670261Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Software Engineer",
+      "department_id": 5,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 101,
+    "fields": {
+      "created_at": "2024-09-09T13:47:41.799722Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Marketing Manager",
+      "department_id": 10,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 102,
+    "fields": {
+      "created_at": "2024-12-09T21:23:51.592034Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "DevOps Engineer",
+      "department_id": 7,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 103,
+    "fields": {
+      "created_at": "2024-11-20T23:10:06.336128Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Customer Support",
+      "department_id": 10,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-05-27T10:17:11.676973Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Business Analyst",
+      "department_id": 8,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-05-05T14:20:31.075940Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Financial Analyst",
+      "department_id": 9,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 106,
+    "fields": {
+      "created_at": "2025-07-23T07:11:19.082656Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "UI/UX Designer",
+      "department_id": 1,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 107,
+    "fields": {
+      "created_at": "2024-10-02T04:38:29.789435Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Software Engineer",
+      "department_id": 2,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-02-01T13:01:19.476448Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Financial Analyst",
+      "department_id": 1,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 109,
+    "fields": {
+      "created_at": "2024-09-11T07:45:06.987341Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Product Manager",
+      "department_id": 6,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 110,
+    "fields": {
+      "created_at": "2024-11-19T07:05:04.850452Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Project Manager",
+      "department_id": 7,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 111,
+    "fields": {
+      "created_at": "2025-03-04T00:22:47.412882Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "DevOps Engineer",
+      "department_id": 8,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 112,
+    "fields": {
+      "created_at": "2024-09-10T03:09:52.589818Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "Software Engineer",
+      "department_id": 9,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 113,
+    "fields": {
+      "created_at": "2024-11-12T01:31:11.249579Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "HR Specialist",
+      "department_id": 10,
+      "company_id": []
+    }
+  },
+  {
+    "model": "base.jobposition",
+    "pk": 114,
+    "fields": {
+      "created_at": "2025-04-25T19:17:15.633517Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "job_position": "HR Specialist",
+      "department_id": 10,
+      "company_id": []
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 100,
+    "fields": {
+      "created_at": "2024-11-19T22:53:10.513414Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for DevOps Engineer",
+      "description": "Repellat ab rem praesentium excepturi. Dolor quis aut fugit. Sed nobis rem quas modi voluptate. Aspernatur eos occaecati suscipit facere deleniti.\nOptio quo voluptates. Sint fugit iste rerum cum.\nPariatur praesentium placeat architecto odio. Quas cum fugit voluptatibus odit nam placeat. Dolorem adipisci et eaque.\nSoluta et omnis id totam itaque eaque. Quia molestiae quia incidunt nesciunt.",
+      "vacancy": 5,
+      "open_positions": [
+        107,
+        114
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-19",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 107,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": true
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-06-01T16:34:16.489973Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for HR Specialist",
+      "description": "Eos culpa a quam. Voluptas quis magni autem numquam. Non corrupti quis molestiae quod minus a.\nAccusantium ut soluta rerum esse animi soluta. Assumenda laborum architecto quis. Consectetur labore mollitia eaque.\nVitae ut quidem porro quae id. Ipsa maxime commodi dolore excepturi nihil. Nihil ab provident animi architecto. Similique architecto dolores.\nMolestiae quam sunt nemo doloribus. Rem deleniti atque inventore incidunt iure quas. Aperiam quas reiciendis autem.",
+      "vacancy": 2,
+      "open_positions": [
+        105,
+        108,
+        109
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-12",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": false,
+      "job_position_id": 111,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 102,
+    "fields": {
+      "created_at": "2025-07-02T18:58:25.791085Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Content Writer",
+      "description": "Cumque laborum distinctio id animi. A hic unde quos eligendi possimus.\nCulpa error voluptas neque molestiae quibusdam animi. Labore ullam minus animi magni sed architecto architecto. Illo velit necessitatibus neque aliquam.\nOmnis natus et ea pariatur et. Id perferendis error et quibusdam.\nItaque voluptatum voluptatum. Modi magni consequatur expedita.\nFuga culpa rerum provident nostrum. Ab repellendus error optio vel consequatur blanditiis.",
+      "vacancy": 5,
+      "open_positions": [
+        108,
+        114
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-05",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": false,
+      "job_position_id": 101,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": false,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-06-09T02:00:09.745356Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Content Writer",
+      "description": "Qui mollitia incidunt ab. Velit porro corrupti alias.\nMollitia inventore aliquam facilis ut voluptas aliquam facere. Pariatur explicabo nam soluta voluptate. Unde dolores cum reiciendis.\nAd qui ex ut rem sint. Eaque ratione autem sit similique.\nRepellendus itaque esse recusandae dolorem. Optio id eius.\nExpedita magni perspiciatis sapiente ex. Beatae voluptas debitis.\nAutem ipsa quas. Ipsa voluptates blanditiis tempore deleniti aliquid.",
+      "vacancy": 3,
+      "open_positions": [
+        101,
+        111,
+        110
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-12",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 112,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": false,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 104,
+    "fields": {
+      "created_at": "2024-12-17T10:11:57.173138Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Sales Representative",
+      "description": "In velit perspiciatis temporibus nulla. Illo rerum esse distinctio ratione.\nIure ipsam distinctio labore temporibus recusandae. Omnis eligendi optio nulla. Repellendus quibusdam perferendis dolore. Corporis aliquid voluptates nostrum quisquam.\nSuscipit nemo quaerat fugit id corporis. Tempora similique suscipit. Dolor rem possimus iure nam totam.\nConsequatur iure minus nam et quidem ipsam. Incidunt tenetur ipsum culpa similique ipsum quibusdam.",
+      "vacancy": 1,
+      "open_positions": [
+        102,
+        111
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-05",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": false,
+      "job_position_id": 106,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": false,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-01-30T07:08:01.741195Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Project Manager",
+      "description": "Harum quo veniam accusantium sunt nemo. Ab explicabo quidem sequi veritatis in quibusdam.\nTempore laborum earum laborum harum pariatur reiciendis quam. Ullam voluptatem modi tenetur nihil optio assumenda. Consequatur iure amet fugiat distinctio eveniet.\nQuibusdam rerum dolorum aspernatur accusantium. Amet veritatis dolore architecto vero aliquam adipisci. Dicta accusantium corrupti commodi pariatur.\nIure ducimus fuga non vitae. Quod cum est neque. Nemo tenetur fugiat velit dicta.",
+      "vacancy": 3,
+      "open_positions": [
+        106
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-08",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 110,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": true
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 106,
+    "fields": {
+      "created_at": "2024-11-29T02:30:30.240365Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Customer Support",
+      "description": "Sunt doloribus iure nostrum fugiat. Laudantium eveniet laborum.\nExcepturi sunt praesentium eius ab. Assumenda quam laborum quidem porro. Ipsum accusantium eos illo doloribus optio fuga.\nExercitationem voluptatum mollitia explicabo iste esse dolorem. Et quia veritatis porro deleniti. Eius nihil quis nisi voluptatem rerum eos.\nEsse provident consectetur aliquid. Mollitia possimus commodi. Aut accusamus eligendi laboriosam exercitationem vitae dolorum.",
+      "vacancy": 2,
+      "open_positions": [
+        101,
+        109
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-03",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 114,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": true
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 107,
+    "fields": {
+      "created_at": "2025-03-10T07:18:07.531955Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Sales Representative",
+      "description": "Error nihil inventore necessitatibus animi vero. Veniam dignissimos distinctio optio. Dolores mollitia culpa illum.\nEos doloremque provident praesentium iste porro unde. Nihil rem dicta beatae dolore corrupti eaque consequuntur. Cumque esse quibusdam necessitatibus. Ipsa iusto esse illo earum.\nIpsa nisi suscipit quasi nobis ad dolorem. Nesciunt accusantium quisquam reprehenderit nemo quis cupiditate. Officiis totam delectus nesciunt odio laudantium at.",
+      "vacancy": 5,
+      "open_positions": [
+        103,
+        105,
+        109
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-09",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 105,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-07-19T03:50:48.160453Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Sales Representative",
+      "description": "Adipisci occaecati reiciendis quae. Mollitia mollitia at voluptatibus totam. Veniam officia culpa ut eos provident impedit.\nDoloribus mollitia fugit ullam magni sunt sint. Quo sequi excepturi ratione eaque. Eligendi error nesciunt.\nIpsum laborum ex quis. Iste eum deleniti possimus nemo doloremque. Aliquam quia provident repellat harum optio.\nVitae commodi vitae ex aut sapiente aut. Accusamus corporis sit voluptas asperiores quos eaque.",
+      "vacancy": 5,
+      "open_positions": [
+        114,
+        112
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-24",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 108,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-03-13T10:37:59.273912Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Content Writer",
+      "description": "Cumque aspernatur sit nulla. Libero nesciunt doloremque odit itaque. Tempore iure enim.\nAsperiores veniam voluptates error. Porro itaque error voluptatum sequi autem. Nemo nemo voluptatibus eos voluptate omnis.\nNatus placeat quia. Tenetur quia rerum.\nNon explicabo odio numquam perspiciatis. Occaecati temporibus officia est.\nNeque quasi at. Eveniet impedit dicta ratione soluta. Minus totam rerum ducimus repudiandae laboriosam.",
+      "vacancy": 4,
+      "open_positions": [
+        103
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-25",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 104,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": true
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-05-04T04:24:31.620097Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Graphic Designer",
+      "description": "Fugit odit fuga perferendis iusto nulla velit eveniet. Dolore aperiam reprehenderit tenetur error illum consequuntur veniam.\nBlanditiis doloremque modi harum fuga veniam possimus. In quia culpa impedit aut laudantium illum.\nPorro dolor ipsam. Sequi aut placeat molestias voluptate.\nId deleniti commodi sed. At distinctio odit voluptas amet ex voluptates. Dignissimos rerum mollitia nesciunt repellat doloremque quo.",
+      "vacancy": 3,
+      "open_positions": [
+        111
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-26",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": false,
+      "job_position_id": 109,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": false,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 111,
+    "fields": {
+      "created_at": "2025-02-14T17:38:50.946611Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Data Analyst",
+      "description": "Voluptatum sed incidunt autem.\nTempore eum corporis commodi. Odio molestias eveniet voluptatum minus iste non aut. Sequi officiis quisquam quam.\nIste dolorem excepturi iste impedit atque. Est ducimus veritatis porro labore at.\nInventore quia fuga consectetur. Nesciunt natus eveniet commodi.\nSint quam voluptas nobis expedita neque. Culpa laboriosam sed expedita nam. Quis nemo rem sapiente.",
+      "vacancy": 4,
+      "open_positions": [
+        111,
+        102
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-13",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": false,
+      "job_position_id": 100,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": false,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 112,
+    "fields": {
+      "created_at": "2025-02-04T11:04:35.031938Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Marketing Manager",
+      "description": "Laborum pariatur aliquid hic nobis ab error distinctio. Quisquam enim blanditiis libero.\nConsectetur minus dolorem nam. Asperiores similique aliquam accusantium ullam similique. Inventore illo odit enim illo vitae cupiditate.\nRerum ullam at sapiente doloribus nihil minima. Sit quia dolore quod asperiores odio. Magni temporibus expedita quas reprehenderit repellendus dolores. Ducimus cupiditate corrupti quis.\nVeritatis occaecati iure natus. Ipsum unde natus odio numquam sint occaecati corrupti.",
+      "vacancy": 1,
+      "open_positions": [
+        111,
+        104
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-20",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 103,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": false,
+      "optional_resume": true
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 113,
+    "fields": {
+      "created_at": "2025-07-03T06:48:14.546383Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Business Analyst",
+      "description": "Officia aliquam provident voluptatibus minima non facilis. Harum quo perspiciatis amet occaecati.\nEx nam harum dolorum. Sit ex nesciunt consequuntur expedita voluptas praesentium hic. Quae assumenda nam officia eveniet consectetur praesentium veniam.\nOfficia incidunt facere facere. Veritatis exercitationem quisquam deleniti. Culpa eos ratione magni.",
+      "vacancy": 5,
+      "open_positions": [
+        105
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-10-16",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": false,
+      "job_position_id": 113,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": true
+    }
+  },
+  {
+    "model": "recruitment.recruitment",
+    "pk": 114,
+    "fields": {
+      "created_at": "2024-09-30T05:53:25.238233Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Recruitment for Financial Analyst",
+      "description": "Eum aut quaerat. Recusandae consequuntur enim rerum possimus consequuntur.\nNostrum temporibus accusantium dolor corrupti velit non. Beatae enim error aliquid in recusandae. Aperiam saepe libero modi odio nemo quaerat.\nA explicabo necessitatibus deleniti pariatur minima. Architecto minima magni voluptates mollitia hic.\nOdio voluptatem ducimus. Explicabo architecto dolores. Aut neque quidem consequatur explicabo excepturi odit rerum.",
+      "vacancy": 5,
+      "open_positions": [
+        108,
+        111,
+        108
+      ],
+      "start_date": "2025-08-30",
+      "end_date": "2025-11-08",
+      "closed": false,
+      "is_published": true,
+      "is_event_based": true,
+      "job_position_id": 102,
+      "company_id": null,
+      "recruitment_managers": [
+        1
+      ],
+      "survey_templates": [],
+      "skills": [],
+      "optional_profile_image": true,
+      "optional_resume": false
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 100,
+    "fields": {
+      "created_at": "2024-10-15T21:40:28.973766Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Final Interview",
+      "stage_type": "test",
+      "sequence": 1,
+      "recruitment_id": 100,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-01-12T20:31:27.926786Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Interview",
+      "stage_type": "final",
+      "sequence": 2,
+      "recruitment_id": 100,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 102,
+    "fields": {
+      "created_at": "2025-07-22T07:34:55.192916Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Onboarding",
+      "stage_type": "interview",
+      "sequence": 3,
+      "recruitment_id": 100,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-05-29T22:12:49.029848Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Offer",
+      "stage_type": "test",
+      "sequence": 4,
+      "recruitment_id": 100,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-07-24T04:44:03.243998Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Interview",
+      "stage_type": "interview",
+      "sequence": 1,
+      "recruitment_id": 101,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-01-19T15:47:30.877784Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "interview",
+      "sequence": 2,
+      "recruitment_id": 101,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 106,
+    "fields": {
+      "created_at": "2025-08-22T01:59:02.087212Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Phone Screening",
+      "stage_type": "interview",
+      "sequence": 1,
+      "recruitment_id": 102,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 107,
+    "fields": {
+      "created_at": "2025-02-28T16:09:18.222177Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "interview",
+      "sequence": 2,
+      "recruitment_id": 102,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-03-01T03:43:38.350746Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Application Review",
+      "stage_type": "interview",
+      "sequence": 3,
+      "recruitment_id": 102,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-08-04T00:50:25.377384Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Phone Screening",
+      "stage_type": "test",
+      "sequence": 1,
+      "recruitment_id": 103,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-03-09T02:24:15.021177Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "interview",
+      "sequence": 2,
+      "recruitment_id": 103,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 111,
+    "fields": {
+      "created_at": "2025-06-20T01:13:42.691043Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Onboarding",
+      "stage_type": "initial",
+      "sequence": 3,
+      "recruitment_id": 103,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 112,
+    "fields": {
+      "created_at": "2025-05-23T23:58:37.402811Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Application Review",
+      "stage_type": "interview",
+      "sequence": 4,
+      "recruitment_id": 103,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 113,
+    "fields": {
+      "created_at": "2024-09-29T06:24:42.693363Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Application Review",
+      "stage_type": "final",
+      "sequence": 1,
+      "recruitment_id": 104,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 114,
+    "fields": {
+      "created_at": "2025-04-08T11:31:03.703515Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Final Interview",
+      "stage_type": "initial",
+      "sequence": 2,
+      "recruitment_id": 104,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 115,
+    "fields": {
+      "created_at": "2025-06-27T19:00:10.660342Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "interview",
+      "sequence": 1,
+      "recruitment_id": 105,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 116,
+    "fields": {
+      "created_at": "2025-03-18T16:03:15.551764Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Application Review",
+      "stage_type": "test",
+      "sequence": 2,
+      "recruitment_id": 105,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 117,
+    "fields": {
+      "created_at": "2024-12-26T18:13:08.240351Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Phone Screening",
+      "stage_type": "final",
+      "sequence": 1,
+      "recruitment_id": 106,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 118,
+    "fields": {
+      "created_at": "2024-09-29T16:25:17.488601Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Interview",
+      "stage_type": "interview",
+      "sequence": 2,
+      "recruitment_id": 106,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 119,
+    "fields": {
+      "created_at": "2025-04-29T20:00:57.388880Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Reference Check",
+      "stage_type": "interview",
+      "sequence": 1,
+      "recruitment_id": 107,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 120,
+    "fields": {
+      "created_at": "2024-12-21T09:13:32.815750Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Onboarding",
+      "stage_type": "initial",
+      "sequence": 2,
+      "recruitment_id": 107,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 121,
+    "fields": {
+      "created_at": "2025-04-08T12:59:35.614185Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Interview",
+      "stage_type": "test",
+      "sequence": 3,
+      "recruitment_id": 107,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 122,
+    "fields": {
+      "created_at": "2025-02-03T01:47:16.417327Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "initial",
+      "sequence": 4,
+      "recruitment_id": 107,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 123,
+    "fields": {
+      "created_at": "2025-05-10T08:52:09.962205Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Application Review",
+      "stage_type": "final",
+      "sequence": 1,
+      "recruitment_id": 108,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 124,
+    "fields": {
+      "created_at": "2025-01-06T20:07:59.358489Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Phone Screening",
+      "stage_type": "test",
+      "sequence": 2,
+      "recruitment_id": 108,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 125,
+    "fields": {
+      "created_at": "2024-09-15T21:49:54.692299Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Reference Check",
+      "stage_type": "interview",
+      "sequence": 3,
+      "recruitment_id": 108,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 126,
+    "fields": {
+      "created_at": "2025-07-15T05:05:37.443440Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Test",
+      "stage_type": "interview",
+      "sequence": 4,
+      "recruitment_id": 108,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 127,
+    "fields": {
+      "created_at": "2025-01-07T05:00:25.079747Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "First Interview",
+      "stage_type": "interview",
+      "sequence": 1,
+      "recruitment_id": 109,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 128,
+    "fields": {
+      "created_at": "2025-08-31T00:06:18.902166Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Final Interview",
+      "stage_type": "final",
+      "sequence": 2,
+      "recruitment_id": 109,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 129,
+    "fields": {
+      "created_at": "2024-12-09T17:14:35.015267Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Onboarding",
+      "stage_type": "interview",
+      "sequence": 1,
+      "recruitment_id": 110,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 130,
+    "fields": {
+      "created_at": "2025-08-24T09:14:26.122332Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "initial",
+      "sequence": 2,
+      "recruitment_id": 110,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 131,
+    "fields": {
+      "created_at": "2025-08-12T15:39:32.228822Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Final Interview",
+      "stage_type": "test",
+      "sequence": 3,
+      "recruitment_id": 110,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 132,
+    "fields": {
+      "created_at": "2024-09-27T20:20:58.232664Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Test",
+      "stage_type": "test",
+      "sequence": 1,
+      "recruitment_id": 111,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 133,
+    "fields": {
+      "created_at": "2025-04-21T06:50:18.854673Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Onboarding",
+      "stage_type": "final",
+      "sequence": 2,
+      "recruitment_id": 111,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 134,
+    "fields": {
+      "created_at": "2025-01-11T03:15:17.435815Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Offer",
+      "stage_type": "final",
+      "sequence": 1,
+      "recruitment_id": 112,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 135,
+    "fields": {
+      "created_at": "2025-06-20T00:46:18.211478Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Onboarding",
+      "stage_type": "interview",
+      "sequence": 2,
+      "recruitment_id": 112,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 136,
+    "fields": {
+      "created_at": "2025-05-06T14:06:25.186408Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Interview",
+      "stage_type": "interview",
+      "sequence": 3,
+      "recruitment_id": 112,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 137,
+    "fields": {
+      "created_at": "2025-08-14T10:28:47.441995Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Reference Check",
+      "stage_type": "initial",
+      "sequence": 4,
+      "recruitment_id": 112,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 138,
+    "fields": {
+      "created_at": "2024-10-22T14:07:37.989337Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Offer",
+      "stage_type": "test",
+      "sequence": 1,
+      "recruitment_id": 113,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 139,
+    "fields": {
+      "created_at": "2025-04-10T08:23:41.710850Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Application Review",
+      "stage_type": "initial",
+      "sequence": 2,
+      "recruitment_id": 113,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 140,
+    "fields": {
+      "created_at": "2025-06-12T19:20:59.562835Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "First Interview",
+      "stage_type": "interview",
+      "sequence": 3,
+      "recruitment_id": 113,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 141,
+    "fields": {
+      "created_at": "2024-09-13T03:35:45.776778Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "HR Interview",
+      "stage_type": "initial",
+      "sequence": 4,
+      "recruitment_id": 113,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 142,
+    "fields": {
+      "created_at": "2024-09-24T23:54:29.488543Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Interview",
+      "stage_type": "final",
+      "sequence": 1,
+      "recruitment_id": 114,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 143,
+    "fields": {
+      "created_at": "2025-06-11T18:50:08.113698Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Phone Screening",
+      "stage_type": "initial",
+      "sequence": 2,
+      "recruitment_id": 114,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.stage",
+    "pk": 144,
+    "fields": {
+      "created_at": "2025-01-12T05:42:14.915125Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "stage": "Technical Test",
+      "stage_type": "interview",
+      "sequence": 3,
+      "recruitment_id": 114,
+      "stage_managers": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 100,
+    "fields": {
+      "created_at": "2024-09-12T06:26:19.119101Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Harjo Purnawati",
+      "email": "windahartati@example.com",
+      "mobile": "+62 (719) 285-6",
+      "recruitment_id": 100,
+      "job_position_id": 107,
+      "stage_id": 107,
+      "schedule_date": "2025-08-31T16:19:55.262406Z",
+      "portfolio": "",
+      "address": "Gang Stasiun Wonokromo No. 447\nSingkawang, Lampung 31217",
+      "country": "Indonesia",
+      "state": "Kalimantan Barat",
+      "city": "Bekasi",
+      "zip": "51884",
+      "dob": "2001-01-20",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-05-18T10:06:15.977552Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Soleh Manullang",
+      "email": "nyomanmelani@example.org",
+      "mobile": "+62 (032) 370-5",
+      "recruitment_id": 101,
+      "job_position_id": 100,
+      "stage_id": 136,
+      "schedule_date": "2025-08-31T16:18:56.088701Z",
+      "portfolio": "",
+      "address": "Gg. Suniaraja No. 7\nYogyakarta, Sulawesi Barat 25177",
+      "country": "Indonesia",
+      "state": "Sumatera Utara",
+      "city": "Blitar",
+      "zip": "26801",
+      "dob": "1992-02-05",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 102,
+    "fields": {
+      "created_at": "2024-10-29T14:19:12.583428Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Ilsa Marbun",
+      "email": "mustofamaryati@example.com",
+      "mobile": "+62 (043) 842 4",
+      "recruitment_id": 103,
+      "job_position_id": 107,
+      "stage_id": 124,
+      "schedule_date": null,
+      "portfolio": "http://www.perum.sch.id/",
+      "address": "Jl. H.J Maemunah No. 4\nYogyakarta, Sulawesi Barat 78447",
+      "country": "Indonesia",
+      "state": "Kalimantan Utara",
+      "city": "Langsa",
+      "zip": "10276",
+      "dob": "1991-04-14",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-04-10T00:23:41.755522Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Farhunnisa Siregar",
+      "email": "makuta56@example.org",
+      "mobile": "+62 (881) 537-1",
+      "recruitment_id": 103,
+      "job_position_id": 105,
+      "stage_id": 113,
+      "schedule_date": "2025-08-31T16:18:16.905316Z",
+      "portfolio": "",
+      "address": "Gang Pacuan Kuda No. 595\nTual, Jawa Timur 87747",
+      "country": "Indonesia",
+      "state": "Bali",
+      "city": "Mojokerto",
+      "zip": "33950",
+      "dob": "1980-11-16",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-07-19T16:55:57.918129Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Nilam Riyanti",
+      "email": "isuwarno@example.org",
+      "mobile": "+62 (062) 456-5",
+      "recruitment_id": 106,
+      "job_position_id": 101,
+      "stage_id": 144,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Sukajadi No. 7\nSolok, Jambi 16558",
+      "country": "Indonesia",
+      "state": "Papua",
+      "city": "Dumai",
+      "zip": "80002",
+      "dob": "1996-10-15",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-03-09T02:54:09.236145Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Rangga Kusmawati",
+      "email": "nilammulyani@example.org",
+      "mobile": "+62 (952) 694 9",
+      "recruitment_id": 113,
+      "job_position_id": 106,
+      "stage_id": 115,
+      "schedule_date": null,
+      "portfolio": "https://pt.mil.id/",
+      "address": "Gang Suryakencana No. 9\nTebingtinggi, BE 28962",
+      "country": "Indonesia",
+      "state": "Kalimantan Utara",
+      "city": "Samarinda",
+      "zip": "30756",
+      "dob": "1983-04-19",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 106,
+    "fields": {
+      "created_at": "2025-01-28T07:49:35.566360Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Shakila Putra",
+      "email": "thalim@example.org",
+      "mobile": "083 857 8652",
+      "recruitment_id": 103,
+      "job_position_id": 101,
+      "stage_id": 124,
+      "schedule_date": "2025-08-31T16:18:55.159624Z",
+      "portfolio": "",
+      "address": "Gang Kebonjati No. 484\nLangsa, LA 75758",
+      "country": "Indonesia",
+      "state": "Kepulauan Riau",
+      "city": "Bitung",
+      "zip": "65240",
+      "dob": "1986-07-26",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 107,
+    "fields": {
+      "created_at": "2025-01-04T22:41:45.974348Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Tania Hutapea",
+      "email": "qyolanda@example.net",
+      "mobile": "(0338) 484-2199",
+      "recruitment_id": 102,
+      "job_position_id": 104,
+      "stage_id": 112,
+      "schedule_date": "2025-08-31T16:18:28.713848Z",
+      "portfolio": "",
+      "address": "Jl. Dipenogoro No. 57\nTangerang Selatan, Jawa Barat 82677",
+      "country": "Indonesia",
+      "state": "Kalimantan Selatan",
+      "city": "Madiun",
+      "zip": "01938",
+      "dob": "1997-05-23",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": true,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-07-30T23:42:33.360316Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Zizi Firgantoro",
+      "email": "rafidnugroho@example.org",
+      "mobile": "(072) 400 4991",
+      "recruitment_id": 111,
+      "job_position_id": 113,
+      "stage_id": 128,
+      "schedule_date": "2025-08-31T16:19:51.414582Z",
+      "portfolio": "https://perum.or.id/",
+      "address": "Jl. Rumah Sakit No. 742\nTernate, NB 93296",
+      "country": "Indonesia",
+      "state": "Sulawesi Selatan",
+      "city": "Bekasi",
+      "zip": "12275",
+      "dob": "2002-02-14",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 3
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-01-18T12:52:39.782924Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Adiarja Rajata",
+      "email": "vsantoso@example.com",
+      "mobile": "+62-45-301-7426",
+      "recruitment_id": 105,
+      "job_position_id": 106,
+      "stage_id": 140,
+      "schedule_date": null,
+      "portfolio": "https://www.ud.id/",
+      "address": "Gg. Rungkut Industri No. 68\nTomohon, Kalimantan Tengah 91878",
+      "country": "Indonesia",
+      "state": "Papua",
+      "city": "Salatiga",
+      "zip": "08839",
+      "dob": "1992-07-17",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-07-09T12:46:33.351057Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Eli Simbolon",
+      "email": "rlatupono@example.org",
+      "mobile": "(0187) 072-8679",
+      "recruitment_id": 110,
+      "job_position_id": 101,
+      "stage_id": 137,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Suniaraja No. 03\nBanjar, Sulawesi Selatan 18017",
+      "country": "Indonesia",
+      "state": "Banten",
+      "city": "Padang Sidempuan",
+      "zip": "26567",
+      "dob": "2000-07-14",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 111,
+    "fields": {
+      "created_at": "2024-09-29T18:00:31.831407Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Keisha Waluyo",
+      "email": "silviatampubolon@example.org",
+      "mobile": "+62 (86) 823-00",
+      "recruitment_id": 101,
+      "job_position_id": 106,
+      "stage_id": 119,
+      "schedule_date": "2025-08-31T16:19:20.819983Z",
+      "portfolio": "",
+      "address": "Jl. Erlangga No. 24\nTebingtinggi, JA 69033",
+      "country": "Indonesia",
+      "state": "DI Yogyakarta",
+      "city": "Serang",
+      "zip": "79030",
+      "dob": "1989-04-26",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 112,
+    "fields": {
+      "created_at": "2024-11-18T19:05:11.106502Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gina Namaga",
+      "email": "mandalachelsea@example.com",
+      "mobile": "+62-0959-953-42",
+      "recruitment_id": 111,
+      "job_position_id": 109,
+      "stage_id": 118,
+      "schedule_date": null,
+      "portfolio": "https://pt.mil.id/",
+      "address": "Gang Ahmad Dahlan No. 66\nLangsa, PB 87334",
+      "country": "Indonesia",
+      "state": "Jawa Tengah",
+      "city": "Banjarmasin",
+      "zip": "68826",
+      "dob": "1985-06-28",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 113,
+    "fields": {
+      "created_at": "2025-04-24T15:25:29.826954Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Farhunnisa Sitompul",
+      "email": "fuwais@example.net",
+      "mobile": "+62-046-990-139",
+      "recruitment_id": 114,
+      "job_position_id": 114,
+      "stage_id": 118,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gg. Rajawali Barat No. 331\nKota Administrasi Jakarta Barat, Kalimantan Tengah 38546",
+      "country": "Indonesia",
+      "state": "Sulawesi Tenggara",
+      "city": "Lhokseumawe",
+      "zip": "58771",
+      "dob": "1998-12-06",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 114,
+    "fields": {
+      "created_at": "2025-06-05T14:48:48.314459Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Tantri Halimah",
+      "email": "hasim55@example.com",
+      "mobile": "+62-093-204-899",
+      "recruitment_id": 106,
+      "job_position_id": 100,
+      "stage_id": 147,
+      "schedule_date": "2025-08-31T16:18:35.423074Z",
+      "portfolio": "http://pd.net.id/",
+      "address": "Gang Erlangga No. 522\nDenpasar, BE 10062",
+      "country": "Indonesia",
+      "state": "Kalimantan Timur",
+      "city": "Tarakan",
+      "zip": "03875",
+      "dob": "1981-02-10",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 115,
+    "fields": {
+      "created_at": "2025-08-07T12:55:57.176107Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Suci Widiastuti",
+      "email": "fwahyuni@example.org",
+      "mobile": "+62-88-600-8484",
+      "recruitment_id": 108,
+      "job_position_id": 113,
+      "stage_id": 150,
+      "schedule_date": null,
+      "portfolio": "http://pt.edu/",
+      "address": "Gang Pasteur No. 15\nPalu, Kalimantan Utara 41016",
+      "country": "Indonesia",
+      "state": "Papua Barat",
+      "city": "Purwokerto",
+      "zip": "00217",
+      "dob": "1999-12-14",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 116,
+    "fields": {
+      "created_at": "2025-03-26T02:43:12.222101Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Mariadi Sitompul",
+      "email": "nurainibakiadi@example.org",
+      "mobile": "+62-974-014-890",
+      "recruitment_id": 110,
+      "job_position_id": 114,
+      "stage_id": 116,
+      "schedule_date": null,
+      "portfolio": "https://www.perum.net/",
+      "address": "Gg. Tebet Barat Dalam No. 5\nTomohon, JB 85016",
+      "country": "Indonesia",
+      "state": "Kalimantan Timur",
+      "city": "Makassar",
+      "zip": "50477",
+      "dob": "1985-02-19",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 117,
+    "fields": {
+      "created_at": "2025-02-05T04:01:55.631624Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Puspa Waluyo",
+      "email": "xhutasoit@example.net",
+      "mobile": "+62 (0311) 426-",
+      "recruitment_id": 100,
+      "job_position_id": 110,
+      "stage_id": 130,
+      "schedule_date": "2025-08-31T16:18:12.786110Z",
+      "portfolio": "",
+      "address": "Gang Pasteur No. 212\nPalopo, Sumatera Selatan 10158",
+      "country": "Indonesia",
+      "state": "DKI Jakarta",
+      "city": "Meulaboh",
+      "zip": "46618",
+      "dob": "2001-05-22",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 118,
+    "fields": {
+      "created_at": "2025-03-09T18:26:02.105708Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Dimaz Pertiwi",
+      "email": "inarpati@example.com",
+      "mobile": "+62 (0472) 126-",
+      "recruitment_id": 103,
+      "job_position_id": 103,
+      "stage_id": 102,
+      "schedule_date": null,
+      "portfolio": "http://cv.web.id/",
+      "address": "Jl. Rajawali Barat No. 659\nMagelang, Sulawesi Tengah 69245",
+      "country": "Indonesia",
+      "state": "Kalimantan Selatan",
+      "city": "Lubuklinggau",
+      "zip": "65479",
+      "dob": "1998-06-06",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 119,
+    "fields": {
+      "created_at": "2024-12-11T19:36:01.722733Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gamani Waluyo",
+      "email": "hutama@example.net",
+      "mobile": "+62-982-807-374",
+      "recruitment_id": 109,
+      "job_position_id": 111,
+      "stage_id": 119,
+      "schedule_date": "2025-08-31T16:19:38.275868Z",
+      "portfolio": "",
+      "address": "Gg. Moch. Toha No. 26\nBatu, ST 96886",
+      "country": "Indonesia",
+      "state": "Banten",
+      "city": "Tanjungpinang",
+      "zip": "13529",
+      "dob": "1980-09-22",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 120,
+    "fields": {
+      "created_at": "2025-04-24T15:45:21.235116Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Septi Wastuti",
+      "email": "satya10@example.org",
+      "mobile": "+62 (0388) 899 ",
+      "recruitment_id": 101,
+      "job_position_id": 104,
+      "stage_id": 106,
+      "schedule_date": "2025-08-31T16:18:55.567585Z",
+      "portfolio": "",
+      "address": "Gg. Dr. Djunjunan No. 61\nTegal, Jawa Tengah 45738",
+      "country": "Indonesia",
+      "state": "Sulawesi Utara",
+      "city": "Parepare",
+      "zip": "77514",
+      "dob": "1980-09-25",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 121,
+    "fields": {
+      "created_at": "2024-09-08T16:31:56.517994Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Titin Latupono",
+      "email": "salimah12@example.net",
+      "mobile": "+62-0828-258-67",
+      "recruitment_id": 103,
+      "job_position_id": 109,
+      "stage_id": 115,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gang Astana Anyar No. 9\nPalopo, Sulawesi Selatan 03341",
+      "country": "Indonesia",
+      "state": "Gorontalo",
+      "city": "Mataram",
+      "zip": "37147",
+      "dob": "1992-04-29",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 3
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 122,
+    "fields": {
+      "created_at": "2025-04-06T11:27:34.859385Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Suci Sihotang",
+      "email": "hrahmawati@example.com",
+      "mobile": "+62 (792) 499-1",
+      "recruitment_id": 114,
+      "job_position_id": 109,
+      "stage_id": 108,
+      "schedule_date": "2025-08-31T16:18:28.628727Z",
+      "portfolio": "",
+      "address": "Jalan Monginsidi No. 69\nSamarinda, Papua Barat 27828",
+      "country": "Indonesia",
+      "state": "Jawa Timur",
+      "city": "Kotamobagu",
+      "zip": "25790",
+      "dob": "2000-06-08",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": true,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 123,
+    "fields": {
+      "created_at": "2024-10-20T07:23:13.945440Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Ajeng Laksita",
+      "email": "gpurwanti@example.net",
+      "mobile": "(0676) 772-1903",
+      "recruitment_id": 103,
+      "job_position_id": 102,
+      "stage_id": 130,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Jayawijaya No. 27\nPurwokerto, SS 91485",
+      "country": "Indonesia",
+      "state": "Banten",
+      "city": "Probolinggo",
+      "zip": "61340",
+      "dob": "1990-06-16",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": true,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 124,
+    "fields": {
+      "created_at": "2025-02-07T19:20:17.026613Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gantar Irawan",
+      "email": "prakasahari@example.net",
+      "mobile": "+62 (962) 923-3",
+      "recruitment_id": 111,
+      "job_position_id": 109,
+      "stage_id": 107,
+      "schedule_date": "2025-08-31T16:19:03.873696Z",
+      "portfolio": "http://ud.or.id/",
+      "address": "Jalan Pelajar Pejuang No. 2\nKota Administrasi Jakarta Barat, Jawa Tengah 36729",
+      "country": "Indonesia",
+      "state": "Kepulauan Riau",
+      "city": "Metro",
+      "zip": "11684",
+      "dob": "1996-05-02",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 125,
+    "fields": {
+      "created_at": "2025-02-13T12:18:34.558190Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Tomi Uwais",
+      "email": "lsimbolon@example.org",
+      "mobile": "+62 (075) 186 3",
+      "recruitment_id": 105,
+      "job_position_id": 106,
+      "stage_id": 130,
+      "schedule_date": null,
+      "portfolio": "https://ud.sch.id/",
+      "address": "Jl. Dipenogoro No. 7\nBitung, JI 70632",
+      "country": "Indonesia",
+      "state": "Maluku",
+      "city": "Kota Administrasi Jakarta Utara",
+      "zip": "54152",
+      "dob": "1980-11-26",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 126,
+    "fields": {
+      "created_at": "2025-05-23T14:23:47.125109Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Sari Samosir",
+      "email": "sidiqyolanda@example.org",
+      "mobile": "+62 (003) 712-9",
+      "recruitment_id": 100,
+      "job_position_id": 108,
+      "stage_id": 106,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan W.R. Supratman No. 2\nBatu, Kalimantan Timur 11155",
+      "country": "Indonesia",
+      "state": "Maluku",
+      "city": "Metro",
+      "zip": "21890",
+      "dob": "1994-04-24",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": true,
+      "referral": 1
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 127,
+    "fields": {
+      "created_at": "2025-01-06T16:59:02.129459Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Catur Farida",
+      "email": "restumaryadi@example.com",
+      "mobile": "(0311) 219 6565",
+      "recruitment_id": 114,
+      "job_position_id": 109,
+      "stage_id": 123,
+      "schedule_date": "2025-08-31T16:19:34.929199Z",
+      "portfolio": "http://cv.web.id/",
+      "address": "Jalan M.T Haryono No. 8\nTidore Kepulauan, RI 03761",
+      "country": "Indonesia",
+      "state": "Kalimantan Utara",
+      "city": "Subulussalam",
+      "zip": "80552",
+      "dob": "1988-12-12",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 3
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 128,
+    "fields": {
+      "created_at": "2025-02-01T03:44:43.442431Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Zalindra Purnawati",
+      "email": "wardayahidayanto@example.org",
+      "mobile": "+62 (004) 300 6",
+      "recruitment_id": 114,
+      "job_position_id": 113,
+      "stage_id": 138,
+      "schedule_date": null,
+      "portfolio": "https://pt.ac.id/",
+      "address": "Jl. Jakarta No. 5\nSemarang, DI Yogyakarta 63031",
+      "country": "Indonesia",
+      "state": "Sulawesi Selatan",
+      "city": "Palu",
+      "zip": "42102",
+      "dob": "1996-07-01",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 129,
+    "fields": {
+      "created_at": "2025-08-14T12:28:04.682496Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Elisa Mandasari",
+      "email": "ganda52@example.net",
+      "mobile": "+62 (0105) 648 ",
+      "recruitment_id": 109,
+      "job_position_id": 101,
+      "stage_id": 103,
+      "schedule_date": null,
+      "portfolio": "https://pt.desa.id/",
+      "address": "Jl. Moch. Ramdan No. 8\nBanjar, Aceh 07562",
+      "country": "Indonesia",
+      "state": "Kalimantan Barat",
+      "city": "Purwokerto",
+      "zip": "35365",
+      "dob": "1986-03-04",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 130,
+    "fields": {
+      "created_at": "2025-01-14T14:30:12.896391Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Bahuwarna Pertiwi",
+      "email": "nugrohoivan@example.net",
+      "mobile": "+62-061-744-518",
+      "recruitment_id": 110,
+      "job_position_id": 107,
+      "stage_id": 122,
+      "schedule_date": null,
+      "portfolio": "http://ud.web.id/",
+      "address": "Gang Kiaracondong No. 8\nBukittinggi, Aceh 03850",
+      "country": "Indonesia",
+      "state": "Nusa Tenggara Barat",
+      "city": "Tual",
+      "zip": "41383",
+      "dob": "1989-09-27",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 131,
+    "fields": {
+      "created_at": "2025-08-21T15:46:39.053785Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Yono Halim",
+      "email": "kurniaiswahyudi@example.org",
+      "mobile": "+62-0865-719-18",
+      "recruitment_id": 109,
+      "job_position_id": 106,
+      "stage_id": 118,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Moch. Toha No. 45\nTanjungpinang, Maluku Utara 74313",
+      "country": "Indonesia",
+      "state": "Jawa Barat",
+      "city": "Bukittinggi",
+      "zip": "27756",
+      "dob": "1982-07-24",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 132,
+    "fields": {
+      "created_at": "2025-02-12T11:57:11.890187Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Kani Pranowo",
+      "email": "hsaptono@example.org",
+      "mobile": "+62 (49) 035-21",
+      "recruitment_id": 104,
+      "job_position_id": 108,
+      "stage_id": 148,
+      "schedule_date": null,
+      "portfolio": "https://www.ud.go.id/",
+      "address": "Gg. Dr. Djunjunan No. 100\nBlitar, KS 51994",
+      "country": "Indonesia",
+      "state": "DI Yogyakarta",
+      "city": "Batam",
+      "zip": "72151",
+      "dob": "1980-09-08",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 3
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 133,
+    "fields": {
+      "created_at": "2024-10-31T19:06:35.110712Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Malika Hardiansyah",
+      "email": "fwidodo@example.org",
+      "mobile": "(062) 532 4472",
+      "recruitment_id": 107,
+      "job_position_id": 101,
+      "stage_id": 129,
+      "schedule_date": null,
+      "portfolio": "http://www.pd.org/",
+      "address": "Jalan Veteran No. 838\nMetro, Nusa Tenggara Timur 87598",
+      "country": "Indonesia",
+      "state": "Maluku Utara",
+      "city": "Kota Administrasi Jakarta Timur",
+      "zip": "05930",
+      "dob": "2001-02-28",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 134,
+    "fields": {
+      "created_at": "2024-09-21T20:09:11.985802Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Prayogo Setiawan",
+      "email": "wnuraini@example.net",
+      "mobile": "+62-0213-348-03",
+      "recruitment_id": 102,
+      "job_position_id": 110,
+      "stage_id": 106,
+      "schedule_date": "2025-08-31T16:18:42.576556Z",
+      "portfolio": "",
+      "address": "Gg. Setiabudhi No. 0\nSalatiga, Jawa Tengah 78427",
+      "country": "Indonesia",
+      "state": "Banten",
+      "city": "Banjarmasin",
+      "zip": "93087",
+      "dob": "1979-09-05",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 135,
+    "fields": {
+      "created_at": "2024-11-13T00:32:42.358846Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Vero Susanti",
+      "email": "mamannugroho@example.com",
+      "mobile": "+62-002-921-851",
+      "recruitment_id": 106,
+      "job_position_id": 107,
+      "stage_id": 126,
+      "schedule_date": null,
+      "portfolio": "https://www.ud.gov/",
+      "address": "Jalan Stasiun Wonokromo No. 9\nJayapura, KB 44220",
+      "country": "Indonesia",
+      "state": "Riau",
+      "city": "Denpasar",
+      "zip": "93917",
+      "dob": "1983-01-14",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "rejected",
+      "canceled": true,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 136,
+    "fields": {
+      "created_at": "2024-11-26T08:46:18.579015Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Uli Hutagalung",
+      "email": "gandewa15@example.com",
+      "mobile": "+62-43-315-4100",
+      "recruitment_id": 103,
+      "job_position_id": 105,
+      "stage_id": 100,
+      "schedule_date": null,
+      "portfolio": "https://cv.desa.id/",
+      "address": "Jalan Jamika No. 10\nBanda Aceh, MU 11526",
+      "country": "Indonesia",
+      "state": "Jawa Timur",
+      "city": "Purwokerto",
+      "zip": "59970",
+      "dob": "1990-01-05",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 137,
+    "fields": {
+      "created_at": "2025-04-10T06:09:25.980938Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Safina Marbun",
+      "email": "dmanullang@example.org",
+      "mobile": "+62 (336) 884 4",
+      "recruitment_id": 105,
+      "job_position_id": 106,
+      "stage_id": 109,
+      "schedule_date": "2025-08-31T16:18:05.956253Z",
+      "portfolio": "",
+      "address": "Gg. Abdul Muis No. 14\nDumai, GO 32417",
+      "country": "Indonesia",
+      "state": "Jambi",
+      "city": "Mojokerto",
+      "zip": "74186",
+      "dob": "1984-02-06",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 138,
+    "fields": {
+      "created_at": "2025-01-13T08:38:34.818218Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Timbul Wibowo",
+      "email": "qgunawan@example.com",
+      "mobile": "(0434) 902 1158",
+      "recruitment_id": 112,
+      "job_position_id": 113,
+      "stage_id": 126,
+      "schedule_date": null,
+      "portfolio": "https://www.pd.mil.id/",
+      "address": "Gang Ciwastra No. 08\nBitung, ST 23320",
+      "country": "Indonesia",
+      "state": "Sulawesi Selatan",
+      "city": "Tangerang Selatan",
+      "zip": "32945",
+      "dob": "2001-07-10",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 139,
+    "fields": {
+      "created_at": "2024-10-02T05:25:05.976496Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Vinsen Hidayat",
+      "email": "upuspasari@example.com",
+      "mobile": "087 099 8616",
+      "recruitment_id": 103,
+      "job_position_id": 106,
+      "stage_id": 129,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jl. Ahmad Yani No. 485\nKota Administrasi Jakarta Selatan, Papua Barat 99702",
+      "country": "Indonesia",
+      "state": "Kepulauan Riau",
+      "city": "Bontang",
+      "zip": "06530",
+      "dob": "1997-07-24",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 140,
+    "fields": {
+      "created_at": "2025-07-25T01:43:05.879070Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Viman Santoso",
+      "email": "siraitluluh@example.com",
+      "mobile": "+62 (0713) 247 ",
+      "recruitment_id": 113,
+      "job_position_id": 103,
+      "stage_id": 110,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Tubagus Ismail No. 7\nBanjarmasin, Sumatera Selatan 14862",
+      "country": "Indonesia",
+      "state": "Sumatera Utara",
+      "city": "Cirebon",
+      "zip": "30307",
+      "dob": "1980-11-16",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 141,
+    "fields": {
+      "created_at": "2024-12-09T12:10:39.589296Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Karen Napitupulu",
+      "email": "zmayasari@example.net",
+      "mobile": "+62 (003) 579-7",
+      "recruitment_id": 114,
+      "job_position_id": 111,
+      "stage_id": 120,
+      "schedule_date": "2025-08-31T16:19:06.160047Z",
+      "portfolio": "https://www.pt.go.id/",
+      "address": "Jl. H.J Maemunah No. 346\nYogyakarta, Aceh 22903",
+      "country": "Indonesia",
+      "state": "Kepulauan Bangka Belitung",
+      "city": "Tasikmalaya",
+      "zip": "66574",
+      "dob": "1984-11-24",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 142,
+    "fields": {
+      "created_at": "2025-03-09T14:20:36.709139Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Ilsa Wastuti",
+      "email": "gpadmasari@example.org",
+      "mobile": "085 899 4417",
+      "recruitment_id": 100,
+      "job_position_id": 101,
+      "stage_id": 143,
+      "schedule_date": "2025-08-31T16:18:07.660446Z",
+      "portfolio": "",
+      "address": "Gang Suryakencana No. 4\nBukittinggi, SU 09652",
+      "country": "Indonesia",
+      "state": "Bali",
+      "city": "Kupang",
+      "zip": "66609",
+      "dob": "1996-08-27",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 143,
+    "fields": {
+      "created_at": "2025-01-03T18:40:35.989249Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Queen Nainggolan",
+      "email": "yulianasyidah@example.net",
+      "mobile": "(0584) 282-4172",
+      "recruitment_id": 105,
+      "job_position_id": 104,
+      "stage_id": 117,
+      "schedule_date": "2025-08-31T16:19:28.910267Z",
+      "portfolio": "http://cv.id/",
+      "address": "Gang Pasirkoja No. 4\nBitung, SU 99917",
+      "country": "Indonesia",
+      "state": "Kalimantan Selatan",
+      "city": "Tangerang Selatan",
+      "zip": "84602",
+      "dob": "1982-12-17",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 144,
+    "fields": {
+      "created_at": "2025-01-27T21:26:03.081309Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Farah Siregar",
+      "email": "umegantara@example.net",
+      "mobile": "+62 (17) 525-00",
+      "recruitment_id": 105,
+      "job_position_id": 100,
+      "stage_id": 139,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gg. Dipatiukur No. 966\nPagaralam, Sulawesi Utara 00835",
+      "country": "Indonesia",
+      "state": "Aceh",
+      "city": "Tomohon",
+      "zip": "00335",
+      "dob": "1987-02-25",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 145,
+    "fields": {
+      "created_at": "2025-03-03T06:41:00.377044Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Baktiono Winarno",
+      "email": "gandewa10@example.com",
+      "mobile": "+62 (0789) 856-",
+      "recruitment_id": 102,
+      "job_position_id": 100,
+      "stage_id": 130,
+      "schedule_date": "2025-08-31T16:19:30.013870Z",
+      "portfolio": "http://cv.edu/",
+      "address": "Jl. Siliwangi No. 0\nSubulussalam, Kepulauan Bangka Belitung 90100",
+      "country": "Indonesia",
+      "state": "Jambi",
+      "city": "Palembang",
+      "zip": "18472",
+      "dob": "1984-08-05",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 146,
+    "fields": {
+      "created_at": "2024-09-03T20:07:05.166831Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Silvia Usamah",
+      "email": "gwijayanti@example.net",
+      "mobile": "084 992 6189",
+      "recruitment_id": 114,
+      "job_position_id": 102,
+      "stage_id": 138,
+      "schedule_date": "2025-08-31T16:18:14.128148Z",
+      "portfolio": "",
+      "address": "Jalan Rungkut Industri No. 483\nTarakan, Sulawesi Barat 20873",
+      "country": "Indonesia",
+      "state": "Sulawesi Utara",
+      "city": "Kendari",
+      "zip": "01197",
+      "dob": "1983-03-30",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 147,
+    "fields": {
+      "created_at": "2024-09-27T20:24:40.664720Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Cornelia Melani",
+      "email": "rajasasepti@example.org",
+      "mobile": "(0447) 012 0455",
+      "recruitment_id": 113,
+      "job_position_id": 101,
+      "stage_id": 128,
+      "schedule_date": null,
+      "portfolio": "https://www.pt.edu/",
+      "address": "Gang Wonoayu No. 15\nDenpasar, Jambi 67467",
+      "country": "Indonesia",
+      "state": "Sulawesi Barat",
+      "city": "Binjai",
+      "zip": "02169",
+      "dob": "1991-04-01",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 148,
+    "fields": {
+      "created_at": "2025-02-07T11:23:11.962417Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Qori Wastuti",
+      "email": "ntamba@example.org",
+      "mobile": "+62 (77) 167 01",
+      "recruitment_id": 111,
+      "job_position_id": 113,
+      "stage_id": 130,
+      "schedule_date": "2025-08-31T16:18:01.483226Z",
+      "portfolio": "",
+      "address": "Gg. Kapten Muslihat No. 3\nMalang, Papua Barat 89002",
+      "country": "Indonesia",
+      "state": "Sumatera Selatan",
+      "city": "Payakumbuh",
+      "zip": "17535",
+      "dob": "2002-12-12",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 149,
+    "fields": {
+      "created_at": "2024-11-20T18:44:54.957116Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Asirwanda Mayasari",
+      "email": "pwaskita@example.org",
+      "mobile": "(0797) 177 5170",
+      "recruitment_id": 109,
+      "job_position_id": 112,
+      "stage_id": 128,
+      "schedule_date": "2025-08-31T16:18:12.317199Z",
+      "portfolio": "https://www.pt.web.id/",
+      "address": "Gang Siliwangi No. 375\nTasikmalaya, PA 11305",
+      "country": "Indonesia",
+      "state": "Nusa Tenggara Timur",
+      "city": "Purwokerto",
+      "zip": "10272",
+      "dob": "1999-05-22",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 150,
+    "fields": {
+      "created_at": "2024-10-09T12:09:19.991842Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Uli Wasita",
+      "email": "harimurtilazuardi@example.com",
+      "mobile": "+62-735-160-917",
+      "recruitment_id": 108,
+      "job_position_id": 106,
+      "stage_id": 149,
+      "schedule_date": "2025-08-31T16:19:19.014803Z",
+      "portfolio": "http://perum.ponpes.id/",
+      "address": "Jl. Gegerkalong Hilir No. 699\nPekalongan, PB 93465",
+      "country": "Indonesia",
+      "state": "Lampung",
+      "city": "Bogor",
+      "zip": "69848",
+      "dob": "2000-04-26",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 151,
+    "fields": {
+      "created_at": "2025-04-19T11:37:47.707209Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Tania Puspasari",
+      "email": "harioktaviani@example.net",
+      "mobile": "+62 (0522) 885-",
+      "recruitment_id": 101,
+      "job_position_id": 106,
+      "stage_id": 122,
+      "schedule_date": "2025-08-31T16:19:09.936753Z",
+      "portfolio": "https://pt.go.id/",
+      "address": "Jl. Pasteur No. 442\nTanjungbalai, Lampung 80571",
+      "country": "Indonesia",
+      "state": "Kalimantan Timur",
+      "city": "Kendari",
+      "zip": "06665",
+      "dob": "2002-11-04",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 152,
+    "fields": {
+      "created_at": "2025-05-30T01:23:20.795946Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Asmadi Budiman",
+      "email": "puspahandayani@example.org",
+      "mobile": "+62 (989) 334-7",
+      "recruitment_id": 101,
+      "job_position_id": 100,
+      "stage_id": 122,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan W.R. Supratman No. 84\nCilegon, Kepulauan Bangka Belitung 57202",
+      "country": "Indonesia",
+      "state": "Maluku Utara",
+      "city": "Sorong",
+      "zip": "79851",
+      "dob": "1998-06-24",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 1
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 153,
+    "fields": {
+      "created_at": "2024-11-19T18:41:27.250875Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Jamalia Novitasari",
+      "email": "evahidayat@example.net",
+      "mobile": "+62 (68) 861-53",
+      "recruitment_id": 102,
+      "job_position_id": 110,
+      "stage_id": 148,
+      "schedule_date": "2025-08-31T16:18:39.727984Z",
+      "portfolio": "https://www.perum.desa.id/",
+      "address": "Jl. Raya Ujungberung No. 16\nProbolinggo, LA 85887",
+      "country": "Indonesia",
+      "state": "Sumatera Barat",
+      "city": "Kupang",
+      "zip": "58112",
+      "dob": "2002-12-25",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 154,
+    "fields": {
+      "created_at": "2025-03-14T04:30:39.363717Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Prasetyo Nasyiah",
+      "email": "pranowoumi@example.net",
+      "mobile": "+62-613-861-207",
+      "recruitment_id": 103,
+      "job_position_id": 102,
+      "stage_id": 102,
+      "schedule_date": "2025-08-31T16:18:04.546358Z",
+      "portfolio": "",
+      "address": "Gg. Stasiun Wonokromo No. 934\nMeulaboh, Sulawesi Tengah 65061",
+      "country": "Indonesia",
+      "state": "Aceh",
+      "city": "Tomohon",
+      "zip": "15814",
+      "dob": "1998-07-19",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 155,
+    "fields": {
+      "created_at": "2024-10-02T00:50:26.435534Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gada Sudiati",
+      "email": "zwibowo@example.net",
+      "mobile": "+62-72-832-6842",
+      "recruitment_id": 101,
+      "job_position_id": 102,
+      "stage_id": 138,
+      "schedule_date": "2025-08-31T16:18:35.766780Z",
+      "portfolio": "https://www.pt.sch.id/",
+      "address": "Jalan Sentot Alibasa No. 682\nDenpasar, KI 31290",
+      "country": "Indonesia",
+      "state": "Sulawesi Tenggara",
+      "city": "Kupang",
+      "zip": "41397",
+      "dob": "2002-07-02",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": true,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 156,
+    "fields": {
+      "created_at": "2025-05-03T14:58:20.947292Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Kani Mahendra",
+      "email": "dalionosuryono@example.net",
+      "mobile": "+62 (035) 775 9",
+      "recruitment_id": 111,
+      "job_position_id": 102,
+      "stage_id": 137,
+      "schedule_date": "2025-08-31T16:19:07.866241Z",
+      "portfolio": "",
+      "address": "Jalan Abdul Muis No. 33\nKota Administrasi Jakarta Utara, PA 57775",
+      "country": "Indonesia",
+      "state": "Maluku",
+      "city": "Purwokerto",
+      "zip": "29142",
+      "dob": "2001-01-20",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 157,
+    "fields": {
+      "created_at": "2025-05-26T08:37:57.824293Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Daliman Saptono",
+      "email": "hutagalungaris@example.net",
+      "mobile": "+62-99-693-0848",
+      "recruitment_id": 109,
+      "job_position_id": 112,
+      "stage_id": 137,
+      "schedule_date": null,
+      "portfolio": "https://www.pd.edu/",
+      "address": "Gang S. Parman No. 392\nPalopo, JI 99275",
+      "country": "Indonesia",
+      "state": "Banten",
+      "city": "Tual",
+      "zip": "31453",
+      "dob": "1980-09-09",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 158,
+    "fields": {
+      "created_at": "2025-07-28T23:27:56.663636Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Farhunnisa Maryati",
+      "email": "prayoga77@example.org",
+      "mobile": "+62-051-844-989",
+      "recruitment_id": 102,
+      "job_position_id": 103,
+      "stage_id": 132,
+      "schedule_date": "2025-08-31T16:18:45.199148Z",
+      "portfolio": "https://perum.go.id/",
+      "address": "Gang Rajiman No. 90\nPalembang, Jawa Timur 18432",
+      "country": "Indonesia",
+      "state": "Kalimantan Barat",
+      "city": "Mataram",
+      "zip": "36517",
+      "dob": "1995-11-14",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 1
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 159,
+    "fields": {
+      "created_at": "2025-04-04T05:17:16.424924Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Jatmiko Pranowo",
+      "email": "pdamanik@example.org",
+      "mobile": "+62 (99) 228 09",
+      "recruitment_id": 110,
+      "job_position_id": 107,
+      "stage_id": 143,
+      "schedule_date": null,
+      "portfolio": "http://perum.sch.id/",
+      "address": "Jl. Cihampelas No. 7\nCimahi, Kalimantan Timur 92929",
+      "country": "Indonesia",
+      "state": "Sumatera Selatan",
+      "city": "Cimahi",
+      "zip": "79913",
+      "dob": "1988-09-27",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": 3
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 160,
+    "fields": {
+      "created_at": "2024-09-06T11:44:26.456334Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Diah Kurniawan",
+      "email": "mmaryadi@example.org",
+      "mobile": "+62 (79) 908-81",
+      "recruitment_id": 107,
+      "job_position_id": 114,
+      "stage_id": 105,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gang Soekarno Hatta No. 863\nYogyakarta, Papua Barat 99162",
+      "country": "Indonesia",
+      "state": "Kepulauan Bangka Belitung",
+      "city": "Yogyakarta",
+      "zip": "14986",
+      "dob": "1985-11-06",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 161,
+    "fields": {
+      "created_at": "2025-03-30T13:03:11.771418Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Adhiarja Ardianto",
+      "email": "nurdiyantiaditya@example.com",
+      "mobile": "+62-565-126-944",
+      "recruitment_id": 102,
+      "job_position_id": 102,
+      "stage_id": 119,
+      "schedule_date": "2025-08-31T16:18:50.827386Z",
+      "portfolio": "",
+      "address": "Jalan Tubagus Ismail No. 8\nCirebon, PA 44956",
+      "country": "Indonesia",
+      "state": "Jawa Barat",
+      "city": "Tidore Kepulauan",
+      "zip": "72138",
+      "dob": "1989-04-11",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 162,
+    "fields": {
+      "created_at": "2025-04-12T16:57:20.404651Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Jessica Pudjiastuti",
+      "email": "marpaungprayogo@example.net",
+      "mobile": "+62-12-796-1143",
+      "recruitment_id": 104,
+      "job_position_id": 107,
+      "stage_id": 126,
+      "schedule_date": null,
+      "portfolio": "https://www.pd.web.id/",
+      "address": "Gg. Cempaka No. 384\nBandung, SS 92053",
+      "country": "Indonesia",
+      "state": "Aceh",
+      "city": "Bekasi",
+      "zip": "65669",
+      "dob": "1984-06-20",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 163,
+    "fields": {
+      "created_at": "2025-08-02T03:50:43.215101Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Amalia Hidayat",
+      "email": "ina95@example.com",
+      "mobile": "+62 (0393) 769 ",
+      "recruitment_id": 110,
+      "job_position_id": 114,
+      "stage_id": 140,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gang Gardujati No. 4\nTanjungbalai, Sulawesi Tengah 97357",
+      "country": "Indonesia",
+      "state": "Sulawesi Tenggara",
+      "city": "Pariaman",
+      "zip": "41633",
+      "dob": "1998-11-13",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 164,
+    "fields": {
+      "created_at": "2025-03-08T02:06:31.225220Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Laras Thamrin",
+      "email": "saptonojamal@example.com",
+      "mobile": "+62 (065) 182 7",
+      "recruitment_id": 107,
+      "job_position_id": 103,
+      "stage_id": 131,
+      "schedule_date": null,
+      "portfolio": "https://www.pd.id/",
+      "address": "Jl. Pacuan Kuda No. 5\nBima, JA 79080",
+      "country": "Indonesia",
+      "state": "Sulawesi Utara",
+      "city": "Solok",
+      "zip": "79472",
+      "dob": "2003-04-16",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 165,
+    "fields": {
+      "created_at": "2025-01-23T18:16:22.274143Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Oni Setiawan",
+      "email": "balangganovitasari@example.com",
+      "mobile": "(0808) 562-7187",
+      "recruitment_id": 108,
+      "job_position_id": 111,
+      "stage_id": 122,
+      "schedule_date": null,
+      "portfolio": "https://www.cv.sch.id/",
+      "address": "Gang K.H. Wahid Hasyim No. 4\nKota Administrasi Jakarta Timur, Sulawesi Utara 52763",
+      "country": "Indonesia",
+      "state": "Sulawesi Barat",
+      "city": "Mataram",
+      "zip": "47292",
+      "dob": "2003-03-02",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 166,
+    "fields": {
+      "created_at": "2025-06-24T19:33:23.841975Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Silvia Pradana",
+      "email": "jarwi86@example.com",
+      "mobile": "+62-227-026-728",
+      "recruitment_id": 106,
+      "job_position_id": 104,
+      "stage_id": 149,
+      "schedule_date": null,
+      "portfolio": "https://ud.go.id/",
+      "address": "Jl. Pasir Koja No. 17\nKota Administrasi Jakarta Selatan, Papua 88450",
+      "country": "Indonesia",
+      "state": "Sulawesi Barat",
+      "city": "Malang",
+      "zip": "99824",
+      "dob": "1988-03-08",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": 1
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 167,
+    "fields": {
+      "created_at": "2025-02-25T11:48:35.390664Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Muni Melani",
+      "email": "yhutapea@example.net",
+      "mobile": "+62 (0722) 569-",
+      "recruitment_id": 104,
+      "job_position_id": 102,
+      "stage_id": 104,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gg. Raya Setiabudhi No. 4\nSibolga, Riau 75987",
+      "country": "Indonesia",
+      "state": "Sulawesi Barat",
+      "city": "Denpasar",
+      "zip": "23413",
+      "dob": "1983-09-02",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 168,
+    "fields": {
+      "created_at": "2024-09-23T17:44:43.912705Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Ciaobella Kuswoyo",
+      "email": "dpudjiastuti@example.org",
+      "mobile": "(081) 149 2164",
+      "recruitment_id": 107,
+      "job_position_id": 102,
+      "stage_id": 127,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gang Medokan Ayu No. 282\nBandung, Nusa Tenggara Timur 77848",
+      "country": "Indonesia",
+      "state": "Sulawesi Tengah",
+      "city": "Tanjungpinang",
+      "zip": "99796",
+      "dob": "1992-03-23",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 169,
+    "fields": {
+      "created_at": "2024-12-22T12:58:24.780703Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Suci Nasyidah",
+      "email": "yoga83@example.org",
+      "mobile": "(0456) 424 0082",
+      "recruitment_id": 104,
+      "job_position_id": 105,
+      "stage_id": 144,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Rajiman No. 40\nKupang, KI 85368",
+      "country": "Indonesia",
+      "state": "Sulawesi Selatan",
+      "city": "Kota Administrasi Jakarta Barat",
+      "zip": "66341",
+      "dob": "1989-10-18",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 170,
+    "fields": {
+      "created_at": "2025-06-06T16:18:57.108066Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Digdaya Maryati",
+      "email": "kairav84@example.com",
+      "mobile": "+62-122-417-974",
+      "recruitment_id": 100,
+      "job_position_id": 102,
+      "stage_id": 147,
+      "schedule_date": null,
+      "portfolio": "https://www.pt.ponpes.id/",
+      "address": "Gg. Pasteur No. 703\nBukittinggi, Aceh 35647",
+      "country": "Indonesia",
+      "state": "Papua",
+      "city": "Tanjungpinang",
+      "zip": "51204",
+      "dob": "1998-04-12",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": 1
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 171,
+    "fields": {
+      "created_at": "2025-02-19T03:45:01.710377Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Belinda Palastri",
+      "email": "jaiswibowo@example.org",
+      "mobile": "+62 (036) 730-3",
+      "recruitment_id": 108,
+      "job_position_id": 106,
+      "stage_id": 141,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gang Raya Ujungberung No. 088\nKota Administrasi Jakarta Pusat, Sulawesi Utara 35031",
+      "country": "Indonesia",
+      "state": "Kalimantan Utara",
+      "city": "Madiun",
+      "zip": "24916",
+      "dob": "1998-08-08",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": 1
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 172,
+    "fields": {
+      "created_at": "2025-03-31T16:08:18.201874Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Adika Gunarto",
+      "email": "jriyanti@example.com",
+      "mobile": "+62 (032) 719 5",
+      "recruitment_id": 104,
+      "job_position_id": 113,
+      "stage_id": 146,
+      "schedule_date": "2025-08-31T16:19:17.348988Z",
+      "portfolio": "http://www.cv.my.id/",
+      "address": "Gang HOS. Cokroaminoto No. 07\nSabang, Lampung 39285",
+      "country": "Indonesia",
+      "state": "Maluku Utara",
+      "city": "Kota Administrasi Jakarta Utara",
+      "zip": "18274",
+      "dob": "1999-05-01",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 173,
+    "fields": {
+      "created_at": "2025-02-13T06:54:14.488558Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Puput Utama",
+      "email": "bnashiruddin@example.net",
+      "mobile": "+62 (935) 186-3",
+      "recruitment_id": 102,
+      "job_position_id": 106,
+      "stage_id": 122,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gang H.J Maemunah No. 11\nBanjar, Jawa Barat 03173",
+      "country": "Indonesia",
+      "state": "Gorontalo",
+      "city": "Samarinda",
+      "zip": "78994",
+      "dob": "1980-11-03",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 174,
+    "fields": {
+      "created_at": "2025-05-20T15:00:55.293907Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gawati Sudiati",
+      "email": "pranowotalia@example.com",
+      "mobile": "+62 (070) 586 5",
+      "recruitment_id": 113,
+      "job_position_id": 113,
+      "stage_id": 121,
+      "schedule_date": null,
+      "portfolio": "http://www.pt.int/",
+      "address": "Jl. Ahmad Dahlan No. 3\nSabang, Sulawesi Barat 95761",
+      "country": "Indonesia",
+      "state": "Jawa Timur",
+      "city": "Purwokerto",
+      "zip": "85289",
+      "dob": "1990-04-18",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 175,
+    "fields": {
+      "created_at": "2025-03-20T08:26:15.700488Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Kamila Sihotang",
+      "email": "paiman66@example.net",
+      "mobile": "+62 (939) 836 8",
+      "recruitment_id": 113,
+      "job_position_id": 106,
+      "stage_id": 129,
+      "schedule_date": null,
+      "portfolio": "https://pt.web.id/",
+      "address": "Jalan Rajawali Barat No. 350\nPurwokerto, Sumatera Selatan 10752",
+      "country": "Indonesia",
+      "state": "Jawa Barat",
+      "city": "Mataram",
+      "zip": "34419",
+      "dob": "1989-04-04",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 176,
+    "fields": {
+      "created_at": "2025-05-22T17:17:23.657218Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gasti Hutagalung",
+      "email": "fnatsir@example.net",
+      "mobile": "+62 (094) 096-1",
+      "recruitment_id": 102,
+      "job_position_id": 108,
+      "stage_id": 120,
+      "schedule_date": null,
+      "portfolio": "https://cv.web.id/",
+      "address": "Gg. Ahmad Dahlan No. 589\nMadiun, Sumatera Selatan 20679",
+      "country": "Indonesia",
+      "state": "Sumatera Selatan",
+      "city": "Jayapura",
+      "zip": "46225",
+      "dob": "1981-08-23",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 177,
+    "fields": {
+      "created_at": "2025-03-19T15:31:44.732904Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Queen Hardiansyah",
+      "email": "cawisono68@example.com",
+      "mobile": "+62 (27) 837 69",
+      "recruitment_id": 113,
+      "job_position_id": 105,
+      "stage_id": 132,
+      "schedule_date": null,
+      "portfolio": "http://www.ud.co.id/",
+      "address": "Gang Siliwangi No. 35\nSerang, Bali 25979",
+      "country": "Indonesia",
+      "state": "Jawa Tengah",
+      "city": "Banjar",
+      "zip": "35211",
+      "dob": "1997-05-31",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 178,
+    "fields": {
+      "created_at": "2025-08-04T22:02:48.331918Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Hesti Safitri",
+      "email": "alambana51@example.com",
+      "mobile": "(0705) 383 3884",
+      "recruitment_id": 104,
+      "job_position_id": 114,
+      "stage_id": 107,
+      "schedule_date": null,
+      "portfolio": "https://www.pd.or.id/",
+      "address": "Jl. Peta No. 940\nSungai Penuh, Aceh 64510",
+      "country": "Indonesia",
+      "state": "Lampung",
+      "city": "Kediri",
+      "zip": "81579",
+      "dob": "1992-06-02",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 179,
+    "fields": {
+      "created_at": "2025-03-02T07:08:29.845456Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Fitria Napitupulu",
+      "email": "tpurwanti@example.org",
+      "mobile": "+62-038-457-620",
+      "recruitment_id": 112,
+      "job_position_id": 114,
+      "stage_id": 123,
+      "schedule_date": "2025-08-31T16:19:22.117363Z",
+      "portfolio": "https://perum.ac.id/",
+      "address": "Jalan Jakarta No. 62\nTegal, PB 63926",
+      "country": "Indonesia",
+      "state": "Maluku",
+      "city": "Palopo",
+      "zip": "32983",
+      "dob": "2000-05-13",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 180,
+    "fields": {
+      "created_at": "2025-07-29T15:33:54.485498Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Galak Novitasari",
+      "email": "pmaulana@example.net",
+      "mobile": "+62 (51) 881-25",
+      "recruitment_id": 111,
+      "job_position_id": 101,
+      "stage_id": 137,
+      "schedule_date": null,
+      "portfolio": "https://ud.edu/",
+      "address": "Jl. Astana Anyar No. 9\nSibolga, Kalimantan Timur 30517",
+      "country": "Indonesia",
+      "state": "Jawa Barat",
+      "city": "Tasikmalaya",
+      "zip": "26772",
+      "dob": "1983-08-05",
+      "gender": "male",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 181,
+    "fields": {
+      "created_at": "2025-01-27T16:09:04.260203Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Genta Firmansyah",
+      "email": "saputrarudi@example.org",
+      "mobile": "+62-312-797-573",
+      "recruitment_id": 106,
+      "job_position_id": 112,
+      "stage_id": 121,
+      "schedule_date": "2025-08-31T16:18:48.584012Z",
+      "portfolio": "",
+      "address": "Gang Kendalsari No. 9\nPematangsiantar, Gorontalo 70388",
+      "country": "Indonesia",
+      "state": "Riau",
+      "city": "Sabang",
+      "zip": "80347",
+      "dob": "1989-03-20",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 182,
+    "fields": {
+      "created_at": "2025-02-15T22:36:54.657559Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Ilsa Suwarno",
+      "email": "nsihombing@example.org",
+      "mobile": "082 771 8129",
+      "recruitment_id": 102,
+      "job_position_id": 111,
+      "stage_id": 125,
+      "schedule_date": null,
+      "portfolio": "http://ud.my.id/",
+      "address": "Gg. Raya Ujungberung No. 2\nBekasi, Jambi 51868",
+      "country": "Indonesia",
+      "state": "Jawa Timur",
+      "city": "Purwokerto",
+      "zip": "02592",
+      "dob": "1983-07-22",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 183,
+    "fields": {
+      "created_at": "2025-06-08T08:48:01.972121Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Dalima Nugroho",
+      "email": "andrianilatif@example.com",
+      "mobile": "(0421) 230 9407",
+      "recruitment_id": 105,
+      "job_position_id": 103,
+      "stage_id": 112,
+      "schedule_date": "2025-08-31T16:18:59.715313Z",
+      "portfolio": "https://www.cv.my.id/",
+      "address": "Jl. Pacuan Kuda No. 4\nBanjarbaru, KB 05020",
+      "country": "Indonesia",
+      "state": "Maluku",
+      "city": "Bekasi",
+      "zip": "16224",
+      "dob": "1994-04-30",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "accepted",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 184,
+    "fields": {
+      "created_at": "2025-03-28T11:02:54.559136Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Talia Riyanti",
+      "email": "viktorprastuti@example.com",
+      "mobile": "+62-014-556-168",
+      "recruitment_id": 104,
+      "job_position_id": 107,
+      "stage_id": 125,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jl. Pelajar Pejuang No. 86\nTanjungpinang, KT 19817",
+      "country": "Indonesia",
+      "state": "Lampung",
+      "city": "Sibolga",
+      "zip": "48995",
+      "dob": "2001-11-30",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 185,
+    "fields": {
+      "created_at": "2025-02-28T17:51:10.727548Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Raisa Pratiwi",
+      "email": "zlailasari@example.org",
+      "mobile": "+62-0430-107-13",
+      "recruitment_id": 106,
+      "job_position_id": 108,
+      "stage_id": 112,
+      "schedule_date": "2025-08-31T16:18:49.684937Z",
+      "portfolio": "https://pt.biz.id/",
+      "address": "Gang S. Parman No. 5\nBinjai, NB 69902",
+      "country": "Indonesia",
+      "state": "Kalimantan Selatan",
+      "city": "Makassar",
+      "zip": "70272",
+      "dob": "1994-09-19",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": true,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 186,
+    "fields": {
+      "created_at": "2025-07-24T16:03:06.350401Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Tri Nasyiah",
+      "email": "vzulkarnain@example.org",
+      "mobile": "084 958 8039",
+      "recruitment_id": 111,
+      "job_position_id": 111,
+      "stage_id": 117,
+      "schedule_date": "2025-08-31T16:19:22.259196Z",
+      "portfolio": "https://www.ud.go.id/",
+      "address": "Jl. Rajawali Timur No. 5\nKota Administrasi Jakarta Timur, Sulawesi Barat 73574",
+      "country": "Indonesia",
+      "state": "Kalimantan Tengah",
+      "city": "Cirebon",
+      "zip": "50317",
+      "dob": "1991-10-22",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "rejected",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 187,
+    "fields": {
+      "created_at": "2025-07-27T23:10:55.291932Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Wirda Laksmiwati",
+      "email": "harjasasiregar@example.com",
+      "mobile": "084 521 8230",
+      "recruitment_id": 110,
+      "job_position_id": 108,
+      "stage_id": 103,
+      "schedule_date": "2025-08-31T16:18:55.124209Z",
+      "portfolio": "http://www.pt.co.id/",
+      "address": "Gg. Asia Afrika No. 4\nMadiun, KS 44857",
+      "country": "Indonesia",
+      "state": "Jambi",
+      "city": "Bukittinggi",
+      "zip": "41098",
+      "dob": "1992-01-01",
+      "gender": "female",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 188,
+    "fields": {
+      "created_at": "2025-01-06T09:21:40.994483Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Farhunnisa Namaga",
+      "email": "kemba24@example.net",
+      "mobile": "+62-0214-958-70",
+      "recruitment_id": 109,
+      "job_position_id": 101,
+      "stage_id": 104,
+      "schedule_date": "2025-08-31T16:18:56.488270Z",
+      "portfolio": "http://www.pt.gov/",
+      "address": "Gang Kiaracondong No. 8\nTomohon, SG 17174",
+      "country": "Indonesia",
+      "state": "Sulawesi Tenggara",
+      "city": "Kediri",
+      "zip": "29456",
+      "dob": "1984-01-24",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 189,
+    "fields": {
+      "created_at": "2025-06-15T12:48:05.398642Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Salwa Sitompul",
+      "email": "umaya70@example.org",
+      "mobile": "(0157) 724-5992",
+      "recruitment_id": 102,
+      "job_position_id": 110,
+      "stage_id": 134,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Gg. Stasiun Wonokromo No. 1\nPrabumulih, Sulawesi Tenggara 96393",
+      "country": "Indonesia",
+      "state": "Jawa Timur",
+      "city": "Meulaboh",
+      "zip": "53966",
+      "dob": "1993-04-11",
+      "gender": "female",
+      "source": "software",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 5
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 190,
+    "fields": {
+      "created_at": "2025-05-11T23:09:40.778217Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gangsa Palastri",
+      "email": "tantriwinarsih@example.org",
+      "mobile": "(0199) 758-1724",
+      "recruitment_id": 104,
+      "job_position_id": 109,
+      "stage_id": 109,
+      "schedule_date": null,
+      "portfolio": "https://www.perum.co.id/",
+      "address": "Jl. HOS. Cokroaminoto No. 0\nSurabaya, JT 84699",
+      "country": "Indonesia",
+      "state": "Sulawesi Tengah",
+      "city": "Gorontalo",
+      "zip": "49465",
+      "dob": "2003-06-06",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": true,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 191,
+    "fields": {
+      "created_at": "2025-04-11T18:44:16.358963Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Restu Anggriawan",
+      "email": "smahendra@example.org",
+      "mobile": "+62 (800) 851-4",
+      "recruitment_id": 103,
+      "job_position_id": 101,
+      "stage_id": 109,
+      "schedule_date": null,
+      "portfolio": "https://pd.gov/",
+      "address": "Gg. Siliwangi No. 24\nBogor, AC 02762",
+      "country": "Indonesia",
+      "state": "DKI Jakarta",
+      "city": "Sukabumi",
+      "zip": "79692",
+      "dob": "1990-07-27",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 192,
+    "fields": {
+      "created_at": "2025-06-26T23:06:21.457241Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Irwan Puspasari",
+      "email": "othamrin@example.org",
+      "mobile": "(090) 973-8468",
+      "recruitment_id": 112,
+      "job_position_id": 104,
+      "stage_id": 122,
+      "schedule_date": "2025-08-31T16:19:09.162282Z",
+      "portfolio": "",
+      "address": "Gang Gardujati No. 7\nBontang, Sumatera Utara 78189",
+      "country": "Indonesia",
+      "state": "DKI Jakarta",
+      "city": "Parepare",
+      "zip": "89490",
+      "dob": "2001-05-07",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": true,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 193,
+    "fields": {
+      "created_at": "2025-02-18T16:32:53.266566Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Patricia Anggriawan",
+      "email": "upertiwi@example.com",
+      "mobile": "(054) 420-9494",
+      "recruitment_id": 101,
+      "job_position_id": 110,
+      "stage_id": 131,
+      "schedule_date": null,
+      "portfolio": "http://perum.biz.id/",
+      "address": "Jalan Gegerkalong Hilir No. 1\nKota Administrasi Jakarta Pusat, Jawa Barat 44019",
+      "country": "Indonesia",
+      "state": "Kalimantan Barat",
+      "city": "Surabaya",
+      "zip": "52437",
+      "dob": "1984-01-01",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": true,
+      "referral": 3
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 194,
+    "fields": {
+      "created_at": "2025-01-03T15:52:47.677116Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Karsana Firmansyah",
+      "email": "maulanamila@example.org",
+      "mobile": "(0663) 723-9504",
+      "recruitment_id": 110,
+      "job_position_id": 101,
+      "stage_id": 147,
+      "schedule_date": null,
+      "portfolio": "http://www.pd.biz.id/",
+      "address": "Gang Waringin No. 28\nBalikpapan, LA 65801",
+      "country": "Indonesia",
+      "state": "Nusa Tenggara Timur",
+      "city": "Singkawang",
+      "zip": "54414",
+      "dob": "1995-05-14",
+      "gender": "male",
+      "source": "other",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": 4
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 195,
+    "fields": {
+      "created_at": "2025-06-09T19:48:46.478150Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Kania Hariyah",
+      "email": "vanyarahmawati@example.org",
+      "mobile": "085 258 0010",
+      "recruitment_id": 114,
+      "job_position_id": 101,
+      "stage_id": 111,
+      "schedule_date": "2025-08-31T16:18:49.349852Z",
+      "portfolio": "http://cv.mil/",
+      "address": "Jl. Kutisari Selatan No. 3\nTarakan, Jambi 92692",
+      "country": "Indonesia",
+      "state": "Jambi",
+      "city": "Kota Administrasi Jakarta Pusat",
+      "zip": "71746",
+      "dob": "1996-04-11",
+      "gender": "other",
+      "source": "application",
+      "offer_letter_status": "sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 196,
+    "fields": {
+      "created_at": "2024-12-03T10:18:27.003265Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Salwa Sinaga",
+      "email": "saefullahbancar@example.com",
+      "mobile": "(050) 442 7173",
+      "recruitment_id": 103,
+      "job_position_id": 110,
+      "stage_id": 147,
+      "schedule_date": null,
+      "portfolio": "",
+      "address": "Jalan Ir. H. Djuanda No. 6\nSingkawang, GO 41011",
+      "country": "Indonesia",
+      "state": "Kepulauan Bangka Belitung",
+      "city": "Banda Aceh",
+      "zip": "20064",
+      "dob": "1983-04-20",
+      "gender": "female",
+      "source": "other",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 197,
+    "fields": {
+      "created_at": "2025-03-29T07:42:54.718618Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Gambira Wijaya",
+      "email": "bkuswandari@example.com",
+      "mobile": "+62 (083) 067 1",
+      "recruitment_id": 101,
+      "job_position_id": 101,
+      "stage_id": 141,
+      "schedule_date": null,
+      "portfolio": "https://pt.desa.id/",
+      "address": "Gang H.J Maemunah No. 280\nSurabaya, KS 61571",
+      "country": "Indonesia",
+      "state": "Sulawesi Tengah",
+      "city": "Bogor",
+      "zip": "30937",
+      "dob": "1988-12-28",
+      "gender": "male",
+      "source": "application",
+      "offer_letter_status": "not_sent",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 198,
+    "fields": {
+      "created_at": "2025-04-23T10:30:48.962763Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Widya Namaga",
+      "email": "znasyidah@example.com",
+      "mobile": "+62-05-050-6138",
+      "recruitment_id": 110,
+      "job_position_id": 103,
+      "stage_id": 106,
+      "schedule_date": "2025-08-31T16:18:55.004444Z",
+      "portfolio": "",
+      "address": "Jl. Ir. H. Djuanda No. 07\nKota Administrasi Jakarta Barat, Jawa Barat 20417",
+      "country": "Indonesia",
+      "state": "Jawa Timur",
+      "city": "Bima",
+      "zip": "79931",
+      "dob": "1998-12-20",
+      "gender": "other",
+      "source": "software",
+      "offer_letter_status": "joined",
+      "canceled": false,
+      "hired": false,
+      "referral": null
+    }
+  },
+  {
+    "model": "recruitment.candidate",
+    "pk": 199,
+    "fields": {
+      "created_at": "2025-06-23T20:09:18.893947Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "name": "Maria Sirait",
+      "email": "hsimbolon@example.net",
+      "mobile": "0825309251",
+      "recruitment_id": 110,
+      "job_position_id": 110,
+      "stage_id": 129,
+      "schedule_date": "2025-08-31T16:18:14.489459Z",
+      "portfolio": "http://ud.my.id/",
+      "address": "Jl. Medokan Ayu No. 6\nBanda Aceh, Sumatera Barat 00219",
+      "country": "Indonesia",
+      "state": "Lampung",
+      "city": "Tanjungbalai",
+      "zip": "23248",
+      "dob": "1990-06-22",
+      "gender": "other",
+      "source": "other",
+      "offer_letter_status": "joined",
+      "canceled": true,
+      "hired": false,
+      "referral": 2
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 100,
+    "fields": {
+      "created_at": "2024-11-03T04:36:38.691446Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 186,
+      "interview_date": "2025-08-30",
+      "interview_time": "14:15:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        2,
+        5,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-04-06T05:20:01.164182Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 113,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:45:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 102,
+    "fields": {
+      "created_at": "2025-04-11T23:38:18.515017Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 152,
+      "interview_date": "2025-08-30",
+      "interview_time": "13:00:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-06-29T07:18:48.717413Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 175,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:30:00",
+      "description": "In nam deleniti voluptates voluptate nulla. Magni iure occaecati dignissimos amet beatae corrupti.",
+      "completed": true,
+      "employee_id": [
+        1,
+        2,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-06-11T22:52:01.228657Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 154,
+      "interview_date": "2025-08-30",
+      "interview_time": "13:00:00",
+      "description": "Atque qui sit fugiat dolore. Nesciunt amet ipsa dolor non debitis fuga. Quam odio voluptate dicta consectetur porro animi.\nSequi itaque cupiditate exercitationem. Nobis ratione odit nostrum cumque.",
+      "completed": true,
+      "employee_id": [
+        3,
+        2,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-01-22T11:04:21.070916Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 122,
+      "interview_date": "2025-08-30",
+      "interview_time": "08:30:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        1,
+        3,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 106,
+    "fields": {
+      "created_at": "2025-05-12T21:15:14.782365Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 172,
+      "interview_date": "2025-08-30",
+      "interview_time": "09:45:00",
+      "description": "Libero assumenda quidem possimus illum dolor facere. Officia at laboriosam esse provident.",
+      "completed": false,
+      "employee_id": [
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 107,
+    "fields": {
+      "created_at": "2025-05-08T12:10:02.376126Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 185,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:30:00",
+      "description": "Quasi amet veniam perferendis suscipit beatae. Iure aliquam facilis officia provident natus. Consequuntur ex molestiae officiis qui. Sit praesentium quidem quis eum tempore magnam in.",
+      "completed": false,
+      "employee_id": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-03-13T17:06:13.219587Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 189,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:15:00",
+      "description": "Iste fuga perferendis possimus voluptatem. Deleniti sunt assumenda hic. Enim vero autem eius.\nCorrupti dignissimos veritatis ad impedit placeat ut. Expedita ipsam officia eos aperiam sit doloremque.",
+      "completed": true,
+      "employee_id": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-05-18T10:07:52.804378Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 101,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:00:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-08-21T21:26:51.632163Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 111,
+      "interview_date": "2025-08-30",
+      "interview_time": "10:45:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        1,
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 111,
+    "fields": {
+      "created_at": "2025-05-11T11:59:41.035996Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 190,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:15:00",
+      "description": "Dolores aliquam et consectetur. Fuga dignissimos provident pariatur voluptatem.\nIpsum voluptate modi commodi ad ut. Veniam unde culpa voluptas.",
+      "completed": false,
+      "employee_id": [
+        4,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 112,
+    "fields": {
+      "created_at": "2025-01-25T03:08:53.415872Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 159,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:15:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 113,
+    "fields": {
+      "created_at": "2025-02-10T07:50:46.478111Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 150,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:30:00",
+      "description": "Animi odit nesciunt dolore vel eius. Assumenda sed perspiciatis.\nHic laudantium nobis maiores animi pariatur id. Fuga fuga eligendi expedita voluptate soluta.",
+      "completed": true,
+      "employee_id": [
+        4,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 114,
+    "fields": {
+      "created_at": "2025-03-11T07:13:10.447131Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 177,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:45:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        4,
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 115,
+    "fields": {
+      "created_at": "2025-08-07T06:21:06.733113Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 197,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:15:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        2,
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 116,
+    "fields": {
+      "created_at": "2025-01-15T16:29:14.732144Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 192,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:00:00",
+      "description": "Odit earum cupiditate iure necessitatibus totam.\nRerum enim laudantium reprehenderit. Rerum esse nam iure ad.\nEa veritatis rerum labore.",
+      "completed": true,
+      "employee_id": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 117,
+    "fields": {
+      "created_at": "2025-05-08T23:06:14.289856Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 169,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:15:00",
+      "description": "Maiores nemo sapiente cum animi eum. Facere amet facere odio.\nEnim minus vel. Deserunt occaecati quisquam nisi cumque eum et. Earum praesentium facere modi expedita.",
+      "completed": false,
+      "employee_id": [
+        1,
+        4,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 118,
+    "fields": {
+      "created_at": "2025-04-12T11:43:20.792550Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 194,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:45:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 119,
+    "fields": {
+      "created_at": "2025-03-11T10:18:11.416255Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 175,
+      "interview_date": "2025-08-30",
+      "interview_time": "12:30:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        5,
+        4,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 120,
+    "fields": {
+      "created_at": "2025-03-20T17:28:46.032682Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 161,
+      "interview_date": "2025-08-30",
+      "interview_time": "10:00:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        5,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 121,
+    "fields": {
+      "created_at": "2024-10-12T01:33:42.211044Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 148,
+      "interview_date": "2025-08-30",
+      "interview_time": "14:45:00",
+      "description": "Blanditiis consectetur accusantium expedita. Consequuntur ipsam voluptates minima voluptas cupiditate. Adipisci repellendus dolore sequi consequuntur.",
+      "completed": true,
+      "employee_id": [
+        5,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 122,
+    "fields": {
+      "created_at": "2025-04-29T10:06:26.345175Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 146,
+      "interview_date": "2025-08-30",
+      "interview_time": "08:00:00",
+      "description": "Iusto tenetur aliquam error. Quidem quos ullam. Nesciunt dicta perferendis adipisci corporis. Veniam expedita cum magnam quas.",
+      "completed": false,
+      "employee_id": [
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 123,
+    "fields": {
+      "created_at": "2025-05-04T10:31:16.646309Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 100,
+      "interview_date": "2025-08-30",
+      "interview_time": "12:30:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        2,
+        4,
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 124,
+    "fields": {
+      "created_at": "2025-07-02T07:42:21.776939Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 171,
+      "interview_date": "2025-08-30",
+      "interview_time": "12:00:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 125,
+    "fields": {
+      "created_at": "2025-02-02T08:02:38.466490Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 181,
+      "interview_date": "2025-08-30",
+      "interview_time": "14:00:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        5,
+        5,
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 126,
+    "fields": {
+      "created_at": "2025-01-27T07:17:14.397905Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 119,
+      "interview_date": "2025-08-30",
+      "interview_time": "08:45:00",
+      "description": "Iure maxime libero facere. Nam aliquam eveniet blanditiis eligendi. Quasi porro sapiente dolorem illum voluptates incidunt sequi.",
+      "completed": true,
+      "employee_id": [
+        3,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 127,
+    "fields": {
+      "created_at": "2024-10-15T06:39:37.316854Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 160,
+      "interview_date": "2025-08-30",
+      "interview_time": "10:45:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        5,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 128,
+    "fields": {
+      "created_at": "2025-05-23T07:29:24.736065Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 157,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:30:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        2,
+        1,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 129,
+    "fields": {
+      "created_at": "2025-05-19T00:52:19.716505Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 131,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:30:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 130,
+    "fields": {
+      "created_at": "2024-12-09T03:22:14.287243Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 134,
+      "interview_date": "2025-08-30",
+      "interview_time": "12:30:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 131,
+    "fields": {
+      "created_at": "2025-04-23T14:13:34.516595Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 150,
+      "interview_date": "2025-08-30",
+      "interview_time": "16:30:00",
+      "description": "Labore nobis illo laborum eius quisquam. Commodi laudantium doloremque velit. Aut amet architecto.\nFugit perspiciatis corrupti numquam.",
+      "completed": true,
+      "employee_id": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 132,
+    "fields": {
+      "created_at": "2025-08-14T08:38:55.196631Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 120,
+      "interview_date": "2025-08-30",
+      "interview_time": "10:00:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 133,
+    "fields": {
+      "created_at": "2025-02-04T15:23:45.315133Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 134,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:30:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        5,
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 134,
+    "fields": {
+      "created_at": "2025-01-18T13:21:50.742268Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 173,
+      "interview_date": "2025-08-30",
+      "interview_time": "13:00:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        3,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 135,
+    "fields": {
+      "created_at": "2025-01-15T21:25:57.564179Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 127,
+      "interview_date": "2025-08-30",
+      "interview_time": "17:45:00",
+      "description": "Adipisci nam similique. Suscipit cum inventore est harum. Necessitatibus laudantium mollitia molestiae.",
+      "completed": false,
+      "employee_id": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 136,
+    "fields": {
+      "created_at": "2025-04-25T03:29:42.611080Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 103,
+      "interview_date": "2025-08-30",
+      "interview_time": "10:30:00",
+      "description": "Tenetur aperiam esse excepturi. Modi alias omnis. Necessitatibus temporibus eaque possimus nihil voluptates. Necessitatibus eum atque laborum porro dignissimos.",
+      "completed": false,
+      "employee_id": [
+        5,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 137,
+    "fields": {
+      "created_at": "2025-06-20T01:33:28.721610Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 129,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:15:00",
+      "description": "Distinctio recusandae officiis error rem inventore. Et impedit dolorum maiores perferendis molestias sunt. Provident sint nemo distinctio vitae quia iusto vel.",
+      "completed": true,
+      "employee_id": [
+        2,
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 138,
+    "fields": {
+      "created_at": "2024-09-10T13:24:17.294481Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 112,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:30:00",
+      "description": "Laborum voluptatibus in temporibus dicta earum adipisci. Omnis debitis sequi vitae laborum.\nSimilique assumenda nobis sint.",
+      "completed": true,
+      "employee_id": [
+        1,
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 139,
+    "fields": {
+      "created_at": "2025-01-20T20:46:14.310091Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 100,
+      "interview_date": "2025-08-30",
+      "interview_time": "14:45:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        1,
+        5,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 140,
+    "fields": {
+      "created_at": "2024-11-25T14:43:59.676860Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 112,
+      "interview_date": "2025-08-30",
+      "interview_time": "17:30:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        2,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 141,
+    "fields": {
+      "created_at": "2024-10-23T03:15:43.875597Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 160,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:30:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 142,
+    "fields": {
+      "created_at": "2025-08-20T16:40:23.070445Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 109,
+      "interview_date": "2025-08-30",
+      "interview_time": "17:30:00",
+      "description": "Ducimus nihil laudantium fugiat veniam et. Labore doloribus eius quos corporis labore. Reprehenderit accusantium vitae non sapiente optio.\nDucimus harum odit praesentium temporibus.",
+      "completed": true,
+      "employee_id": [
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 143,
+    "fields": {
+      "created_at": "2025-02-07T17:22:26.563110Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 109,
+      "interview_date": "2025-08-30",
+      "interview_time": "14:30:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        1,
+        5,
+        4
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 144,
+    "fields": {
+      "created_at": "2025-06-24T02:31:32.092810Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 190,
+      "interview_date": "2025-08-30",
+      "interview_time": "12:15:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        5,
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 145,
+    "fields": {
+      "created_at": "2025-06-15T17:31:24.796727Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 193,
+      "interview_date": "2025-08-30",
+      "interview_time": "08:30:00",
+      "description": "Reprehenderit velit iusto impedit. Quaerat soluta reprehenderit repudiandae praesentium magni.",
+      "completed": false,
+      "employee_id": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 146,
+    "fields": {
+      "created_at": "2025-01-28T07:17:24.156757Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 181,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:45:00",
+      "description": "Laboriosam quasi ea porro repudiandae reiciendis dicta. Facilis hic fugiat rerum necessitatibus accusantium. Unde officia occaecati.",
+      "completed": false,
+      "employee_id": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 147,
+    "fields": {
+      "created_at": "2025-02-27T22:08:54.488718Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 127,
+      "interview_date": "2025-08-30",
+      "interview_time": "08:15:00",
+      "description": "",
+      "completed": true,
+      "employee_id": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 148,
+    "fields": {
+      "created_at": "2024-11-13T15:16:48.616842Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 185,
+      "interview_date": "2025-08-30",
+      "interview_time": "11:15:00",
+      "description": "Quia fugit inventore dignissimos dolor. Quas deleniti debitis recusandae adipisci.\nNulla tenetur fuga placeat itaque. Iusto sit voluptate.",
+      "completed": false,
+      "employee_id": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "recruitment.interviewschedule",
+    "pk": 149,
+    "fields": {
+      "created_at": "2025-01-13T21:47:15.663291Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "candidate_id": 103,
+      "interview_date": "2025-08-30",
+      "interview_time": "15:15:00",
+      "description": "",
+      "completed": false,
+      "employee_id": [
+        2,
+        1
+      ]
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 100,
+    "fields": {
+      "created_at": "2025-08-20T00:19:08.757337Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Problem Solving Specialists",
+      "description": "Candidates with excellent django skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-03-23T19:31:43.460150Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Leadership Specialists",
+      "description": "Candidates with excellent customer service skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 102,
+    "fields": {
+      "created_at": "2025-03-31T10:57:56.166901Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Python Specialists",
+      "description": "Candidates with excellent python skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 103,
+    "fields": {
+      "created_at": "2024-12-04T12:12:38.950119Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Customer Service Specialists",
+      "description": "Candidates with excellent javascript skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-03-03T10:16:46.311977Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Django Specialists",
+      "description": "Candidates with excellent django skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-08-06T05:34:45.675754Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Problem Solving Specialists",
+      "description": "Candidates with excellent javascript skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 106,
+    "fields": {
+      "created_at": "2025-07-18T01:59:20.037196Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Problem Solving Specialists",
+      "description": "Candidates with excellent communication skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 107,
+    "fields": {
+      "created_at": "2024-10-18T14:55:53.897653Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Leadership Specialists",
+      "description": "Candidates with excellent git skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 108,
+    "fields": {
+      "created_at": "2024-12-25T08:05:05.003237Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Communication Specialists",
+      "description": "Candidates with excellent customer service skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzone",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-03-13T04:07:27.852885Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "React Specialists",
+      "description": "Candidates with excellent digital marketing skills",
+      "company_id": null
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 100,
+    "fields": {
+      "created_at": "2024-10-22T05:30:14.544430Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 105,
+      "candidate_id": 105,
+      "reason": "Et voluptatem libero voluptate.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-01-10T03:25:17.119501Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 104,
+      "candidate_id": 184,
+      "reason": "Eligendi soluta nostrum quis eaque est.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 102,
+    "fields": {
+      "created_at": "2024-12-24T16:31:48.606177Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 103,
+      "candidate_id": 176,
+      "reason": "Quis corrupti sequi omnis reiciendis amet corrupti.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 103,
+    "fields": {
+      "created_at": "2024-09-13T12:54:59.497843Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 109,
+      "candidate_id": 198,
+      "reason": "Cum iusto blanditiis tempora libero.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-08-27T14:18:10.997865Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 101,
+      "candidate_id": 119,
+      "reason": "Laborum laudantium sapiente sint commodi atque sit.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 105,
+    "fields": {
+      "created_at": "2024-10-31T21:47:24.935947Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 101,
+      "candidate_id": 117,
+      "reason": "Reprehenderit natus optio distinctio voluptatum a quisquam.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 106,
+    "fields": {
+      "created_at": "2025-08-02T14:40:40.257895Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 109,
+      "candidate_id": 119,
+      "reason": "Quisquam perspiciatis suscipit ad perspiciatis.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 107,
+    "fields": {
+      "created_at": "2025-01-22T09:45:16.405082Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 101,
+      "candidate_id": 159,
+      "reason": "Ut autem eum adipisci itaque provident laboriosam occaecati.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-04-28T18:28:55.191862Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 101,
+      "candidate_id": 111,
+      "reason": "Voluptas omnis veritatis eveniet quasi quasi.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-03-27T07:39:46.501704Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 109,
+      "candidate_id": 154,
+      "reason": "Sint reiciendis eligendi reiciendis quia.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-04-08T10:05:58.720523Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 103,
+      "candidate_id": 141,
+      "reason": "Id debitis vitae sint.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 111,
+    "fields": {
+      "created_at": "2025-07-08T18:00:56.440368Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 104,
+      "candidate_id": 132,
+      "reason": "Harum illo officia veritatis.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 112,
+    "fields": {
+      "created_at": "2024-12-18T11:32:42.152971Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 102,
+      "candidate_id": 112,
+      "reason": "Quasi ullam temporibus nobis facere atque.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 113,
+    "fields": {
+      "created_at": "2024-11-12T10:34:48.604599Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 107,
+      "candidate_id": 133,
+      "reason": "Suscipit labore natus in quidem repellat nostrum.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 114,
+    "fields": {
+      "created_at": "2025-02-03T00:55:13.118990Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 109,
+      "candidate_id": 117,
+      "reason": "Maiores voluptate perspiciatis.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 115,
+    "fields": {
+      "created_at": "2025-05-19T02:06:50.538822Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 102,
+      "candidate_id": 173,
+      "reason": "Minima officia assumenda iusto aspernatur reiciendis error.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 116,
+    "fields": {
+      "created_at": "2025-05-08T09:05:18.260441Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 106,
+      "candidate_id": 124,
+      "reason": "Sapiente minima eos aliquid asperiores.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 117,
+    "fields": {
+      "created_at": "2024-10-09T18:02:04.019302Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 104,
+      "candidate_id": 180,
+      "reason": "Impedit iure quam repellat explicabo nesciunt.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 118,
+    "fields": {
+      "created_at": "2024-09-06T09:09:50.874035Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 105,
+      "candidate_id": 188,
+      "reason": "Debitis delectus hic assumenda soluta error nesciunt.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 119,
+    "fields": {
+      "created_at": "2025-05-03T05:53:37.658238Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 108,
+      "candidate_id": 149,
+      "reason": "Repellat exercitationem ullam repellat distinctio aspernatur voluptatem ea.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 120,
+    "fields": {
+      "created_at": "2025-02-05T21:08:02.015069Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 109,
+      "candidate_id": 137,
+      "reason": "Ab blanditiis cupiditate.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 121,
+    "fields": {
+      "created_at": "2025-05-11T02:45:50.562853Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 100,
+      "candidate_id": 167,
+      "reason": "Quas esse repellat nulla porro vitae perferendis rem.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 122,
+    "fields": {
+      "created_at": "2024-10-19T18:55:59.161610Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 107,
+      "candidate_id": 111,
+      "reason": "Beatae accusamus voluptas similique distinctio.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 123,
+    "fields": {
+      "created_at": "2025-04-25T18:01:12.158931Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 109,
+      "candidate_id": 121,
+      "reason": "Sapiente similique molestiae assumenda quo corporis.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 124,
+    "fields": {
+      "created_at": "2024-10-12T23:24:24.223539Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 108,
+      "candidate_id": 141,
+      "reason": "Qui ipsum laborum accusantium.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 125,
+    "fields": {
+      "created_at": "2024-11-28T01:23:23.771535Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 107,
+      "candidate_id": 110,
+      "reason": "Necessitatibus rerum amet ab occaecati.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 126,
+    "fields": {
+      "created_at": "2025-08-24T04:30:14.715951Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 100,
+      "candidate_id": 107,
+      "reason": "Qui nisi mollitia enim laborum laborum nihil.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 127,
+    "fields": {
+      "created_at": "2025-05-06T07:35:48.292869Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 107,
+      "candidate_id": 184,
+      "reason": "Doloremque aperiam accusantium nemo mollitia eaque officia.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 128,
+    "fields": {
+      "created_at": "2024-10-13T03:37:52.074249Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 105,
+      "candidate_id": 123,
+      "reason": "Vel expedita possimus accusantium enim deleniti exercitationem doloremque.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.skillzonecandidate",
+    "pk": 129,
+    "fields": {
+      "created_at": "2025-07-29T11:14:50.860544Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "skill_zone_id": 103,
+      "candidate_id": 138,
+      "reason": "Ullam sequi quaerat iusto sunt quam.",
+      "added_on": "2025-08-30"
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 100,
+    "fields": {
+      "created_at": "2025-01-30T16:39:38.999416Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 168,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-08-10T04:51:48.955027Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 151,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 102,
+    "fields": {
+      "created_at": "2025-04-26T18:13:00.168352Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 170,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-01-10T00:28:13.842422Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 2,
+      "candidate_id": 146,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-02-19T22:50:34.493019Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 148,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-08-21T01:35:52.982113Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 125,
+      "rating": 4
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 106,
+    "fields": {
+      "created_at": "2024-10-29T14:50:07.954166Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 190,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 107,
+    "fields": {
+      "created_at": "2024-11-15T02:53:50.797560Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 159,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 108,
+    "fields": {
+      "created_at": "2025-05-10T17:02:44.206656Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 2,
+      "candidate_id": 180,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 109,
+    "fields": {
+      "created_at": "2024-10-01T22:05:38.957708Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 185,
+      "rating": 4
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-02-23T19:27:08.830347Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 163,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 111,
+    "fields": {
+      "created_at": "2024-11-02T17:35:05.605498Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 126,
+      "rating": 4
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 112,
+    "fields": {
+      "created_at": "2024-10-27T12:46:06.610296Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 124,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 113,
+    "fields": {
+      "created_at": "2025-02-27T04:56:19.301231Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 2,
+      "candidate_id": 138,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 114,
+    "fields": {
+      "created_at": "2025-06-17T06:02:00.376113Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 160,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 115,
+    "fields": {
+      "created_at": "2025-08-10T21:08:52.149745Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 127,
+      "rating": 4
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 116,
+    "fields": {
+      "created_at": "2025-02-27T18:25:55.961334Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 127,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 117,
+    "fields": {
+      "created_at": "2024-11-25T04:02:46.533797Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 126,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 118,
+    "fields": {
+      "created_at": "2025-03-22T19:35:57.427564Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 149,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 119,
+    "fields": {
+      "created_at": "2025-08-31T09:50:26.606560Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 123,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 120,
+    "fields": {
+      "created_at": "2025-01-09T11:35:42.858061Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 168,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 121,
+    "fields": {
+      "created_at": "2024-12-04T16:44:13.473734Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 182,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 122,
+    "fields": {
+      "created_at": "2025-05-05T16:20:37.714871Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 2,
+      "candidate_id": 193,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 123,
+    "fields": {
+      "created_at": "2024-11-03T06:03:52.659948Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 107,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 124,
+    "fields": {
+      "created_at": "2025-07-11T08:23:29.079671Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 2,
+      "candidate_id": 153,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 125,
+    "fields": {
+      "created_at": "2025-03-03T07:55:54.723705Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 113,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 126,
+    "fields": {
+      "created_at": "2025-06-22T02:54:29.083417Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 134,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 127,
+    "fields": {
+      "created_at": "2025-01-01T19:03:30.489306Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 173,
+      "rating": 5
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 128,
+    "fields": {
+      "created_at": "2024-10-12T01:35:02.902907Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 184,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 129,
+    "fields": {
+      "created_at": "2024-11-22T05:40:08.562512Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 4,
+      "candidate_id": 118,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 130,
+    "fields": {
+      "created_at": "2025-03-24T16:45:04.213860Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 122,
+      "rating": 3
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 131,
+    "fields": {
+      "created_at": "2025-02-25T01:55:05.304367Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 126,
+      "rating": 3
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 132,
+    "fields": {
+      "created_at": "2025-08-29T08:45:59.340619Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 115,
+      "rating": 3
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 133,
+    "fields": {
+      "created_at": "2025-06-14T02:40:38.107659Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 129,
+      "rating": 4
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 134,
+    "fields": {
+      "created_at": "2025-06-08T10:42:13.096066Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 111,
+      "rating": 3
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 135,
+    "fields": {
+      "created_at": "2025-06-08T17:01:25.232139Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 3,
+      "candidate_id": 106,
+      "rating": 3
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 136,
+    "fields": {
+      "created_at": "2025-03-22T21:16:51.246289Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 1,
+      "candidate_id": 170,
+      "rating": 4
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 137,
+    "fields": {
+      "created_at": "2025-07-24T19:27:45.005398Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 2,
+      "candidate_id": 141,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 138,
+    "fields": {
+      "created_at": "2025-07-09T03:19:39.628775Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 164,
+      "rating": 2
+    }
+  },
+  {
+    "model": "recruitment.candidaterating",
+    "pk": 139,
+    "fields": {
+      "created_at": "2025-07-16T13:09:47.772886Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "employee_id": 5,
+      "candidate_id": 176,
+      "rating": 1
+    }
+  },
+  {
+    "model": "recruitment.surveytemplate",
+    "pk": 100,
+    "fields": {
+      "created_at": "2025-04-09T03:36:47.731260Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Technical Assessment",
+      "description": "Unde ipsa itaque. Voluptate quos non similique.\nAliquam autem occaecati sit tenetur culpa eos. Quis libero sit culpa facilis reprehenderit."
+    }
+  },
+  {
+    "model": "recruitment.surveytemplate",
+    "pk": 101,
+    "fields": {
+      "created_at": "2024-11-29T02:07:25.247424Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Behavioral Interview",
+      "description": "Ratione consequuntur inventore ullam tempore veritatis. Recusandae facere adipisci corporis ab rem velit. Excepturi illo quo ipsa."
+    }
+  },
+  {
+    "model": "recruitment.surveytemplate",
+    "pk": 102,
+    "fields": {
+      "created_at": "2024-12-24T00:20:01.758404Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Cultural Fit",
+      "description": "Repudiandae tempore nostrum. Praesentium ipsum dignissimos molestias. Officiis possimus suscipit quos illo deserunt error alias."
+    }
+  },
+  {
+    "model": "recruitment.surveytemplate",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-04-17T10:35:47.146121Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Leadership Assessment",
+      "description": "Aliquid officiis commodi error. Iste voluptatem rem. Natus tempora occaecati modi nisi expedita eligendi quos."
+    }
+  },
+  {
+    "model": "recruitment.surveytemplate",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-04-03T06:55:21.277658Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Communication Skills",
+      "description": "Sit nesciunt odio voluptatum porro veniam. Reprehenderit corporis consectetur quae consectetur provident. Blanditiis distinctio labore quia velit fuga veritatis."
+    }
+  },
+  {
+    "model": "recruitment.surveytemplate",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-01-16T05:55:38.170160Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "title": "Problem Solving",
+      "description": "Quis magnam itaque ipsum. Corrupti quas at numquam numquam harum tempore. Molestiae vero suscipit quasi officia sint. Nemo recusandae provident."
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 100,
+    "fields": {
+      "created_at": "2025-05-16T03:49:55.548321Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Describe your leadership style",
+      "is_mandatory": false,
+      "sequence": 100,
+      "type": "date",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        103
+      ],
+      "recruitment_ids": [
+        106
+      ],
+      "job_position_ids": [
+        110
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 101,
+    "fields": {
+      "created_at": "2025-07-21T15:32:04.646436Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Why do you want to work here?",
+      "is_mandatory": false,
+      "sequence": 101,
+      "type": "rating",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        102
+      ],
+      "recruitment_ids": [
+        113,
+        107
+      ],
+      "job_position_ids": [
+        113
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 102,
+    "fields": {
+      "created_at": "2025-02-09T16:33:56.087191Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Describe a difficult project you completed",
+      "is_mandatory": false,
+      "sequence": 102,
+      "type": "textarea",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        100
+      ],
+      "recruitment_ids": [
+        112,
+        107
+      ],
+      "job_position_ids": [
+        108
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 103,
+    "fields": {
+      "created_at": "2025-06-22T03:49:57.731175Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you handle challenging situations?",
+      "is_mandatory": true,
+      "sequence": 103,
+      "type": "rating",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        105
+      ],
+      "recruitment_ids": [
+        104,
+        112
+      ],
+      "job_position_ids": [
+        102
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 104,
+    "fields": {
+      "created_at": "2025-04-10T02:06:01.381318Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you handle feedback?",
+      "is_mandatory": true,
+      "sequence": 104,
+      "type": "number",
+      "options": "",
+      "template_id": [
+        102
+      ],
+      "recruitment_ids": [
+        105
+      ],
+      "job_position_ids": [
+        100
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 105,
+    "fields": {
+      "created_at": "2025-01-25T04:37:13.159008Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Describe a difficult project you completed",
+      "is_mandatory": false,
+      "sequence": 105,
+      "type": "options",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        101
+      ],
+      "recruitment_ids": [
+        100
+      ],
+      "job_position_ids": [
+        110
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 106,
+    "fields": {
+      "created_at": "2024-09-16T20:52:20.977234Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "What motivates you at work?",
+      "is_mandatory": false,
+      "sequence": 106,
+      "type": "date",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        104
+      ],
+      "recruitment_ids": [
+        112,
+        104,
+        110
+      ],
+      "job_position_ids": [
+        106
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 107,
+    "fields": {
+      "created_at": "2025-07-12T06:25:00.550904Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you handle feedback?",
+      "is_mandatory": false,
+      "sequence": 107,
+      "type": "file",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        102
+      ],
+      "recruitment_ids": [
+        100,
+        100
+      ],
+      "job_position_ids": [
+        108
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 108,
+    "fields": {
+      "created_at": "2024-09-08T22:28:36.186805Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "What are your career goals?",
+      "is_mandatory": false,
+      "sequence": 108,
+      "type": "checkbox",
+      "options": "",
+      "template_id": [
+        101
+      ],
+      "recruitment_ids": [
+        100,
+        111,
+        106
+      ],
+      "job_position_ids": [
+        108
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 109,
+    "fields": {
+      "created_at": "2025-02-07T01:20:47.343684Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "What is your experience with this technology?",
+      "is_mandatory": true,
+      "sequence": 109,
+      "type": "textarea",
+      "options": "",
+      "template_id": [
+        104
+      ],
+      "recruitment_ids": [
+        105,
+        114,
+        113
+      ],
+      "job_position_ids": [
+        114
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 110,
+    "fields": {
+      "created_at": "2025-01-29T23:47:23.172572Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Describe a difficult project you completed",
+      "is_mandatory": false,
+      "sequence": 110,
+      "type": "date",
+      "options": "",
+      "template_id": [
+        101
+      ],
+      "recruitment_ids": [
+        112,
+        108
+      ],
+      "job_position_ids": [
+        101
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 111,
+    "fields": {
+      "created_at": "2025-07-11T10:01:41.941036Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Describe your leadership style",
+      "is_mandatory": false,
+      "sequence": 111,
+      "type": "checkbox",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        101
+      ],
+      "recruitment_ids": [
+        111,
+        111
+      ],
+      "job_position_ids": [
+        110
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 112,
+    "fields": {
+      "created_at": "2024-12-25T08:39:17.723901Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you handle challenging situations?",
+      "is_mandatory": false,
+      "sequence": 112,
+      "type": "text",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        101
+      ],
+      "recruitment_ids": [
+        106,
+        111
+      ],
+      "job_position_ids": [
+        105
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 113,
+    "fields": {
+      "created_at": "2024-12-03T08:54:55.724056Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "What motivates you at work?",
+      "is_mandatory": false,
+      "sequence": 113,
+      "type": "rating",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        102
+      ],
+      "recruitment_ids": [
+        108,
+        100,
+        114
+      ],
+      "job_position_ids": [
+        109
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 114,
+    "fields": {
+      "created_at": "2024-10-12T07:30:14.137876Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "Describe your leadership style",
+      "is_mandatory": false,
+      "sequence": 114,
+      "type": "rating",
+      "options": "",
+      "template_id": [
+        104
+      ],
+      "recruitment_ids": [
+        111
+      ],
+      "job_position_ids": [
+        112
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 115,
+    "fields": {
+      "created_at": "2024-10-06T17:17:29.234038Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you handle challenging situations?",
+      "is_mandatory": true,
+      "sequence": 115,
+      "type": "number",
+      "options": "",
+      "template_id": [
+        104
+      ],
+      "recruitment_ids": [
+        105,
+        106
+      ],
+      "job_position_ids": [
+        110
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 116,
+    "fields": {
+      "created_at": "2024-10-31T20:34:18.267411Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "What motivates you at work?",
+      "is_mandatory": false,
+      "sequence": 116,
+      "type": "percentage",
+      "options": "",
+      "template_id": [
+        101
+      ],
+      "recruitment_ids": [
+        105,
+        110,
+        105
+      ],
+      "job_position_ids": [
+        101
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 117,
+    "fields": {
+      "created_at": "2024-10-23T01:07:34.894723Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "What are your salary expectations?",
+      "is_mandatory": false,
+      "sequence": 117,
+      "type": "textarea",
+      "options": "Option 1, Option 2, Option 3, Option 4",
+      "template_id": [
+        104
+      ],
+      "recruitment_ids": [
+        107,
+        110
+      ],
+      "job_position_ids": [
+        106
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 118,
+    "fields": {
+      "created_at": "2024-12-02T18:41:10.689066Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you handle feedback?",
+      "is_mandatory": true,
+      "sequence": 118,
+      "type": "number",
+      "options": "",
+      "template_id": [
+        105
+      ],
+      "recruitment_ids": [
+        107
+      ],
+      "job_position_ids": [
+        111
+      ]
+    }
+  },
+  {
+    "model": "recruitment.recruitmentsurvey",
+    "pk": 119,
+    "fields": {
+      "created_at": "2024-10-03T04:13:08.915807Z",
+      "created_by": 1,
+      "modified_by": 1,
+      "is_active": true,
+      "question": "How do you prioritize tasks?",
+      "is_mandatory": false,
+      "sequence": 119,
+      "type": "options",
+      "options": "",
+      "template_id": [
+        105
+      ],
+      "recruitment_ids": [
+        105
+      ],
+      "job_position_ids": [
+        102
+      ]
+    }
+  }
+]

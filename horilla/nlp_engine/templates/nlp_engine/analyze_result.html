@@ -1,0 +1,195 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Analysis Results - NLP Engine{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Text Analysis Results</h4>
+                    <a href="{% url 'nlp_engine:analyze_text' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Analyze New Text
+                    </a>
+                </div>
+                <div class="card-body">
+                    <!-- Original Text -->
+                    <div class="mb-4">
+                        <h5>Original Text</h5>
+                        <div class="bg-light p-3 rounded">
+                            <p class="mb-0">{{ text }}</p>
+                        </div>
+                    </div>
+                    
+                    {% if results.success %}
+                        <div class="row">
+                            <!-- Basic Information -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h6 class="mb-0">Basic Information</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <td><strong>Language:</strong></td>
+                                                <td>{{ results.data.language|default:"Unknown" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Language Confidence:</strong></td>
+                                                <td>{{ results.data.language_confidence|floatformat:2|default:"N/A" }}%</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Word Count:</strong></td>
+                                                <td>{{ results.data.word_count|default:"0" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Sentence Count:</strong></td>
+                                                <td>{{ results.data.sentence_count|default:"0" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Processing Time:</strong></td>
+                                                <td>{{ results.data.processing_time|floatformat:3|default:"0" }}s</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sentiment Analysis -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h6 class="mb-0">Sentiment Analysis</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center mb-3">
+                                            {% if results.data.sentiment == 'positive' %}
+                                                <i class="fas fa-smile fa-3x text-success"></i>
+                                            {% elif results.data.sentiment == 'negative' %}
+                                                <i class="fas fa-frown fa-3x text-danger"></i>
+                                            {% else %}
+                                                <i class="fas fa-meh fa-3x text-warning"></i>
+                                            {% endif %}
+                                        </div>
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <td><strong>Sentiment:</strong></td>
+                                                <td>
+                                                    <span class="badge bg-{% if results.data.sentiment == 'positive' %}success{% elif results.data.sentiment == 'negative' %}danger{% else %}warning{% endif %}">
+                                                        {{ results.data.sentiment|title|default:"Neutral" }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Score:</strong></td>
+                                                <td>{{ results.data.sentiment_score|floatformat:3|default:"0" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Confidence:</strong></td>
+                                                <td>{{ results.data.sentiment_confidence|floatformat:2|default:"0" }}%</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Entities -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <h6 class="mb-0">Named Entities</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        {% if results.data.entities %}
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Entity</th>
+                                                            <th>Type</th>
+                                                            <th>Confidence</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for entity in results.data.entities %}
+                                                            <tr>
+                                                                <td>{{ entity.text }}</td>
+                                                                <td><span class="badge bg-secondary">{{ entity.label }}</span></td>
+                                                                <td>{{ entity.confidence|floatformat:2 }}%</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {% else %}
+                                            <p class="text-muted mb-0">No named entities found.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Intents -->
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-warning">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h6 class="mb-0">Intent Classification</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        {% if results.data.intents %}
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Intent</th>
+                                                            <th>Confidence</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for intent in results.data.intents %}
+                                                            <tr>
+                                                                <td><span class="badge bg-primary">{{ intent.intent }}</span></td>
+                                                                <td>{{ intent.confidence|floatformat:2 }}%</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {% else %}
+                                            <p class="text-muted mb-0">No intents classified.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Processed Text -->
+                        {% if results.data.processed_text %}
+                            <div class="card border-secondary mb-4">
+                                <div class="card-header bg-secondary text-white">
+                                    <h6 class="mb-0">Processed Text</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="bg-light p-3 rounded">
+                                        <p class="mb-0">{{ results.data.processed_text }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                    {% else %}
+                        <div class="alert alert-danger" role="alert">
+                            <h5 class="alert-heading">Analysis Failed</h5>
+                            <p class="mb-0">{{ results.error|default:"An unknown error occurred during text analysis." }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

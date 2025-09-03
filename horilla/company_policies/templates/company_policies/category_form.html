@@ -1,0 +1,191 @@
+{% extends 'company_policies/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block policy_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        {% if form.instance.pk %}
+            {% trans "Edit Kategori" %}: {{ form.instance.name }}
+        {% else %}
+            {% trans "Tambah Kategori Baru" %}
+        {% endif %}
+    </h2>
+    <a href="{% url 'company_policies:category_list' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> {% trans "Kembali" %}
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.name.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.name.help_text %}
+                        <small class="form-text text-muted">{{ form.name.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.description.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.description.help_text %}
+                        <small class="form-text text-muted">{{ form.description.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.category_type.id_for_label }}">{{ form.category_type.label }}</label>
+                        {{ form.category_type }}
+                        {% if form.category_type.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.category_type.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.category_type.help_text %}
+                        <small class="form-text text-muted">{{ form.category_type.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.legal_basis.id_for_label }}">{{ form.legal_basis.label }}</label>
+                        {{ form.legal_basis }}
+                        {% if form.legal_basis.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.legal_basis.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.legal_basis.help_text %}
+                        <small class="form-text text-muted">{{ form.legal_basis.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.compliance_requirements.id_for_label }}">{{ form.compliance_requirements.label }}</label>
+                        {{ form.compliance_requirements }}
+                        {% if form.compliance_requirements.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.compliance_requirements.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.compliance_requirements.help_text %}
+                        <small class="form-text text-muted">{{ form.compliance_requirements.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            {{ form.is_active }}
+                            <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                {{ form.is_active.label }}
+                            </label>
+                        </div>
+                        {% if form.is_active.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.is_active.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.is_active.help_text %}
+                        <small class="form-text text-muted">{{ form.is_active.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            {% if form.instance.pk %}
+                                {% trans "Update Kategori" %}
+                            {% else %}
+                                {% trans "Simpan Kategori" %}
+                            {% endif %}
+                        </button>
+                        <a href="{% url 'company_policies:category_list' %}" class="btn btn-secondary ml-2">
+                            <i class="fas fa-times"></i> {% trans "Batal" %}
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle"></i> {% trans "Panduan" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6>{% trans "Tipe Kategori:" %}</h6>
+                <ul class="list-unstyled">
+                    <li><span class="policy-category-badge policy-category-data_protection">{% trans "Perlindungan Data" %}</span><br>
+                        <small class="text-muted">{% trans "Kebijakan terkait perlindungan data pribadi sesuai UU PDP" %}</small>
+                    </li>
+                    <li class="mt-2"><span class="policy-category-badge policy-category-information_security">{% trans "Keamanan Informasi" %}</span><br>
+                        <small class="text-muted">{% trans "Kebijakan keamanan sistem dan informasi" %}</small>
+                    </li>
+                    <li class="mt-2"><span class="policy-category-badge policy-category-compliance">{% trans "Kepatuhan" %}</span><br>
+                        <small class="text-muted">{% trans "Kebijakan kepatuhan regulasi dan standar" %}</small>
+                    </li>
+                    <li class="mt-2"><span class="policy-category-badge policy-category-operational">{% trans "Operasional" %}</span><br>
+                        <small class="text-muted">{% trans "Kebijakan operasional perusahaan" %}</small>
+                    </li>
+                </ul>
+                
+                <hr>
+                
+                <h6>{% trans "Tips:" %}</h6>
+                <ul class="small text-muted">
+                    <li>{% trans "Gunakan nama kategori yang jelas dan deskriptif" %}</li>
+                    <li>{% trans "Pilih tipe kategori yang sesuai dengan jenis kebijakan" %}</li>
+                    <li>{% trans "Sertakan dasar hukum jika diperlukan" %}</li>
+                    <li>{% trans "Deskripsikan persyaratan kepatuhan dengan detail" %}</li>
+                </ul>
+            </div>
+        </div>
+        
+        {% if form.instance.pk %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar"></i> {% trans "Statistik" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="h4 mb-0">{{ form.instance.documents.count }}</div>
+                        <small class="text-muted">{% trans "Total Dokumen" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="h4 mb-0">{{ form.instance.documents.filter.status='active'.count }}</div>
+                        <small class="text-muted">{% trans "Dokumen Aktif" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

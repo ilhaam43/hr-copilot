@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Text Analysis - NLP Engine{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Text Analysis</h4>
+                    <p class="card-text">Analyze text for sentiment, entities, and language detection</p>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="source_type" class="form-label">Source Type</label>
+                            <select class="form-select" id="source_type" name="source_type" required>
+                                {% for value, label in source_types %}
+                                    <option value="{{ value }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="text" class="form-label">Text to Analyze</label>
+                            <textarea class="form-control" id="text" name="text" rows="8" 
+                                    placeholder="Enter text to analyze (maximum 5000 characters)" 
+                                    maxlength="5000" required></textarea>
+                            <div class="form-text">
+                                <span id="char-count">0</span> / 5000 characters
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Analyze Text
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Character counter
+document.getElementById('text').addEventListener('input', function() {
+    const charCount = this.value.length;
+    document.getElementById('char-count').textContent = charCount;
+    
+    if (charCount > 4500) {
+        document.getElementById('char-count').style.color = 'red';
+    } else {
+        document.getElementById('char-count').style.color = 'inherit';
+    }
+});
+
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+</script>
+{% endblock %}

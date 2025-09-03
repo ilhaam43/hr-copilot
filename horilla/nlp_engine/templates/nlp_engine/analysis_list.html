@@ -1,0 +1,186 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Analysis Results - NLP Engine{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Text Analysis Results</h4>
+                    <div>
+                        <a href="{% url 'nlp_engine:analyze_text' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Analysis
+                        </a>
+                        <a href="{% url 'nlp_engine:dashboard' %}" class="btn btn-secondary">
+                            <i class="fas fa-chart-bar"></i> Dashboard
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Search and Filter -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <form method="get" class="d-flex">
+                                <input type="text" name="search" class="form-control me-2" 
+                                       placeholder="Search by text content..." 
+                                       value="{{ request.GET.search }}">
+                                <button type="submit" class="btn btn-outline-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form method="get" class="d-flex">
+                                <select name="sentiment" class="form-select me-2">
+                                    <option value="">All Sentiments</option>
+                                    <option value="positive" {% if request.GET.sentiment == 'positive' %}selected{% endif %}>Positive</option>
+                                    <option value="negative" {% if request.GET.sentiment == 'negative' %}selected{% endif %}>Negative</option>
+                                    <option value="neutral" {% if request.GET.sentiment == 'neutral' %}selected{% endif %}>Neutral</option>
+                                </select>
+                                <button type="submit" class="btn btn-outline-secondary">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Table -->
+                    {% if analyses %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Text Preview</th>
+                                        <th>Sentiment</th>
+                                        <th>Language</th>
+                                        <th>Source</th>
+                                        <th>Analyzed By</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for analysis in analyses %}
+                                        <tr>
+                                            <td>{{ analysis.id }}</td>
+                                            <td>
+                                                <div class="text-truncate" style="max-width: 200px;" title="{{ analysis.text_content }}">
+                                                    {{ analysis.text_content|truncatechars:50 }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {% if analysis.sentiment %}
+                                                    <span class="badge bg-{% if analysis.sentiment == 'positive' %}success{% elif analysis.sentiment == 'negative' %}danger{% else %}warning{% endif %}">
+                                                        {{ analysis.sentiment|title }}
+                                                    </span>
+                                                    <br>
+                                                    <small class="text-muted">{{ analysis.sentiment_score|floatformat:2 }}</small>
+                                                {% else %}
+                                                    <span class="text-muted">N/A</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if analysis.language_detected %}
+                                                    {{ analysis.language_detected|upper }}
+                                                    {% if analysis.language_confidence %}
+                                                        <br>
+                                                        <small class="text-muted">{{ analysis.language_confidence|floatformat:1 }}%</small>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="text-muted">Unknown</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-secondary">{{ analysis.get_source_type_display }}</span>
+                                                {% if analysis.source_id %}
+                                                    <br>
+                                                    <small class="text-muted">{{ analysis.source_id }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if analysis.analyzed_by %}
+                                                    {{ analysis.analyzed_by.get_full_name|default:analysis.analyzed_by.username }}
+                                                {% else %}
+                                                    <span class="text-muted">System</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <span title="{{ analysis.created_at }}">
+                                                    {{ analysis.created_at|date:"M d, Y" }}
+                                                </span>
+                                                <br>
+                                                <small class="text-muted">{{ analysis.created_at|time:"H:i" }}</small>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" role="group">
+                                                    <a href="{% url 'nlp_engine:analysis_detail' analysis.pk %}" 
+                                                       class="btn btn-outline-primary" title="View Details">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        {% if is_paginated %}
+                            <nav aria-label="Analysis results pagination">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sentiment %}&sentiment={{ request.GET.sentiment }}{% endif %}">
+                                                <i class="fas fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sentiment %}&sentiment={{ request.GET.sentiment }}{% endif %}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    
+                                    <li class="page-item active">
+                                        <span class="page-link">
+                                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                        </span>
+                                    </li>
+                                    
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sentiment %}&sentiment={{ request.GET.sentiment }}{% endif %}">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.sentiment %}&sentiment={{ request.GET.sentiment }}{% endif %}">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
+                        
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No Analysis Results Found</h5>
+                            <p class="text-muted">Start by analyzing some text to see results here.</p>
+                            <a href="{% url 'nlp_engine:analyze_text' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Analyze Text
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,614 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}AI Intents - AI Knowledge Management{% endblock %}
+
+{% block page_title %}{% trans "AI Intents" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">{% trans "AI Intents" %}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'ai_knowledge:create_ai_intent' %}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>
+        {% trans "Add Intent" %}
+    </a>
+    <button class="btn btn-outline-success" onclick="exportIntents()">
+        <i class="fas fa-download me-2"></i>
+        {% trans "Export Intents" %}
+    </button>
+    <button class="btn btn-outline-info" onclick="regenerateIntents()">
+        <i class="fas fa-sync me-2"></i>
+        {% trans "Regenerate All" %}
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Search and Filter Bar -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" name="search" class="form-control" 
+                           placeholder="{% trans 'Search intents...' %}" 
+                           value="{{ request.GET.search }}">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <select name="document" class="form-select">
+                    <option value="">{% trans "All Documents" %}</option>
+                    {% for doc in documents %}
+                        <option value="{{ doc.id }}" 
+                                {% if request.GET.document == doc.id|stringformat:"s" %}selected{% endif %}>
+                            {{ doc.title|truncatechars:25 }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="is_active" class="form-select">
+                    <option value="">{% trans "All Status" %}</option>
+                    <option value="true" {% if request.GET.is_active == 'true' %}selected{% endif %}>
+                        {% trans "Active" %}
+                    </option>
+                    <option value="false" {% if request.GET.is_active == 'false' %}selected{% endif %}>
+                        {% trans "Inactive" %}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="confidence" class="form-select">
+                    <option value="">{% trans "All Confidence" %}</option>
+                    <option value="high" {% if request.GET.confidence == 'high' %}selected{% endif %}>
+                        {% trans "High (>0.8)" %}
+                    </option>
+                    <option value="medium" {% if request.GET.confidence == 'medium' %}selected{% endif %}>
+                        {% trans "Medium (0.5-0.8)" %}
+                    </option>
+                    <option value="low" {% if request.GET.confidence == 'low' %}selected{% endif %}>
+                        {% trans "Low (<0.5)" %}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="sort" class="form-select">
+                    <option value="-created_at" {% if request.GET.sort == '-created_at' %}selected{% endif %}>
+                        {% trans "Newest First" %}
+                    </option>
+                    <option value="created_at" {% if request.GET.sort == 'created_at' %}selected{% endif %}>
+                        {% trans "Oldest First" %}
+                    </option>
+                    <option value="name" {% if request.GET.sort == 'name' %}selected{% endif %}>
+                        {% trans "Name A-Z" %}
+                    </option>
+                    <option value="-confidence_score" {% if request.GET.sort == '-confidence_score' %}selected{% endif %}>
+                        {% trans "Confidence" %}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <div class="btn-group w-100" role="group">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                    <a href="{% url 'ai_knowledge:ai_intent_list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bulk Actions -->
+{% if ai_intents %}
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="selectAll">
+                <label class="form-check-label" for="selectAll">
+                    {% trans "Select All" %}
+                </label>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-success" onclick="bulkActivate()" disabled id="bulkActivateBtn">
+                    <i class="fas fa-toggle-on me-2"></i>
+                    {% trans "Activate Selected" %}
+                </button>
+                <button type="button" class="btn btn-outline-warning" onclick="bulkDeactivate()" disabled id="bulkDeactivateBtn">
+                    <i class="fas fa-toggle-off me-2"></i>
+                    {% trans "Deactivate Selected" %}
+                </button>
+                <button type="button" class="btn btn-outline-info" onclick="bulkRegenerate()" disabled id="bulkRegenerateBtn">
+                    <i class="fas fa-sync me-2"></i>
+                    {% trans "Regenerate Selected" %}
+                </button>
+                <button type="button" class="btn btn-outline-danger" onclick="bulkDelete()" disabled id="bulkDeleteBtn">
+                    <i class="fas fa-trash me-2"></i>
+                    {% trans "Delete Selected" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- AI Intents List -->
+<div class="row">
+    {% if ai_intents %}
+        {% for intent in ai_intents %}
+        <div class="col-lg-6 col-xl-4 mb-4">
+            <div class="card h-100 intent-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input intent-checkbox" type="checkbox" 
+                               value="{{ intent.id }}" id="intent{{ intent.id }}">
+                        <label class="form-check-label" for="intent{{ intent.id }}">
+                            <strong>{{ intent.name|truncatechars:25 }}</strong>
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        {% if intent.is_active %}
+                            <span class="badge bg-success me-2" title="{% trans 'Active' %}">
+                                <i class="fas fa-toggle-on"></i>
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary me-2" title="{% trans 'Inactive' %}">
+                                <i class="fas fa-toggle-off"></i>
+                            </span>
+                        {% endif %}
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary" type="button" 
+                                    data-bs-toggle="dropdown">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'ai_knowledge:ai_intent_detail' intent.id %}">
+                                        <i class="fas fa-eye me-2"></i>{% trans "View Details" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'ai_knowledge:ai_intent_edit' intent.id %}">
+                                        <i class="fas fa-edit me-2"></i>{% trans "Edit" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="toggleIntent({{ intent.id }}, {{ intent.is_active|yesno:'false,true' }})">
+                                        {% if intent.is_active %}
+                                            <i class="fas fa-toggle-off me-2"></i>{% trans "Deactivate" %}
+                                        {% else %}
+                                            <i class="fas fa-toggle-on me-2"></i>{% trans "Activate" %}
+                                        {% endif %}
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" onclick="regenerateIntent({{ intent.id }})">
+                                        <i class="fas fa-sync me-2"></i>{% trans "Regenerate" %}
+                                    </button>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <button class="dropdown-item text-danger" onclick="deleteIntent({{ intent.id }})">
+                                        <i class="fas fa-trash me-2"></i>{% trans "Delete" %}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">{% trans "Confidence Score" %}</small>
+                            <span class="badge bg-{{ intent.get_confidence_color }}">
+                                {{ intent.confidence_score|floatformat:2 }}
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-{{ intent.get_confidence_color }}" 
+                                 style="width: {{ intent.confidence_score|floatformat:0 }}%"></div>
+                        </div>
+                    </div>
+                    
+                    {% if intent.description %}
+                    <p class="card-text text-muted small mb-3">{{ intent.description|truncatechars:100 }}</p>
+                    {% endif %}
+                    
+                    {% if intent.examples %}
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-1">
+                            <i class="fas fa-list me-1"></i>
+                            {% trans "Examples" %} ({{ intent.examples|length }})
+                        </small>
+                        <div class="examples-preview">
+                            {% for example in intent.examples|slice:":3" %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ example|truncatechars:30 }}</span>
+                            {% endfor %}
+                            {% if intent.examples|length > 3 %}
+                            <span class="badge bg-secondary">+{{ intent.examples|length|add:"-3" }} more</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if intent.entities %}
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-1">
+                            <i class="fas fa-tags me-1"></i>
+                            {% trans "Entities" %} ({{ intent.entities|length }})
+                        </small>
+                        <div class="entities-preview">
+                            {% for entity in intent.entities|slice:":3" %}
+                            <span class="badge bg-info me-1 mb-1">{{ entity|truncatechars:20 }}</span>
+                            {% endfor %}
+                            {% if intent.entities|length > 3 %}
+                            <span class="badge bg-secondary">+{{ intent.entities|length|add:"-3" }} more</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if intent.responses %}
+                    <div class="mb-2">
+                        <small class="text-muted">
+                            <i class="fas fa-reply me-1"></i>
+                            {{ intent.responses|length }} {% trans "response(s)" %}
+                        </small>
+                    </div>
+                    {% endif %}
+                    
+                    {% if intent.source_documents.exists %}
+                    <div class="mb-2">
+                        <small class="text-muted">
+                            <i class="fas fa-file me-1"></i>
+                            {% for doc in intent.source_documents.all|slice:":1" %}
+                                <a href="{% url 'ai_knowledge:document_detail' doc.id %}" 
+                                   class="text-decoration-none">
+                                    {{ doc.title|truncatechars:30 }}
+                                </a>
+                                {% if intent.source_documents.count > 1 %}
+                                    <span class="badge bg-secondary ms-1">+{{ intent.source_documents.count|add:"-1" }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </small>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card-footer bg-transparent">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{ intent.created_at|date:"M d, Y" }}
+                        </small>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="{% url 'ai_knowledge:ai_intent_detail' intent.id %}" 
+                               class="btn btn-outline-primary" title="{% trans 'View Details' %}">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{% url 'ai_knowledge:ai_intent_edit' intent.id %}" 
+                               class="btn btn-outline-secondary" title="{% trans 'Edit' %}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <button class="btn btn-outline-{{ intent.is_active|yesno:'warning,success' }}" 
+                                    onclick="toggleIntent({{ intent.id }}, {{ intent.is_active|yesno:'false,true' }})" 
+                                    title="{% if intent.is_active %}{% trans 'Deactivate' %}{% else %}{% trans 'Activate' %}{% endif %}">
+                                <i class="fas fa-toggle-{{ intent.is_active|yesno:'off,on' }}"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-lightbulb fa-4x text-muted mb-4"></i>
+                    <h4 class="text-muted">{% trans "No AI intents found" %}</h4>
+                    <p class="text-muted mb-4">
+                        {% if request.GET.search or request.GET.document or request.GET.is_active %}
+                            {% trans "Try adjusting your search criteria or filters." %}
+                        {% else %}
+                            {% trans "Start by uploading documents to automatically generate intents or create them manually." %}
+                        {% endif %}
+                    </p>
+                    <div class="btn-group" role="group">
+                        <a href="{% url 'ai_knowledge:create_ai_intent' %}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>
+                            {% trans "Add Intent" %}
+                        </a>
+                        <a href="{% url 'ai_knowledge:upload_document' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-upload me-2"></i>
+                            {% trans "Upload Document" %}
+                        </a>
+                        {% if request.GET.search or request.GET.document or request.GET.is_active %}
+                        <a href="{% url 'ai_knowledge:ai_intent_list' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            {% trans "Clear Filters" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Pagination -->
+{% if is_paginated %}
+<nav aria-label="AI intents pagination" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.document %}document={{ request.GET.document }}&{% endif %}{% if request.GET.is_active %}is_active={{ request.GET.is_active }}&{% endif %}page=1">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.document %}document={{ request.GET.document }}&{% endif %}{% if request.GET.is_active %}is_active={{ request.GET.is_active }}&{% endif %}page={{ page_obj.previous_page_number }}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.document %}document={{ request.GET.document }}&{% endif %}{% if request.GET.is_active %}is_active={{ request.GET.is_active }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.document %}document={{ request.GET.document }}&{% endif %}{% if request.GET.is_active %}is_active={{ request.GET.is_active }}&{% endif %}page={{ page_obj.next_page_number }}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.document %}document={{ request.GET.document }}&{% endif %}{% if request.GET.is_active %}is_active={{ request.GET.is_active }}&{% endif %}page={{ page_obj.paginator.num_pages }}">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Select all functionality
+document.getElementById('selectAll').addEventListener('change', function() {
+    const checkboxes = document.querySelectorAll('.intent-checkbox');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = this.checked;
+    }.bind(this));
+    updateBulkButtons();
+});
+
+// Individual checkbox handling
+document.querySelectorAll('.intent-checkbox').forEach(function(checkbox) {
+    checkbox.addEventListener('change', updateBulkButtons);
+});
+
+// Update bulk action buttons
+function updateBulkButtons() {
+    const checkedBoxes = document.querySelectorAll('.intent-checkbox:checked');
+    const bulkButtons = ['bulkActivateBtn', 'bulkDeactivateBtn', 'bulkRegenerateBtn', 'bulkDeleteBtn'];
+    
+    bulkButtons.forEach(function(buttonId) {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            button.disabled = checkedBoxes.length === 0;
+        }
+    });
+}
+
+// Get selected intent IDs
+function getSelectedIntentIds() {
+    const checkedBoxes = document.querySelectorAll('.intent-checkbox:checked');
+    return Array.from(checkedBoxes).map(function(checkbox) {
+        return checkbox.value;
+    });
+}
+
+// Bulk activate
+function bulkActivate() {
+    const selectedIds = getSelectedIntentIds();
+    if (selectedIds.length === 0) return;
+    
+    if (confirm('Are you sure you want to activate ' + selectedIds.length + ' intents?')) {
+        performBulkAction('activate', selectedIds);
+    }
+}
+
+// Bulk deactivate
+function bulkDeactivate() {
+    const selectedIds = getSelectedIntentIds();
+    if (selectedIds.length === 0) return;
+    
+    if (confirm('Are you sure you want to deactivate ' + selectedIds.length + ' intents?')) {
+        performBulkAction('deactivate', selectedIds);
+    }
+}
+
+// Bulk regenerate
+function bulkRegenerate() {
+    const selectedIds = getSelectedIntentIds();
+    if (selectedIds.length === 0) return;
+    
+    if (confirm('Are you sure you want to regenerate ' + selectedIds.length + ' intents? This may take some time.')) {
+        performBulkAction('regenerate', selectedIds);
+    }
+}
+
+// Bulk delete
+function bulkDelete() {
+    const selectedIds = getSelectedIntentIds();
+    if (selectedIds.length === 0) return;
+    
+    if (confirm('Are you sure you want to delete ' + selectedIds.length + ' intents? This action cannot be undone.')) {
+        performBulkAction('delete', selectedIds);
+    }
+}
+
+// Perform bulk action
+function performBulkAction(action, intentIds) {
+    fetch('/ai-knowledge/api/intents/bulk-' + action + '/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({ intent_ids: intentIds })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error performing bulk action: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+        alert('Error performing bulk action');
+    });
+}
+
+// Toggle single intent
+function toggleIntent(intentId, activate) {
+    const action = activate ? 'activate' : 'deactivate';
+    
+    fetch('/ai-knowledge/api/intents/' + intentId + '/toggle/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ is_active: activate })
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error toggling intent');
+        }
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+        alert('Error toggling intent');
+    });
+}
+
+// Regenerate single intent
+function regenerateIntent(intentId) {
+    if (confirm('Are you sure you want to regenerate this intent? This may take some time.')) {
+        fetch('/ai-knowledge/api/intents/' + intentId + '/regenerate/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error regenerating intent');
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Error regenerating intent');
+        });
+    }
+}
+
+// Delete single intent
+function deleteIntent(intentId) {
+    if (confirm('Are you sure you want to delete this intent? This action cannot be undone.')) {
+        fetch('/ai-knowledge/api/intents/' + intentId + '/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error deleting intent');
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Error deleting intent');
+        });
+    }
+}
+
+// Export intents
+function exportIntents() {
+    window.location.href = '/ai-knowledge/api/intents/export/';
+}
+
+// Regenerate all intents
+function regenerateIntents() {
+    if (confirm('Are you sure you want to regenerate all intents? This may take a long time.')) {
+        fetch('/ai-knowledge/api/intents/regenerate-all/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                alert('Intent regeneration started. This may take some time.');
+                location.reload();
+            } else {
+                alert('Error starting intent regeneration');
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Error starting intent regeneration');
+        });
+    }
+}
+</script>
+{% endblock %}

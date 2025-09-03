@@ -1,0 +1,165 @@
+{% extends 'company_policies/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block policy_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{% trans "Kategori Kebijakan" %}</h2>
+    {% if perms.company_policies.add_policycategory %}
+    <a href="{% url 'company_policies:category_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> {% trans "Tambah Kategori" %}
+    </a>
+    {% endif %}
+</div>
+
+<!-- Search Form -->
+<div class="search-form mb-4">
+    <form method="get">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="text" name="search" value="{{ request.GET.search }}" 
+                       placeholder="{% trans 'Cari kategori...' %}" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <select name="category_type" class="form-control">
+                    <option value="">{% trans "Semua Tipe" %}</option>
+                    <option value="data_protection" {% if request.GET.category_type == 'data_protection' %}selected{% endif %}>
+                        {% trans "Perlindungan Data" %}
+                    </option>
+                    <option value="information_security" {% if request.GET.category_type == 'information_security' %}selected{% endif %}>
+                        {% trans "Keamanan Informasi" %}
+                    </option>
+                    <option value="compliance" {% if request.GET.category_type == 'compliance' %}selected{% endif %}>
+                        {% trans "Kepatuhan" %}
+                    </option>
+                    <option value="operational" {% if request.GET.category_type == 'operational' %}selected{% endif %}>
+                        {% trans "Operasional" %}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-outline-primary btn-block">
+                    <i class="fas fa-search"></i> {% trans "Cari" %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Categories Grid -->
+<div class="row">
+    {% for category in categories %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="policy-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="policy-category-badge policy-category-{{ category.category_type }}">
+                    {{ category.get_category_type_display }}
+                </span>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                            type="button" data-toggle="dropdown">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        {% if perms.company_policies.change_policycategory %}
+                        <a class="dropdown-item" href="{% url 'company_policies:category_edit' category.id %}">
+                            <i class="fas fa-edit"></i> {% trans "Edit" %}
+                        </a>
+                        {% endif %}
+                        {% if perms.company_policies.delete_policycategory %}
+                        <a class="dropdown-item text-danger" 
+                           href="{% url 'company_policies:category_delete' category.id %}"
+                           onclick="return confirm(&quot;{% trans 'Apakah Anda yakin ingin menghapus kategori ini?' %}&quot;)">
+                            <i class="fas fa-trash"></i> {% trans "Hapus" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <h5 class="mb-3">{{ category.name }}</h5>
+            
+            {% if category.description %}
+            <p class="text-muted mb-3">{{ category.description|truncatewords:20 }}</p>
+            {% endif %}
+            
+            <div class="mb-3">
+                <small class="text-muted">
+                    <i class="fas fa-file-alt"></i> 
+                    {{ category.documents.count }} {% trans "dokumen" %}
+                </small>
+                <br>
+                <small class="text-muted">
+                    <i class="fas fa-calendar"></i> 
+                    {% trans "Dibuat:" %} {{ category.created_at|date:"d M Y" }}
+                </small>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'company_policies:dashboard' %}?category={{ category.id }}" 
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-eye"></i> {% trans "Lihat Dokumen" %}
+                </a>
+                
+                {% if perms.company_policies.add_companypolicydocument %}
+                <a href="{% url 'company_policies:document_create' %}?category={{ category.id }}" 
+                   class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus"></i> {% trans "Tambah Dokumen" %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">{% trans "Tidak ada kategori" %}</h4>
+            <p class="text-muted">{% trans "Belum ada kategori kebijakan yang tersedia." %}</p>
+            {% if perms.company_policies.add_policycategory %}
+            <a href="{% url 'company_policies:category_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> {% trans "Tambah Kategori Pertama" %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+{% if categories.has_other_pages %}
+<nav aria-label="{% trans 'Navigasi halaman' %}">
+    <ul class="pagination justify-content-center">
+        {% if categories.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.category_type %}category_type={{ request.GET.category_type }}&{% endif %}page={{ categories.previous_page_number }}">
+                    {% trans "Sebelumnya" %}
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in categories.paginator.page_range %}
+            {% if categories.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% elif num > categories.number|add:'-3' and num < categories.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.category_type %}category_type={{ request.GET.category_type }}&{% endif %}page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if categories.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.category_type %}category_type={{ request.GET.category_type }}&{% endif %}page={{ categories.next_page_number }}">
+                    {% trans "Selanjutnya" %}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

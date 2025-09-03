@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete Budget" %} - {{ budget.name }}{% endblock %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'budget-dashboard' %}">{% trans "Budget Control" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'budget-list' %}">{% trans "Budgets" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'budget-detail' budget.id %}">{{ budget.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
+        </ol>
+    </nav>
+
+    <div class="oh-card">
+        <div class="oh-card__header">
+            <h5 class="oh-card__title">{% trans "Delete Budget" %}</h5>
+        </div>
+        <div class="oh-card__body">
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                {% trans "Are you sure you want to delete this budget?" %}
+            </div>
+            
+            <div class="budget-info mb-4">
+                <h6>{% trans "Budget Details" %}:</h6>
+                <ul class="list-unstyled">
+                    <li><strong>{% trans "Name" %}:</strong> {{ budget.name }}</li>
+                    <li><strong>{% trans "Department" %}:</strong> {{ budget.department.department }}</li>
+                    <li><strong>{% trans "Category" %}:</strong> {{ budget.category.name }}</li>
+                    <li><strong>{% trans "Total Amount" %}:</strong> ${{ budget.total_amount|floatformat:2 }}</li>
+                    <li><strong>{% trans "Status" %}:</strong> 
+                        <span class="badge badge-{% if budget.status == 'active' %}success{% elif budget.status == 'approved' %}info{% elif budget.status == 'completed' %}secondary{% elif budget.status == 'cancelled' %}danger{% else %}warning{% endif %}">
+                            {{ budget.get_status_display }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            {% if budget.expenses.exists %}
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                {% trans "This budget has" %} {{ budget.expenses.count }} {% trans "associated expense(s). Deleting this budget will also delete all related expenses." %}
+            </div>
+            {% endif %}
+
+            {% if budget.allocations.exists %}
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                {% trans "This budget has" %} {{ budget.allocations.count }} {% trans "associated allocation(s). Deleting this budget will also delete all related allocations." %}
+            </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{% url 'budget-detail' budget.id %}" class="btn btn-secondary">
+                    <i class="fas fa-times me-1"></i>
+                    {% trans "Cancel" %}
+                </a>
+                <form method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-1"></i>
+                        {% trans "Delete Budget" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    // Add confirmation dialog
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (!confirm('{% trans "Are you sure you want to delete this budget? This action cannot be undone." %}')) {
+            e.preventDefault();
+        }
+    });
+</script>
+{% endblock %}

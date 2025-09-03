@@ -1,0 +1,308 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+{% if training_data %}
+    {% trans "Edit Training Data" %} - {{ training_data.name }}
+{% else %}
+    {% trans "Create Training Data" %}
+{% endif %}
+{% endblock %}
+
+{% block page_title %}
+{% if training_data %}
+    {% trans "Edit Training Data" %}
+{% else %}
+    {% trans "Create Training Data" %}
+{% endif %}
+{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item">
+    <a href="{% url 'ai_knowledge:training_data_list' %}">{% trans "Training Data" %}</a>
+</li>
+{% if training_data %}
+<li class="breadcrumb-item">
+    <a href="{% url 'ai_knowledge:training_data_detail' training_data.id %}">{{ training_data.name|truncatechars:30 }}</a>
+</li>
+<li class="breadcrumb-item active">{% trans "Edit" %}</li>
+{% else %}
+<li class="breadcrumb-item active">{% trans "Create" %}</li>
+{% endif %}
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'ai_knowledge:training_data_list' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>
+        {% trans "Back to List" %}
+    </a>
+    {% if training_data %}
+    <a href="{% url 'ai_knowledge:training_data_detail' training_data.id %}" class="btn btn-outline-info">
+        <i class="fas fa-eye me-2"></i>
+        {% trans "View Details" %}
+    </a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-robot me-2"></i>
+                    {% if training_data %}
+                        {% trans "Edit Training Data" %}
+                    {% else %}
+                        {% trans "Create New Training Data" %}
+                    {% endif %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <!-- Basic Information -->
+                        <div class="col-md-12">
+                            <h5 class="mb-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                {% trans "Basic Information" %}
+                            </h5>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label">
+                                    {{ form.name.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.name.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.training_type.id_for_label }}" class="form-label">
+                                    {{ form.training_type.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.training_type }}
+                                {% if form.training_type.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.training_type.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="{{ form.source_document.id_for_label }}" class="form-label">
+                                    {{ form.source_document.label }}
+                                </label>
+                                {{ form.source_document }}
+                                {% if form.source_document.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.source_document.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <!-- Training Content -->
+                        <div class="col-md-12">
+                            <h5 class="mb-3">
+                                <i class="fas fa-comments me-2"></i>
+                                {% trans "Training Content" %}
+                            </h5>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="{{ form.input_text.id_for_label }}" class="form-label">
+                                    {{ form.input_text.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.input_text }}
+                                <div class="form-text">
+                                    {% trans "Enter the input text that the AI should recognize" %}
+                                </div>
+                                {% if form.input_text.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.input_text.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="{{ form.expected_output.id_for_label }}" class="form-label">
+                                    {{ form.expected_output.label }} <span class="text-danger">*</span>
+                                </label>
+                                {{ form.expected_output }}
+                                <div class="form-text">
+                                    {% trans "Enter the expected response or output from the AI" %}
+                                </div>
+                                {% if form.expected_output.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.expected_output.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row">
+                        <!-- Intent & Configuration -->
+                        <div class="col-md-12">
+                            <h5 class="mb-3">
+                                <i class="fas fa-cogs me-2"></i>
+                                {% trans "Intent & Configuration" %}
+                            </h5>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.intent_label.id_for_label }}" class="form-label">
+                                    {{ form.intent_label.label }}
+                                </label>
+                                {{ form.intent_label }}
+                                <div class="form-text">
+                                    {% trans "Optional: Specify the intent category" %}
+                                </div>
+                                {% if form.intent_label.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.intent_label.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="{{ form.confidence_threshold.id_for_label }}" class="form-label">
+                                    {{ form.confidence_threshold.label }}
+                                </label>
+                                {{ form.confidence_threshold }}
+                                <div class="form-text">
+                                    {% trans "Minimum confidence level (0.0 - 1.0)" %}
+                                </div>
+                                {% if form.confidence_threshold.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.confidence_threshold.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="{{ form.entities.id_for_label }}" class="form-label">
+                                    {{ form.entities.label }}
+                                </label>
+                                {{ form.entities }}
+                                <div class="form-text">
+                                    {% trans "Optional: JSON format entities data" %}
+                                </div>
+                                {% if form.entities.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.entities.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'ai_knowledge:training_data_list' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            {% trans "Cancel" %}
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>
+                            {% if training_data %}
+                                {% trans "Update Training Data" %}
+                            {% else %}
+                                {% trans "Create Training Data" %}
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Training type change handler
+document.getElementById('id_training_type').addEventListener('change', function() {
+    const trainingType = this.value;
+    const intentField = document.getElementById('id_intent_label').closest('.mb-3');
+    const entitiesField = document.getElementById('id_entities').closest('.mb-3');
+    
+    if (trainingType === 'intent') {
+        intentField.style.display = 'block';
+        entitiesField.style.display = 'block';
+    } else if (trainingType === 'entity') {
+        intentField.style.display = 'none';
+        entitiesField.style.display = 'block';
+    } else {
+        intentField.style.display = 'none';
+        entitiesField.style.display = 'none';
+    }
+});
+
+// Trigger change event on page load
+document.getElementById('id_training_type').dispatchEvent(new Event('change'));
+
+// JSON validation for entities field
+document.getElementById('id_entities').addEventListener('blur', function() {
+    const value = this.value.trim();
+    if (value && value !== '{}') {
+        try {
+            JSON.parse(value);
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+        } catch (e) {
+            this.classList.remove('is-valid');
+            this.classList.add('is-invalid');
+        }
+    }
+});
+</script>
+{% endblock %}

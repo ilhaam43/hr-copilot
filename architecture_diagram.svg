@@ -1,0 +1,157 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #2c3e50; }
+      .component { font-family: Arial, sans-serif; font-size: 12px; fill: #34495e; }
+      .layer-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #2980b9; }
+      .arrow { stroke: #7f8c8d; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .data-flow { stroke: #e74c3c; stroke-width: 2; fill: none; marker-end: url(#arrowhead-red); }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" class="title">HR Chatbot System Architecture</text>
+  
+  <!-- Presentation Layer -->
+  <rect x="50" y="50" width="700" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="5"/>
+  <text x="60" y="70" class="layer-title">Presentation Layer</text>
+  
+  <!-- Frontend Components -->
+  <rect x="80" y="80" width="120" height="40" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="3"/>
+  <text x="140" y="105" text-anchor="middle" class="component" fill="white">Web Interface</text>
+  
+  <rect x="220" y="80" width="120" height="40" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="3"/>
+  <text x="280" y="105" text-anchor="middle" class="component" fill="white">Chat UI</text>
+  
+  <rect x="360" y="80" width="120" height="40" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="3"/>
+  <text x="420" y="105" text-anchor="middle" class="component" fill="white">API Endpoints</text>
+  
+  <rect x="500" y="80" width="120" height="40" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="3"/>
+  <text x="560" y="105" text-anchor="middle" class="component" fill="white">Admin Panel</text>
+  
+  <!-- Application Layer -->
+  <rect x="50" y="150" width="700" height="120" fill="#f8f9fa" stroke="#bdc3c7" stroke-width="2" rx="5"/>
+  <text x="60" y="170" class="layer-title">Application Layer</text>
+  
+  <!-- Django Views -->
+  <rect x="80" y="180" width="150" height="40" fill="#27ae60" stroke="#229954" stroke-width="2" rx="3"/>
+  <text x="155" y="205" text-anchor="middle" class="component" fill="white">Django Views</text>
+  
+  <!-- HR Chatbot Engine -->
+  <rect x="250" y="180" width="150" height="40" fill="#e67e22" stroke="#d35400" stroke-width="2" rx="3"/>
+  <text x="325" y="205" text-anchor="middle" class="component" fill="white">HR Chatbot Engine</text>
+  
+  <!-- Authentication -->
+  <rect x="420" y="180" width="150" height="40" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" rx="3"/>
+  <text x="495" y="205" text-anchor="middle" class="component" fill="white">Authentication</text>
+  
+  <!-- Business Logic Components -->
+  <rect x="80" y="230" width="100" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="1" rx="3"/>
+  <text x="130" y="250" text-anchor="middle" class="component" fill="white">Intent Detection</text>
+  
+  <rect x="190" y="230" width="100" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="1" rx="3"/>
+  <text x="240" y="250" text-anchor="middle" class="component" fill="white">Text Analyzer</text>
+  
+  <rect x="300" y="230" width="100" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="1" rx="3"/>
+  <text x="350" y="250" text-anchor="middle" class="component" fill="white">Knowledge Base</text>
+  
+  <rect x="410" y="230" width="100" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="1" rx="3"/>
+  <text x="460" y="250" text-anchor="middle" class="component" fill="white">Response Gen.</text>
+  
+  <rect x="520" y="230" width="100" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="1" rx="3"/>
+  <text x="570" y="250" text-anchor="middle" class="component" fill="white">Context Mgmt</text>
+  
+  <!-- AI/ML Layer -->
+  <rect x="50" y="290" width="700" height="80" fill="#fdf2e9" stroke="#bdc3c7" stroke-width="2" rx="5"/>
+  <text x="60" y="310" class="layer-title">AI/ML Layer</text>
+  
+  <!-- Ollama Service -->
+  <rect x="80" y="320" width="150" height="40" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="3"/>
+  <text x="155" y="345" text-anchor="middle" class="component" fill="white">Ollama Service</text>
+  
+  <!-- AI Components -->
+  <rect x="250" y="320" width="100" height="40" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="3"/>
+  <text x="300" y="340" text-anchor="middle" class="component" fill="white">Sentiment</text>
+  <text x="300" y="355" text-anchor="middle" class="component" fill="white">Analysis</text>
+  
+  <rect x="360" y="320" width="100" height="40" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="3"/>
+  <text x="410" y="340" text-anchor="middle" class="component" fill="white">Intent</text>
+  <text x="410" y="355" text-anchor="middle" class="component" fill="white">Classification</text>
+  
+  <rect x="470" y="320" width="100" height="40" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="3"/>
+  <text x="520" y="340" text-anchor="middle" class="component" fill="white">Entity</text>
+  <text x="520" y="355" text-anchor="middle" class="component" fill="white">Extraction</text>
+  
+  <rect x="580" y="320" width="100" height="40" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="3"/>
+  <text x="630" y="340" text-anchor="middle" class="component" fill="white">Response</text>
+  <text x="630" y="355" text-anchor="middle" class="component" fill="white">Enhancement</text>
+  
+  <!-- Data Layer -->
+  <rect x="50" y="390" width="700" height="120" fill="#eaf2f8" stroke="#bdc3c7" stroke-width="2" rx="5"/>
+  <text x="60" y="410" class="layer-title">Data Layer</text>
+  
+  <!-- Database Components -->
+  <rect x="80" y="430" width="120" height="40" fill="#5dade2" stroke="#3498db" stroke-width="2" rx="3"/>
+  <text x="140" y="455" text-anchor="middle" class="component" fill="white">PostgreSQL</text>
+  
+  <rect x="220" y="430" width="120" height="40" fill="#5dade2" stroke="#3498db" stroke-width="2" rx="3"/>
+  <text x="280" y="455" text-anchor="middle" class="component" fill="white">Django ORM</text>
+  
+  <!-- Data Models -->
+  <rect x="80" y="480" width="80" height="25" fill="#85c1e9" stroke="#5dade2" stroke-width="1" rx="3"/>
+  <text x="120" y="497" text-anchor="middle" class="component">Employee</text>
+  
+  <rect x="170" y="480" width="80" height="25" fill="#85c1e9" stroke="#5dade2" stroke-width="1" rx="3"/>
+  <text x="210" y="497" text-anchor="middle" class="component">Leave Request</text>
+  
+  <rect x="260" y="480" width="80" height="25" fill="#85c1e9" stroke="#5dade2" stroke-width="1" rx="3"/>
+  <text x="300" y="497" text-anchor="middle" class="component">Recruitment</text>
+  
+  <rect x="350" y="480" width="80" height="25" fill="#85c1e9" stroke="#5dade2" stroke-width="1" rx="3"/>
+  <text x="390" y="497" text-anchor="middle" class="component">Text Analysis</text>
+  
+  <!-- External Services -->
+  <rect x="450" y="430" width="120" height="40" fill="#af7ac5" stroke="#9b59b6" stroke-width="2" rx="3"/>
+  <text x="510" y="455" text-anchor="middle" class="component" fill="white">External APIs</text>
+  
+  <rect x="590" y="430" width="120" height="40" fill="#af7ac5" stroke="#9b59b6" stroke-width="2" rx="3"/>
+  <text x="650" y="455" text-anchor="middle" class="component" fill="white">LDAP/SSO</text>
+  
+  <!-- Arrows - Vertical Flow -->
+  <line x1="140" y1="120" x2="140" y2="180" class="arrow"/>
+  <line x1="280" y1="120" x2="280" y2="180" class="arrow"/>
+  <line x1="420" y1="120" x2="420" y2="180" class="arrow"/>
+  <line x1="560" y1="120" x2="560" y2="180" class="arrow"/>
+  
+  <line x1="155" y1="220" x2="155" y2="320" class="arrow"/>
+  <line x1="325" y1="220" x2="325" y2="290" class="arrow"/>
+  
+  <line x1="155" y1="360" x2="155" y2="430" class="arrow"/>
+  <line x1="280" y1="360" x2="280" y2="430" class="arrow"/>
+  
+  <!-- Data Flow Arrows -->
+  <path d="M 200 100 Q 250 60 300 100" class="data-flow"/>
+  <text x="250" y="75" text-anchor="middle" class="component" fill="#e74c3c">User Input</text>
+  
+  <path d="M 350 200 Q 400 160 450 200" class="data-flow"/>
+  <text x="400" y="175" text-anchor="middle" class="component" fill="#e74c3c">Processing</text>
+  
+  <path d="M 300 340 Q 350 300 400 340" class="data-flow"/>
+  <text x="350" y="315" text-anchor="middle" class="component" fill="#e74c3c">AI Analysis</text>
+  
+  <!-- Legend -->
+  <rect x="550" y="520" width="200" height="70" fill="#ffffff" stroke="#bdc3c7" stroke-width="1" rx="3"/>
+  <text x="560" y="535" class="component" font-weight="bold">Legend:</text>
+  <line x1="560" y1="545" x2="580" y2="545" class="arrow"/>
+  <text x="585" y="550" class="component">System Flow</text>
+  <line x1="560" y1="560" x2="580" y2="560" class="data-flow"/>
+  <text x="585" y="565" class="component">Data Flow</text>
+  <rect x="560" y="570" width="15" height="10" fill="#3498db"/>
+  <text x="580" y="580" class="component">UI Components</text>
+</svg>

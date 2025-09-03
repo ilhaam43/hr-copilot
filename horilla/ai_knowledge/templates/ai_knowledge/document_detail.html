@@ -1,0 +1,470 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ document.title }} - AI Knowledge Management{% endblock %}
+
+{% block page_title %}{{ document.title|truncatechars:50 }}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item"><a href="{% url 'ai_knowledge:document_list' %}">{% trans "Documents" %}</a></li>
+<li class="breadcrumb-item active">{{ document.title|truncatechars:30 }}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    {% if document.file %}
+    <a href="{{ document.file.url }}" class="btn btn-outline-primary" target="_blank">
+        <i class="fas fa-download me-2"></i>
+        {% trans "Download" %}
+    </a>
+    {% endif %}
+    
+    {% if document.processing_status == 'failed' or document.processing_status == 'pending' %}
+    <button class="btn btn-outline-warning" onclick="reprocessDocument()">
+        <i class="fas fa-redo me-2"></i>
+        {% trans "Reprocess" %}
+    </button>
+    {% endif %}
+    
+    <button class="btn btn-outline-danger" onclick="deleteDocument()">
+        <i class="fas fa-trash me-2"></i>
+        {% trans "Delete" %}
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Document Information -->
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-file-{{ document.get_file_icon }} me-2"></i>
+                    {% trans "Document Information" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-sm-4">{% trans "Title" %}:</dt>
+                            <dd class="col-sm-8">{{ document.title }}</dd>
+                            
+                            <dt class="col-sm-4">{% trans "Category" %}:</dt>
+                            <dd class="col-sm-8">
+                                {% if document.category %}
+                                    <span class="badge bg-secondary">{{ document.category.name }}</span>
+                                {% else %}
+                                    <span class="text-muted">{% trans "No category" %}</span>
+                                {% endif %}
+                            </dd>
+                            
+                            <dt class="col-sm-4">{% trans "Language" %}:</dt>
+                            <dd class="col-sm-8">
+                                <span class="badge bg-info">{{ document.get_language_display }}</span>
+                            </dd>
+                            
+                            <dt class="col-sm-4">{% trans "File Size" %}:</dt>
+                            <dd class="col-sm-8">{{ document.file_size|filesizeformat }}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-6">
+                        <dl class="row">
+                            <dt class="col-sm-4">{% trans "Status" %}:</dt>
+                            <dd class="col-sm-8">
+                                {% if document.processing_status == 'completed' %}
+                                    <span class="badge bg-success">{% trans "Completed" %}</span>
+                                {% elif document.processing_status == 'processing' %}
+                                    <span class="badge bg-warning">
+                                        <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                                        {% trans "Processing" %}
+                                    </span>
+                                {% elif document.processing_status == 'failed' %}
+                                    <span class="badge bg-danger">{% trans "Failed" %}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{% trans "Pending" %}</span>
+                                {% endif %}
+                            </dd>
+                            
+                            <dt class="col-sm-4">{% trans "Uploaded" %}:</dt>
+                            <dd class="col-sm-8">{{ document.created_at|date:"M d, Y H:i" }}</dd>
+                            
+                            <dt class="col-sm-4">{% trans "Updated" %}:</dt>
+                            <dd class="col-sm-8">{{ document.updated_at|date:"M d, Y H:i" }}</dd>
+                            
+                            <dt class="col-sm-4">{% trans "Uploaded by" %}:</dt>
+                            <dd class="col-sm-8">
+                                {% if document.uploaded_by %}
+                                    {{ document.uploaded_by.get_full_name|default:document.uploaded_by.username }}
+                                {% else %}
+                                    <span class="text-muted">{% trans "Unknown" %}</span>
+                                {% endif %}
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                
+                {% if document.description %}
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <h6>{% trans "Description" %}</h6>
+                        <p class="text-muted">{{ document.description }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if document.processing_status == 'processing' and document.processing_progress %}
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <h6>{% trans "Processing Progress" %}</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">{% trans "Progress" %}</span>
+                            <span class="fw-bold">{{ document.processing_progress }}%</span>
+                        </div>
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 role="progressbar" style="width: {{ document.processing_progress }}%"></div>
+                        </div>
+                        {% if document.processing_message %}
+                        <small class="text-muted">{{ document.processing_message }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Processing Logs -->
+        {% if processing_logs %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list-alt me-2"></i>
+                    {% trans "Processing Logs" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    {% for log in processing_logs %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker">
+                            {% if log.status == 'success' %}
+                                <i class="fas fa-check text-success"></i>
+                            {% elif log.status == 'error' %}
+                                <i class="fas fa-times text-danger"></i>
+                            {% elif log.status == 'warning' %}
+                                <i class="fas fa-exclamation-triangle text-warning"></i>
+                            {% else %}
+                                <i class="fas fa-info text-info"></i>
+                            {% endif %}
+                        </div>
+                        <div class="timeline-content">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="mb-1">{{ log.operation }}</h6>
+                                    {% if log.message %}
+                                        <p class="mb-1 text-muted">{{ log.message }}</p>
+                                    {% endif %}
+                                </div>
+                                <small class="text-muted">{{ log.created_at|date:"M d, H:i" }}</small>
+                            </div>
+                            {% if log.details %}
+                            <div class="mt-2">
+                                <button class="btn btn-sm btn-outline-secondary" type="button" 
+                                        data-bs-toggle="collapse" data-bs-target="#logDetails{{ log.id }}">
+                                    {% trans "Show Details" %}
+                                </button>
+                                <div class="collapse mt-2" id="logDetails{{ log.id }}">
+                                    <pre class="bg-light p-2 rounded small">{{ log.details }}</pre>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Knowledge Base Entries -->
+        {% if knowledge_entries %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-database me-2"></i>
+                    {% trans "Knowledge Base Entries" %}
+                    <span class="badge bg-primary ms-2">{{ knowledge_entries.count }}</span>
+                </h5>
+                <a href="{% url 'ai_knowledge:knowledge_base_list' %}?document={{ document.id }}" 
+                   class="btn btn-sm btn-outline-primary">
+                    {% trans "View All" %}
+                </a>
+            </div>
+            <div class="card-body">
+                {% for entry in knowledge_entries|slice:":5" %}
+                <div class="border-bottom pb-3 mb-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-2">
+                                <a href="{% url 'ai_knowledge:knowledge_base_detail' entry.id %}" 
+                                   class="text-decoration-none">
+                                    {{ entry.title|truncatechars:60 }}
+                                </a>
+                            </h6>
+                            <p class="text-muted mb-2">{{ entry.content|truncatechars:150 }}</p>
+                            <div class="d-flex align-items-center">
+                                {% for tag in entry.tags.all|slice:":3" %}
+                                    <span class="badge bg-light text-dark me-1">{{ tag.name }}</span>
+                                {% endfor %}
+                                {% if entry.tags.count > 3 %}
+                                    <span class="text-muted small">+{{ entry.tags.count|add:"-3" }} more</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted">{{ entry.created_at|date:"M d" }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                {% if knowledge_entries.count > 5 %}
+                <div class="text-center">
+                    <a href="{% url 'ai_knowledge:knowledge_base_list' %}?document={{ document.id }}" 
+                       class="btn btn-outline-primary">
+                        {% trans "View" %} {{ knowledge_entries.count|add:"-5" }} {% trans "more entries" %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- Quick Actions -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-bolt me-2"></i>
+                    {% trans "Quick Actions" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    {% if document.processing_status == 'completed' %}
+                    <a href="{% url 'ai_knowledge:knowledge_base_list' %}?document={{ document.id }}" 
+                       class="btn btn-outline-primary">
+                        <i class="fas fa-database me-2"></i>
+                        {% trans "View Knowledge Entries" %}
+                    </a>
+                    
+                    <a href="{% url 'ai_knowledge:training_data_list' %}?document={{ document.id }}" 
+                       class="btn btn-outline-success">
+                        <i class="fas fa-brain me-2"></i>
+                        {% trans "View Training Data" %}
+                    </a>
+                    
+                    <a href="{% url 'ai_knowledge:ai_intent_list' %}?document={{ document.id }}" 
+                       class="btn btn-outline-info">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        {% trans "View Generated Intents" %}
+                    </a>
+                    {% endif %}
+                    
+                    {% if document.processing_status == 'failed' or document.processing_status == 'pending' %}
+                    <button class="btn btn-warning" onclick="reprocessDocument()">
+                        <i class="fas fa-redo me-2"></i>
+                        {% trans "Reprocess Document" %}
+                    </button>
+                    {% endif %}
+                    
+                    <a href="{% url 'ai_knowledge:document_list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        {% trans "Back to Documents" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics -->
+        {% if document.processing_status == 'completed' %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    {% trans "Statistics" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6 mb-3">
+                        <div class="border-end">
+                            <h4 class="text-primary mb-1">{{ knowledge_entries.count }}</h4>
+                            <small class="text-muted">{% trans "Knowledge Entries" %}</small>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h4 class="text-success mb-1">{{ training_data_count }}</h4>
+                        <small class="text-muted">{% trans "Training Data" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h4 class="text-info mb-1">{{ ai_intents_count }}</h4>
+                            <small class="text-muted">{% trans "AI Intents" %}</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-warning mb-1">{{ document.extracted_text|length|floatformat:0 }}</h4>
+                        <small class="text-muted">{% trans "Characters" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Related Documents -->
+        {% if related_documents %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-link me-2"></i>
+                    {% trans "Related Documents" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% for related in related_documents %}
+                <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">
+                        <i class="fas fa-file-{{ related.get_file_icon }} text-muted"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1">
+                            <a href="{% url 'ai_knowledge:document_detail' related.id %}" 
+                               class="text-decoration-none">
+                                {{ related.title|truncatechars:30 }}
+                            </a>
+                        </h6>
+                        <small class="text-muted">{{ related.created_at|date:"M d, Y" }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 30px;
+    width: 2px;
+    height: calc(100% + 10px);
+    background-color: #dee2e6;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 2px solid #dee2e6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+}
+
+.timeline-content {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #007bff;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Reprocess document
+function reprocessDocument() {
+    if (confirm('{% trans "Are you sure you want to reprocess this document?" %}')) {
+        fetch('/ai-knowledge/api/documents/{{ document.id }}/reprocess/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('{% trans "Error reprocessing document" %}');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('{% trans "Error reprocessing document" %}');
+        });
+    }
+}
+
+// Delete document
+function deleteDocument() {
+    if (confirm('{% trans "Are you sure you want to delete this document? This action cannot be undone." %}')) {
+        fetch('/ai-knowledge/api/documents/{{ document.id }}/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '{% url "ai_knowledge:document_list" %}';
+            } else {
+                alert('{% trans "Error deleting document" %}');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('{% trans "Error deleting document" %}');
+        });
+    }
+}
+
+// Auto-refresh if document is processing
+{% if document.processing_status == 'processing' %}
+setInterval(function() {
+    location.reload();
+}, 10000); // Refresh every 10 seconds
+{% endif %}
+</script>
+{% endblock %}

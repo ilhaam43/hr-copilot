@@ -1,0 +1,144 @@
+/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+INFO:     Started server process [30025]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:53320 - "GET /healthz HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53326 - "GET /healthz HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53327 - "POST /ingest HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/uvicorn/protocols/http/h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/anyio/_backends/_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "/Users/bonti.haryanto/hrcopilot/ai/hrcopilot_service.py", line 95, in ingest
+    if pts: qdrant.upsert(collection_name=COLL, points=pts)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/qdrant_client.py", line 1633, in upsert
+    return self._client.upsert(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/qdrant_remote.py", line 1911, in upsert
+    http_result = self.openapi_client.points_api.upsert_points(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api/points_api.py", line 987, in upsert_points
+    return self._build_for_upsert_points(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api/points_api.py", line 512, in _build_for_upsert_points
+    return self.api_client.request(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api_client.py", line 95, in request
+    return self.send(request, type_)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api_client.py", line 130, in send
+    raise UnexpectedResponse.for_response(response)
+qdrant_client.http.exceptions.UnexpectedResponse: Unexpected Response: 400 (Bad Request)
+Raw response content:
+b'{"status":{"error":"Wrong input: Vector dimension error: expected dim: 768, got 0"},"time":0.00487725}'
+INFO:     127.0.0.1:53334 - "POST /ask HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/uvicorn/protocols/http/h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/anyio/_backends/_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "/Users/bonti.haryanto/hrcopilot/ai/hrcopilot_service.py", line 117, in ask
+    hits = qdrant.search(collection_name=COLL, query_vector=embed(q), limit=req.k)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/qdrant_client.py", line 376, in search
+    return self._client.search(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/qdrant_remote.py", line 523, in search
+    search_result = self.http.search_api.search_points(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api/search_api.py", line 936, in search_points
+    return self._build_for_search_points(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api/search_api.py", line 487, in _build_for_search_points
+    return self.api_client.request(
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api_client.py", line 95, in request
+    return self.send(request, type_)
+  File "/Users/bonti.haryanto/hrcopilot/ai/.venv/lib/python3.9/site-packages/qdrant_client/http/api_client.py", line 130, in send
+    raise UnexpectedResponse.for_response(response)
+qdrant_client.http.exceptions.UnexpectedResponse: Unexpected Response: 400 (Bad Request)
+Raw response content:
+b'{"status":{"error":"Wrong input: Vector dimension error: expected dim: 768, got 0"},"time":0.0023945}'
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [30025]

@@ -1,0 +1,870 @@
+[
+  {
+    "model": "asset.assetcategory",
+    "pk": 100,
+    "fields": {
+      "asset_category_name": "IT Equipment",
+      "asset_category_description": "Peralatan teknologi informasi seperti laptop, desktop, server, dan perangkat jaringan",
+      "is_active": true,
+      "created_at": "2023-01-15T08:00:00Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetcategory",
+    "pk": 101,
+    "fields": {
+      "asset_category_name": "Office Furniture",
+      "asset_category_description": "Furniture kantor seperti meja, kursi, lemari, dan rak",
+      "is_active": true,
+      "created_at": "2023-01-15T08:15:00Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetcategory",
+    "pk": 102,
+    "fields": {
+      "asset_category_name": "Vehicles",
+      "asset_category_description": "Kendaraan perusahaan seperti mobil, motor, dan truk",
+      "is_active": true,
+      "created_at": "2023-01-15T08:30:00Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetcategory",
+    "pk": 103,
+    "fields": {
+      "asset_category_name": "Office Equipment",
+      "asset_category_description": "Peralatan kantor seperti printer, scanner, proyektor, dan mesin fotokopi",
+      "is_active": true,
+      "created_at": "2023-01-15T08:45:00Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetcategory",
+    "pk": 104,
+    "fields": {
+      "asset_category_name": "Security Equipment",
+      "asset_category_description": "Peralatan keamanan seperti CCTV, alarm, dan access control",
+      "is_active": true,
+      "created_at": "2023-01-15T09:00:00Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetcategory",
+    "pk": 105,
+    "fields": {
+      "asset_category_name": "Manufacturing Equipment",
+      "asset_category_description": "Peralatan produksi dan manufaktur",
+      "is_active": true,
+      "created_at": "2023-01-15T09:15:00Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 100,
+    "fields": {
+      "lot_number": "BATCH-IT-2023-001",
+      "lot_description": "Batch pembelian peralatan IT Q1 2023",
+      "is_active": true,
+      "created_at": "2024-10-02T15:54:41.280884Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 101,
+    "fields": {
+      "lot_number": "BATCH-FURNITURE-2023-001",
+      "lot_description": "Batch pembelian furniture kantor Q1 2023",
+      "is_active": true,
+      "created_at": "2025-02-06T12:46:30.701844Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 102,
+    "fields": {
+      "lot_number": "BATCH-VEHICLE-2023-001",
+      "lot_description": "Batch pembelian kendaraan operasional 2023",
+      "is_active": true,
+      "created_at": "2025-08-07T14:20:30.010109Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 103,
+    "fields": {
+      "lot_number": "BATCH-OFFICE-2023-001",
+      "lot_description": "Batch pembelian peralatan kantor Q1 2023",
+      "is_active": true,
+      "created_at": "2025-01-10T17:37:54.058470Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 104,
+    "fields": {
+      "lot_number": "BATCH-SECURITY-2023-001",
+      "lot_description": "Batch pembelian sistem keamanan 2023",
+      "is_active": true,
+      "created_at": "2025-01-07T07:25:05.800139Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 105,
+    "fields": {
+      "lot_number": "BATCH-MFG-2023-001",
+      "lot_description": "Batch pembelian peralatan manufaktur Q1 2023",
+      "is_active": true,
+      "created_at": "2025-04-07T02:51:46.850837Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 106,
+    "fields": {
+      "lot_number": "BATCH-IT-2023-002",
+      "lot_description": "Batch pembelian peralatan IT Q2 2023",
+      "is_active": true,
+      "created_at": "2025-06-13T20:16:16.294362Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 107,
+    "fields": {
+      "lot_number": "BATCH-FURNITURE-2023-002",
+      "lot_description": "Batch pembelian furniture kantor Q2 2023",
+      "is_active": true,
+      "created_at": "2025-08-23T17:16:07.207101Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.assetlot",
+    "pk": 108,
+    "fields": {
+      "lot_number": "BATCH-VEHICLE-2023-002",
+      "lot_description": "Batch pembelian kendaraan operasional Q2 2023",
+      "is_active": true,
+      "created_at": "2025-03-11T02:08:55.638761Z",
+      "company_id": []
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 100,
+    "fields": {
+      "asset_name": "Laptop Dell Latitude 5520",
+      "owner": null,
+      "asset_description": "Aset Laptop Dell Latitude 5520 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0100",
+      "asset_purchase_date": "2024-05-22",
+      "asset_purchase_cost": 15000000.0,
+      "asset_category_id": 100,
+      "asset_status": "Available",
+      "asset_lot_number_id": 100,
+      "expiry_date": "2028-09-26",
+      "notify_before": 24,
+      "is_active": true,
+      "created_at": "2025-04-17T08:26:12.143898Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 101,
+    "fields": {
+      "asset_name": "Laptop HP EliteBook 840",
+      "owner": null,
+      "asset_description": "Aset Laptop HP EliteBook 840 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0101",
+      "asset_purchase_date": "2024-07-23",
+      "asset_purchase_cost": 18000000.0,
+      "asset_category_id": 100,
+      "asset_status": "Available",
+      "asset_lot_number_id": 100,
+      "expiry_date": "2028-03-18",
+      "notify_before": 15,
+      "is_active": true,
+      "created_at": "2025-05-24T09:20:36.744189Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 102,
+    "fields": {
+      "asset_name": "Desktop Dell OptiPlex 7090",
+      "owner": null,
+      "asset_description": "Aset Desktop Dell OptiPlex 7090 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0102",
+      "asset_purchase_date": "2024-10-01",
+      "asset_purchase_cost": 12000000.0,
+      "asset_category_id": 100,
+      "asset_status": "In use",
+      "asset_lot_number_id": 100,
+      "expiry_date": "2029-09-22",
+      "notify_before": 9,
+      "is_active": true,
+      "created_at": "2025-02-05T22:57:09.174084Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 103,
+    "fields": {
+      "asset_name": "Monitor LG 24 inch",
+      "owner": null,
+      "asset_description": "Aset Monitor LG 24 inch dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0103",
+      "asset_purchase_date": "2025-05-23",
+      "asset_purchase_cost": 2500000.0,
+      "asset_category_id": 100,
+      "asset_status": "In use",
+      "asset_lot_number_id": 100,
+      "expiry_date": "2029-11-04",
+      "notify_before": 24,
+      "is_active": true,
+      "created_at": "2025-06-27T04:03:28.460457Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 104,
+    "fields": {
+      "asset_name": "Monitor Samsung 27 inch",
+      "owner": null,
+      "asset_description": "Aset Monitor Samsung 27 inch dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0104",
+      "asset_purchase_date": "2023-12-25",
+      "asset_purchase_cost": 3500000.0,
+      "asset_category_id": 100,
+      "asset_status": "Not-Available",
+      "asset_lot_number_id": 100,
+      "expiry_date": "2027-01-03",
+      "notify_before": 30,
+      "is_active": true,
+      "created_at": "2024-02-28T14:24:37.138504Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 105,
+    "fields": {
+      "asset_name": "Server Dell PowerEdge R740",
+      "owner": null,
+      "asset_description": "Aset Server Dell PowerEdge R740 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0105",
+      "asset_purchase_date": "2024-08-31",
+      "asset_purchase_cost": 85000000.0,
+      "asset_category_id": 100,
+      "asset_status": "Not-Available",
+      "asset_lot_number_id": 106,
+      "expiry_date": "2028-04-01",
+      "notify_before": 21,
+      "is_active": true,
+      "created_at": "2025-03-31T12:32:47.933317Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 106,
+    "fields": {
+      "asset_name": "Switch Cisco Catalyst 2960",
+      "owner": null,
+      "asset_description": "Aset Switch Cisco Catalyst 2960 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0106",
+      "asset_purchase_date": "2025-07-04",
+      "asset_purchase_cost": 8500000.0,
+      "asset_category_id": 100,
+      "asset_status": "Available",
+      "asset_lot_number_id": 106,
+      "expiry_date": "2028-10-14",
+      "notify_before": 14,
+      "is_active": true,
+      "created_at": "2025-07-15T21:21:26.262874Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 107,
+    "fields": {
+      "asset_name": "Router Cisco ISR 4331",
+      "owner": null,
+      "asset_description": "Aset Router Cisco ISR 4331 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0107",
+      "asset_purchase_date": "2023-09-25",
+      "asset_purchase_cost": 12500000.0,
+      "asset_category_id": 100,
+      "asset_status": "In use",
+      "asset_lot_number_id": 106,
+      "expiry_date": "2028-04-11",
+      "notify_before": 21,
+      "is_active": true,
+      "created_at": "2024-01-15T14:45:50.163228Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 108,
+    "fields": {
+      "asset_name": "UPS APC Smart-UPS 1500VA",
+      "owner": null,
+      "asset_description": "Aset UPS APC Smart-UPS 1500VA dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0108",
+      "asset_purchase_date": "2025-02-26",
+      "asset_purchase_cost": 4500000.0,
+      "asset_category_id": 100,
+      "asset_status": "Not-Available",
+      "asset_lot_number_id": 106,
+      "expiry_date": "2029-09-28",
+      "notify_before": 27,
+      "is_active": true,
+      "created_at": "2025-03-11T12:57:05.084005Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 109,
+    "fields": {
+      "asset_name": "Tablet iPad Air",
+      "owner": null,
+      "asset_description": "Aset Tablet iPad Air dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-100-0109",
+      "asset_purchase_date": "2024-09-28",
+      "asset_purchase_cost": 8500000.0,
+      "asset_category_id": 100,
+      "asset_status": "In use",
+      "asset_lot_number_id": 106,
+      "expiry_date": "2027-12-07",
+      "notify_before": 10,
+      "is_active": true,
+      "created_at": "2024-10-26T05:39:34.395780Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 110,
+    "fields": {
+      "asset_name": "Meja Kerja Executive",
+      "owner": null,
+      "asset_description": "Aset Meja Kerja Executive dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0110",
+      "asset_purchase_date": "2024-02-15",
+      "asset_purchase_cost": 3500000.0,
+      "asset_category_id": 101,
+      "asset_status": "Available",
+      "asset_lot_number_id": 101,
+      "expiry_date": "2028-07-08",
+      "notify_before": 23,
+      "is_active": true,
+      "created_at": "2024-07-27T10:19:19.284224Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 111,
+    "fields": {
+      "asset_name": "Kursi Kantor Ergonomis",
+      "owner": null,
+      "asset_description": "Aset Kursi Kantor Ergonomis dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0111",
+      "asset_purchase_date": "2024-12-10",
+      "asset_purchase_cost": 2500000.0,
+      "asset_category_id": 101,
+      "asset_status": "Available",
+      "asset_lot_number_id": 101,
+      "expiry_date": "2028-10-05",
+      "notify_before": 9,
+      "is_active": true,
+      "created_at": "2025-06-25T04:52:46.573764Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 112,
+    "fields": {
+      "asset_name": "Lemari Arsip 4 Pintu",
+      "owner": null,
+      "asset_description": "Aset Lemari Arsip 4 Pintu dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0112",
+      "asset_purchase_date": "2024-05-04",
+      "asset_purchase_cost": 4500000.0,
+      "asset_category_id": 101,
+      "asset_status": "In use",
+      "asset_lot_number_id": 101,
+      "expiry_date": "2028-11-22",
+      "notify_before": 30,
+      "is_active": true,
+      "created_at": "2025-02-28T10:42:18.148184Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 113,
+    "fields": {
+      "asset_name": "Meja Meeting 8 Orang",
+      "owner": null,
+      "asset_description": "Aset Meja Meeting 8 Orang dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0113",
+      "asset_purchase_date": "2024-04-16",
+      "asset_purchase_cost": 8500000.0,
+      "asset_category_id": 101,
+      "asset_status": "Available",
+      "asset_lot_number_id": 101,
+      "expiry_date": "2027-04-20",
+      "notify_before": 14,
+      "is_active": true,
+      "created_at": "2025-07-17T15:22:00.831419Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 114,
+    "fields": {
+      "asset_name": "Kursi Meeting",
+      "owner": null,
+      "asset_description": "Aset Kursi Meeting dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0114",
+      "asset_purchase_date": "2025-06-21",
+      "asset_purchase_cost": 1500000.0,
+      "asset_category_id": 101,
+      "asset_status": "Available",
+      "asset_lot_number_id": 101,
+      "expiry_date": "2029-07-19",
+      "notify_before": 9,
+      "is_active": true,
+      "created_at": "2025-08-09T15:28:49.142556Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 115,
+    "fields": {
+      "asset_name": "Rak Buku 5 Tingkat",
+      "owner": null,
+      "asset_description": "Aset Rak Buku 5 Tingkat dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0115",
+      "asset_purchase_date": "2024-10-20",
+      "asset_purchase_cost": 2800000.0,
+      "asset_category_id": 101,
+      "asset_status": "In use",
+      "asset_lot_number_id": 107,
+      "expiry_date": "2028-03-06",
+      "notify_before": 10,
+      "is_active": true,
+      "created_at": "2025-03-01T19:50:19.013293Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 116,
+    "fields": {
+      "asset_name": "Sofa Ruang Tamu 3 Dudukan",
+      "owner": null,
+      "asset_description": "Aset Sofa Ruang Tamu 3 Dudukan dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0116",
+      "asset_purchase_date": "2025-02-07",
+      "asset_purchase_cost": 6500000.0,
+      "asset_category_id": 101,
+      "asset_status": "Not-Available",
+      "asset_lot_number_id": 107,
+      "expiry_date": "2029-07-24",
+      "notify_before": 8,
+      "is_active": true,
+      "created_at": "2025-03-15T01:47:49.234561Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 117,
+    "fields": {
+      "asset_name": "Meja Resepsionis",
+      "owner": null,
+      "asset_description": "Aset Meja Resepsionis dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-101-0117",
+      "asset_purchase_date": "2023-12-28",
+      "asset_purchase_cost": 5500000.0,
+      "asset_category_id": 101,
+      "asset_status": "In use",
+      "asset_lot_number_id": 107,
+      "expiry_date": "2028-06-17",
+      "notify_before": 19,
+      "is_active": true,
+      "created_at": "2024-09-27T08:39:51.136035Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 118,
+    "fields": {
+      "asset_name": "Toyota Avanza 2022",
+      "owner": null,
+      "asset_description": "Aset Toyota Avanza 2022 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-102-0118",
+      "asset_purchase_date": "2023-12-16",
+      "asset_purchase_cost": 220000000.0,
+      "asset_category_id": 102,
+      "asset_status": "Available",
+      "asset_lot_number_id": 102,
+      "expiry_date": "2028-06-11",
+      "notify_before": 25,
+      "is_active": true,
+      "created_at": "2024-12-18T10:15:04.477890Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 119,
+    "fields": {
+      "asset_name": "Honda CR-V 2023",
+      "owner": null,
+      "asset_description": "Aset Honda CR-V 2023 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-102-0119",
+      "asset_purchase_date": "2025-06-11",
+      "asset_purchase_cost": 450000000.0,
+      "asset_category_id": 102,
+      "asset_status": "Available",
+      "asset_lot_number_id": 102,
+      "expiry_date": "2029-09-26",
+      "notify_before": 14,
+      "is_active": true,
+      "created_at": "2025-08-16T20:14:01.834006Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 120,
+    "fields": {
+      "asset_name": "Isuzu D-Max 2022",
+      "owner": null,
+      "asset_description": "Aset Isuzu D-Max 2022 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-102-0120",
+      "asset_purchase_date": "2024-06-21",
+      "asset_purchase_cost": 380000000.0,
+      "asset_category_id": 102,
+      "asset_status": "Not-Available",
+      "asset_lot_number_id": 102,
+      "expiry_date": "2029-06-09",
+      "notify_before": 16,
+      "is_active": true,
+      "created_at": "2024-07-31T18:52:00.738530Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 121,
+    "fields": {
+      "asset_name": "Honda Beat 2023",
+      "owner": null,
+      "asset_description": "Aset Honda Beat 2023 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-102-0121",
+      "asset_purchase_date": "2025-04-30",
+      "asset_purchase_cost": 18500000.0,
+      "asset_category_id": 102,
+      "asset_status": "Available",
+      "asset_lot_number_id": 108,
+      "expiry_date": "2029-12-20",
+      "notify_before": 8,
+      "is_active": true,
+      "created_at": "2025-06-28T20:21:18.912717Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 122,
+    "fields": {
+      "asset_name": "Yamaha NMAX 2023",
+      "owner": null,
+      "asset_description": "Aset Yamaha NMAX 2023 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-102-0122",
+      "asset_purchase_date": "2024-07-04",
+      "asset_purchase_cost": 32500000.0,
+      "asset_category_id": 102,
+      "asset_status": "Available",
+      "asset_lot_number_id": 108,
+      "expiry_date": "2029-04-06",
+      "notify_before": 18,
+      "is_active": true,
+      "created_at": "2024-07-25T09:48:43.480689Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 123,
+    "fields": {
+      "asset_name": "Printer HP LaserJet Pro",
+      "owner": null,
+      "asset_description": "Aset Printer HP LaserJet Pro dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-103-0123",
+      "asset_purchase_date": "2025-07-22",
+      "asset_purchase_cost": 4500000.0,
+      "asset_category_id": 103,
+      "asset_status": "In use",
+      "asset_lot_number_id": 103,
+      "expiry_date": "2030-01-30",
+      "notify_before": 18,
+      "is_active": true,
+      "created_at": "2025-08-19T04:02:13.916677Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 124,
+    "fields": {
+      "asset_name": "Scanner Canon DR-C225",
+      "owner": null,
+      "asset_description": "Aset Scanner Canon DR-C225 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-103-0124",
+      "asset_purchase_date": "2024-11-18",
+      "asset_purchase_cost": 8500000.0,
+      "asset_category_id": 103,
+      "asset_status": "Available",
+      "asset_lot_number_id": 103,
+      "expiry_date": "2028-06-15",
+      "notify_before": 17,
+      "is_active": true,
+      "created_at": "2025-06-30T15:11:23.447037Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 125,
+    "fields": {
+      "asset_name": "Proyektor Epson EB-X41",
+      "owner": null,
+      "asset_description": "Aset Proyektor Epson EB-X41 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-103-0125",
+      "asset_purchase_date": "2025-03-11",
+      "asset_purchase_cost": 6500000.0,
+      "asset_category_id": 103,
+      "asset_status": "In use",
+      "asset_lot_number_id": 103,
+      "expiry_date": "2029-10-14",
+      "notify_before": 26,
+      "is_active": true,
+      "created_at": "2025-06-03T19:00:02.533159Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 126,
+    "fields": {
+      "asset_name": "Mesin Fotokopi Canon iR2625",
+      "owner": null,
+      "asset_description": "Aset Mesin Fotokopi Canon iR2625 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-103-0126",
+      "asset_purchase_date": "2023-09-05",
+      "asset_purchase_cost": 25000000.0,
+      "asset_category_id": 103,
+      "asset_status": "Available",
+      "asset_lot_number_id": 103,
+      "expiry_date": "2027-03-11",
+      "notify_before": 30,
+      "is_active": true,
+      "created_at": "2025-07-07T20:06:10.792861Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 127,
+    "fields": {
+      "asset_name": "Shredder Fellowes 79Ci",
+      "owner": null,
+      "asset_description": "Aset Shredder Fellowes 79Ci dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-103-0127",
+      "asset_purchase_date": "2024-05-02",
+      "asset_purchase_cost": 3500000.0,
+      "asset_category_id": 103,
+      "asset_status": "Available",
+      "asset_lot_number_id": 103,
+      "expiry_date": "2028-04-07",
+      "notify_before": 15,
+      "is_active": true,
+      "created_at": "2025-03-29T03:27:45.536313Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 128,
+    "fields": {
+      "asset_name": "Laminator GBC Fusion 3000L",
+      "owner": null,
+      "asset_description": "Aset Laminator GBC Fusion 3000L dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-103-0128",
+      "asset_purchase_date": "2025-08-28",
+      "asset_purchase_cost": 2800000.0,
+      "asset_category_id": 103,
+      "asset_status": "Available",
+      "asset_lot_number_id": 103,
+      "expiry_date": "2029-12-29",
+      "notify_before": 19,
+      "is_active": true,
+      "created_at": "2025-08-28T06:18:24.435939Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 129,
+    "fields": {
+      "asset_name": "CCTV Hikvision DS-2CD2143G0",
+      "owner": null,
+      "asset_description": "Aset CCTV Hikvision DS-2CD2143G0 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-104-0129",
+      "asset_purchase_date": "2025-01-09",
+      "asset_purchase_cost": 2500000.0,
+      "asset_category_id": 104,
+      "asset_status": "Not-Available",
+      "asset_lot_number_id": 104,
+      "expiry_date": "2028-04-21",
+      "notify_before": 23,
+      "is_active": true,
+      "created_at": "2025-04-30T03:00:41.247623Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 130,
+    "fields": {
+      "asset_name": "DVR Hikvision DS-7608NI",
+      "owner": null,
+      "asset_description": "Aset DVR Hikvision DS-7608NI dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-104-0130",
+      "asset_purchase_date": "2024-01-29",
+      "asset_purchase_cost": 4500000.0,
+      "asset_category_id": 104,
+      "asset_status": "Available",
+      "asset_lot_number_id": 104,
+      "expiry_date": "2028-07-05",
+      "notify_before": 20,
+      "is_active": true,
+      "created_at": "2024-04-13T04:23:24.019682Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 131,
+    "fields": {
+      "asset_name": "Access Control ZKTeco inBio160",
+      "owner": null,
+      "asset_description": "Aset Access Control ZKTeco inBio160 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-104-0131",
+      "asset_purchase_date": "2024-03-21",
+      "asset_purchase_cost": 8500000.0,
+      "asset_category_id": 104,
+      "asset_status": "Available",
+      "asset_lot_number_id": 104,
+      "expiry_date": "2028-06-22",
+      "notify_before": 14,
+      "is_active": true,
+      "created_at": "2025-07-18T09:27:52.005186Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 132,
+    "fields": {
+      "asset_name": "Alarm System Paradox SP4000",
+      "owner": null,
+      "asset_description": "Aset Alarm System Paradox SP4000 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-104-0132",
+      "asset_purchase_date": "2024-11-11",
+      "asset_purchase_cost": 6500000.0,
+      "asset_category_id": 104,
+      "asset_status": "Available",
+      "asset_lot_number_id": 104,
+      "expiry_date": "2028-10-12",
+      "notify_before": 22,
+      "is_active": true,
+      "created_at": "2025-08-01T23:15:25.544126Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 133,
+    "fields": {
+      "asset_name": "Mesin CNC Haas VF-2",
+      "owner": null,
+      "asset_description": "Aset Mesin CNC Haas VF-2 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-105-0133",
+      "asset_purchase_date": "2023-12-05",
+      "asset_purchase_cost": 850000000.0,
+      "asset_category_id": 105,
+      "asset_status": "In use",
+      "asset_lot_number_id": 105,
+      "expiry_date": "2028-07-28",
+      "notify_before": 25,
+      "is_active": true,
+      "created_at": "2023-12-24T14:56:53.033570Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 134,
+    "fields": {
+      "asset_name": "Kompresor Atlas Copco GA22",
+      "owner": null,
+      "asset_description": "Aset Kompresor Atlas Copco GA22 dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-105-0134",
+      "asset_purchase_date": "2024-05-05",
+      "asset_purchase_cost": 125000000.0,
+      "asset_category_id": 105,
+      "asset_status": "Available",
+      "asset_lot_number_id": 105,
+      "expiry_date": "2029-04-14",
+      "notify_before": 20,
+      "is_active": true,
+      "created_at": "2024-05-09T09:35:58.370421Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 135,
+    "fields": {
+      "asset_name": "Forklift Toyota 8FBE15U",
+      "owner": null,
+      "asset_description": "Aset Forklift Toyota 8FBE15U dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-105-0135",
+      "asset_purchase_date": "2023-09-23",
+      "asset_purchase_cost": 185000000.0,
+      "asset_category_id": 105,
+      "asset_status": "In use",
+      "asset_lot_number_id": 105,
+      "expiry_date": "2027-12-14",
+      "notify_before": 18,
+      "is_active": true,
+      "created_at": "2024-03-13T06:06:30.322639Z"
+    }
+  },
+  {
+    "model": "asset.asset",
+    "pk": 136,
+    "fields": {
+      "asset_name": "Welding Machine Lincoln Electric",
+      "owner": null,
+      "asset_description": "Aset Welding Machine Lincoln Electric dengan kondisi baik dan siap digunakan",
+      "asset_tracking_id": "AST-105-0136",
+      "asset_purchase_date": "2025-07-23",
+      "asset_purchase_cost": 25000000.0,
+      "asset_category_id": 105,
+      "asset_status": "Available",
+      "asset_lot_number_id": 105,
+      "expiry_date": "2029-12-21",
+      "notify_before": 16,
+      "is_active": true,
+      "created_at": "2025-08-26T15:05:35.166060Z"
+    }
+  }
+]

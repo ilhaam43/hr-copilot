@@ -1,0 +1,10 @@
+Test Document for AI Knowledge Upload
+
+This is a test document to verify the document upload functionality.
+
+Content:
+- HR Policy: Employee handbook guidelines
+- Training Material: Basic onboarding procedures
+- Company Guidelines: Code of conduct
+
+This document should be processed successfully by the AI Knowledge system.

@@ -1,0 +1,190 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% trans "Budget List" %}
+{% endblock %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <div class="oh-main-container">
+        <div class="oh-main-content">
+            <!-- Page Header -->
+            <div class="oh-title-container">
+                <div class="oh-title-path">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'budget-dashboard' %}">{% trans "Budget Control" %}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                {% trans "Budgets" %}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="oh-title">
+                    <h1 class="oh-title-text">{% trans "Budget List" %}</h1>
+                    <div class="oh-title-actions">
+                        <a href="{% url 'budget-create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> {% trans "Create Budget" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Form -->
+            <div class="oh-card mb-3">
+                <div class="oh-card__body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-3">
+                            {{ filter_form.department }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ filter_form.category }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ filter_form.status }}
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fas fa-filter"></i> {% trans "Filter" %}
+                            </button>
+                            <a href="{% url 'budget-list' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-times"></i> {% trans "Clear" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Budget List -->
+            <div class="oh-card">
+                <div class="oh-card__body">
+                    {% if budgets %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Name" %}</th>
+                                        <th>{% trans "Department" %}</th>
+                                        <th>{% trans "Category" %}</th>
+                                        <th>{% trans "Total Amount" %}</th>
+                                        <th>{% trans "Spent" %}</th>
+                                        <th>{% trans "Remaining" %}</th>
+                                        <th>{% trans "Utilization" %}</th>
+                                        <th>{% trans "Status" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for budget in budgets %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'budget-detail' budget.id %}" class="text-decoration-none">
+                                                <strong>{{ budget.name }}</strong>
+                                            </a>
+                                            {% if budget.description %}
+                                                <br><small class="text-muted">{{ budget.description|truncatechars:50 }}</small>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ budget.department.department }}</td>
+                                        <td>{{ budget.category.name }}</td>
+                                        <td>${{ budget.total_amount|floatformat:2 }}</td>
+                                        <td>${{ budget.spent_amount|floatformat:2 }}</td>
+                                        <td>${{ budget.remaining_amount|floatformat:2 }}</td>
+                                        <td>
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar {% if budget.utilization_percentage > 90 %}bg-danger{% elif budget.utilization_percentage > 75 %}bg-warning{% else %}bg-success{% endif %}" 
+                                                     role="progressbar" 
+                                                     style="width: {{ budget.utilization_percentage }}%" 
+                                                     aria-valuenow="{{ budget.utilization_percentage }}" 
+                                                     aria-valuemin="0" 
+                                                     aria-valuemax="100">
+                                                    {{ budget.utilization_percentage|floatformat:1 }}%
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-{% if budget.status == 'active' %}success{% elif budget.status == 'approved' %}info{% elif budget.status == 'completed' %}secondary{% elif budget.status == 'cancelled' %}danger{% else %}warning{% endif %}">
+                                                {{ budget.get_status_display }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                    {% trans "Actions" %}
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="{% url 'budget-detail' budget.id %}"><i class="fas fa-eye"></i> {% trans "View" %}</a></li>
+                                                    {% if budget.status == 'draft' or budget.status == 'approved' %}
+                                                        <li><a class="dropdown-item" href="{% url 'budget-update' budget.id %}"><i class="fas fa-edit"></i> {% trans "Edit" %}</a></li>
+                                                    {% endif %}
+                                                    {% if budget.status == 'draft' %}
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><a class="dropdown-item text-danger" href="{% url 'budget-delete' budget.id %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        {% if is_paginated %}
+                            <nav aria-label="Budget pagination">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1{% if request.GET.department %}&department={{ request.GET.department }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                                                {% trans "First" %}
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.department %}&department={{ request.GET.department }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                                                {% trans "Previous" %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+
+                                    <li class="page-item active">
+                                        <span class="page-link">
+                                            {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}
+                                        </span>
+                                    </li>
+
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.department %}&department={{ request.GET.department }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                                                {% trans "Next" %}
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.department %}&department={{ request.GET.department }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                                                {% trans "Last" %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center py-5">
+                            <i class="fas fa-wallet fa-3x text-muted mb-3"></i>
+                            <h4 class="text-muted">{% trans "No budgets found" %}</h4>
+                            <p class="text-muted">{% trans "Create your first budget to get started" %}</p>
+                            <a href="{% url 'budget-create' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> {% trans "Create Budget" %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

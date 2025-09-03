@@ -1,0 +1,328 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Upload Document - AI Knowledge Management{% endblock %}
+
+{% block page_title %}{% trans "Upload Document" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">{% trans "Upload Document" %}</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-upload me-2"></i>
+                    {% trans "Upload Document for AI Training" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" id="uploadForm">
+                    {% csrf_token %}
+                    
+                    <!-- Upload Area -->
+                    <div class="upload-area mb-4" id="uploadArea">
+                        <div class="text-center">
+                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">{% trans "Drag and drop files here" %}</h5>
+                            <p class="text-muted mb-3">{% trans "or click to browse files" %}</p>
+                            <input type="file" name="file" id="fileInput" class="d-none" 
+                                   accept=".pdf,.doc,.docx,.txt,.xlsx,.xls" multiple>
+                            <button type="button" class="btn btn-outline-primary" 
+                                    onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-folder-open me-2"></i>
+                                {% trans "Browse Files" %}
+                            </button>
+                        </div>
+                        
+                        <!-- File Preview -->
+                        <div id="filePreview" class="mt-4" style="display: none;">
+                            <h6>{% trans "Selected Files:" %}</h6>
+                            <div id="fileList"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Fields -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">
+                                {{ form.title.label }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.title.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.category.id_for_label }}" class="form-label">
+                                {{ form.category.label }}
+                            </label>
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.category.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                            {{ form.description.label }}
+                        </label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.description.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.language.id_for_label }}" class="form-label">
+                                {{ form.language.label }}
+                            </label>
+                            {{ form.language }}
+                            {% if form.language.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.language.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check mt-4">
+                                {{ form.auto_process }}
+                                <label class="form-check-label" for="{{ form.auto_process.id_for_label }}">
+                                    {{ form.auto_process.label }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Upload Progress -->
+                    <div id="uploadProgress" class="mb-3" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">{% trans "Uploading..." %}</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="progressBar" role="progressbar" 
+                                 style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'ai_knowledge:dashboard' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            {% trans "Back to Dashboard" %}
+                        </a>
+                        
+                        <div>
+                            <button type="button" class="btn btn-outline-primary me-2" onclick="resetForm()">
+                                <i class="fas fa-undo me-2"></i>
+                                {% trans "Reset" %}
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <i class="fas fa-upload me-2"></i>
+                                {% trans "Upload Document" %}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Upload Guidelines -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% trans "Upload Guidelines" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">{% trans "Supported Formats" %}</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-file-pdf text-danger me-2"></i>PDF Documents</li>
+                            <li><i class="fas fa-file-word text-primary me-2"></i>Word Documents (.doc, .docx)</li>
+                            <li><i class="fas fa-file-excel text-success me-2"></i>Excel Files (.xlsx, .xls)</li>
+                            <li><i class="fas fa-file-alt text-secondary me-2"></i>Text Files (.txt)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-primary">{% trans "Best Practices" %}</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Use descriptive titles" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Categorize documents properly" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Maximum file size: 50MB" %}</li>
+                            <li><i class="fas fa-check text-success me-2"></i>{% trans "Enable auto-processing for faster training" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// File input handling
+document.getElementById('fileInput').addEventListener('change', function(e) {
+    const files = e.target.files;
+    if (files.length > 0) {
+        showFilePreview(files);
+    }
+});
+
+// Drag and drop functionality
+const uploadArea = document.getElementById('uploadArea');
+
+uploadArea.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    uploadArea.classList.add('dragover');
+});
+
+uploadArea.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+});
+
+uploadArea.addEventListener('drop', function(e) {
+    e.preventDefault();
+    uploadArea.classList.remove('dragover');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        document.getElementById('fileInput').files = files;
+        showFilePreview(files);
+    }
+});
+
+// Show file preview
+function showFilePreview(files) {
+    const filePreview = document.getElementById('filePreview');
+    const fileList = document.getElementById('fileList');
+    
+    fileList.innerHTML = '';
+    
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileItem = document.createElement('div');
+        fileItem.className = 'border rounded p-2 mb-2';
+        
+        const fileIcon = getFileIcon(file.name);
+        const fileSize = formatFileSize(file.size);
+        
+        fileItem.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="${fileIcon} me-2"></i>
+                    <strong>${file.name}</strong>
+                    <br>
+                    <small class="text-muted">${fileSize}</small>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-danger" 
+                        onclick="removeFile(${i})">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        fileList.appendChild(fileItem);
+    }
+    
+    filePreview.style.display = 'block';
+}
+
+// Get file icon based on extension
+function getFileIcon(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    switch (ext) {
+        case 'pdf': return 'fas fa-file-pdf text-danger';
+        case 'doc':
+        case 'docx': return 'fas fa-file-word text-primary';
+        case 'xlsx':
+        case 'xls': return 'fas fa-file-excel text-success';
+        case 'txt': return 'fas fa-file-alt text-secondary';
+        default: return 'fas fa-file text-muted';
+    }
+}
+
+// Format file size
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Remove file from selection
+function removeFile(index) {
+    const fileInput = document.getElementById('fileInput');
+    const dt = new DataTransfer();
+    const files = fileInput.files;
+    
+    for (let i = 0; i < files.length; i++) {
+        if (i !== index) {
+            dt.items.add(files[i]);
+        }
+    }
+    
+    fileInput.files = dt.files;
+    
+    if (dt.files.length > 0) {
+        showFilePreview(dt.files);
+    } else {
+        document.getElementById('filePreview').style.display = 'none';
+    }
+}
+
+// Reset form
+function resetForm() {
+    document.getElementById('uploadForm').reset();
+    document.getElementById('filePreview').style.display = 'none';
+    document.getElementById('uploadProgress').style.display = 'none';
+}
+
+// Form submission with progress
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length === 0) {
+        e.preventDefault();
+        alert('Please select at least one file to upload.');
+        return;
+    }
+    
+    // Show progress bar
+    document.getElementById('uploadProgress').style.display = 'block';
+    document.getElementById('submitBtn').disabled = true;
+    
+    // Simulate progress (in real implementation, use XMLHttpRequest for actual progress)
+    let progress = 0;
+    const progressInterval = setInterval(function() {
+        progress += 10;
+        document.getElementById('progressBar').style.width = progress + '%';
+        document.getElementById('progressPercent').textContent = progress + '%';
+        
+        if (progress >= 90) {
+            clearInterval(progressInterval);
+        }
+    }, 200);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Edit AI Intent" %} - AI Knowledge{% endblock %}
+
+{% block main_content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-edit me-2"></i>
+                    {% trans "Edit AI Intent" %}: {{ intent.name }}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.name.id_for_label }}" class="form-label">
+                            {{ form.name.label }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.name.errors.0 }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            {% trans "Enter a unique name for this AI intent" %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                            {{ form.description.label }}
+                        </label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.description.errors.0 }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            {% trans "Describe what this intent is designed to handle" %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.confidence_threshold.id_for_label }}" class="form-label">
+                            {{ form.confidence_threshold.label }}
+                        </label>
+                        {{ form.confidence_threshold }}
+                        {% if form.confidence_threshold.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.confidence_threshold.errors.0 }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            {% trans "Minimum confidence score (0.0 - 1.0) required to trigger this intent" %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.is_active }}
+                            <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                {{ form.is_active.label }}
+                            </label>
+                        </div>
+                        {% if form.is_active.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.is_active.errors.0 }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            {% trans "Enable this intent for AI processing" %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'ai_knowledge:ai_intent_detail' intent.id %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            {% trans "Cancel" %}
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>
+                            {% trans "Update Intent" %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% trans "Intent Information" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>{% trans "Created:" %}</strong><br>
+                    <small class="text-muted">{{ intent.created_at|date:"M d, Y H:i" }}</small>
+                </div>
+                
+                <div class="mb-3">
+                    <strong>{% trans "Last Updated:" %}</strong><br>
+                    <small class="text-muted">{{ intent.updated_at|date:"M d, Y H:i" }}</small>
+                </div>
+                
+                {% if intent.source_documents.exists %}
+                <div class="mb-3">
+                    <strong>{% trans "Source Documents:" %}</strong><br>
+                    {% for doc in intent.source_documents.all %}
+                        <small class="text-muted d-block">
+                            <i class="fas fa-file me-1"></i>
+                            {{ doc.title|truncatechars:30 }}
+                        </small>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="alert alert-info">
+                    <h6>{% trans "Editing Tips:" %}</h6>
+                    <ul class="mb-0">
+                        <li>{% trans "Changes will affect AI processing immediately" %}</li>
+                        <li>{% trans "Test the intent after making changes" %}</li>
+                        <li>{% trans "Consider updating training data" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="card-title mb-0">
+                    <i class="fas fa-cogs me-2"></i>
+                    {% trans "Quick Actions" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'ai_knowledge:ai_intent_detail' intent.id %}" class="btn btn-outline-info btn-sm">
+                        <i class="fas fa-eye me-2"></i>
+                        {% trans "View Details" %}
+                    </a>
+                    <button class="btn btn-outline-warning btn-sm" onclick="testIntent()">
+                        <i class="fas fa-flask me-2"></i>
+                        {% trans "Test Intent" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Test intent function
+function testIntent() {
+    // This would open a modal or redirect to test page
+    alert('Test intent functionality would be implemented here');
+}
+</script>
+{% endblock %}

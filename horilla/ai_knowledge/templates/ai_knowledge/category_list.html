@@ -1,0 +1,427 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Categories - AI Knowledge Management{% endblock %}
+
+{% block page_title %}{% trans "Document Categories" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">{% trans "Categories" %}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'ai_knowledge:category_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>
+        {% trans "Add Category" %}
+    </a>
+    <button class="btn btn-outline-info" onclick="showCategoryStats()">
+        <i class="fas fa-chart-bar me-2"></i>
+        {% trans "View Statistics" %}
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Search Bar -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" name="search" class="form-control" 
+                           placeholder="{% trans 'Search categories...' %}" 
+                           value="{{ request.GET.search }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select name="sort" class="form-select">
+                    <option value="name" {% if request.GET.sort == 'name' %}selected{% endif %}>
+                        {% trans "Name A-Z" %}
+                    </option>
+                    <option value="-name" {% if request.GET.sort == '-name' %}selected{% endif %}>
+                        {% trans "Name Z-A" %}
+                    </option>
+                    <option value="-created_at" {% if request.GET.sort == '-created_at' %}selected{% endif %}>
+                        {% trans "Newest First" %}
+                    </option>
+                    <option value="created_at" {% if request.GET.sort == 'created_at' %}selected{% endif %}>
+                        {% trans "Oldest First" %}
+                    </option>
+                    <option value="-document_count" {% if request.GET.sort == '-document_count' %}selected{% endif %}>
+                        {% trans "Most Documents" %}
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group w-100" role="group">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="fas fa-filter me-2"></i>
+                        {% trans "Filter" %}
+                    </button>
+                    <a href="{% url 'ai_knowledge:category_list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>
+                        {% trans "Clear" %}
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Categories Grid -->
+<div class="row">
+    {% if categories %}
+        {% for category in categories %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 category-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">
+                        <i class="fas fa-folder me-2" style="color: {{ category.color|default:'#6c757d' }};"></i>
+                        {{ category.name }}
+                    </h6>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" 
+                                data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'ai_knowledge:edit_category' category.id %}">
+                                    <i class="fas fa-edit me-2"></i>{% trans "Edit" %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'ai_knowledge:document_list' %}?category={{ category.id }}">
+                                    <i class="fas fa-file me-2"></i>{% trans "View Documents" %}
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <button class="dropdown-item text-danger" onclick="deleteCategory({{ category.id }}, '{{ category.name|escapejs }}')">
+                                    <i class="fas fa-trash me-2"></i>{% trans "Delete" %}
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    {% if category.description %}
+                    <p class="card-text text-muted mb-3">{{ category.description|truncatechars:120 }}</p>
+                    {% else %}
+                    <p class="card-text text-muted mb-3 fst-italic">{% trans "No description provided" %}</p>
+                    {% endif %}
+                    
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div class="border-end">
+                                <h5 class="mb-0 text-primary">{{ category.document_count|default:0 }}</h5>
+                                <small class="text-muted">{% trans "Documents" %}</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border-end">
+                                <h5 class="mb-0 text-success">{{ category.knowledge_entries_count|default:0 }}</h5>
+                                <small class="text-muted">{% trans "Knowledge" %}</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <h5 class="mb-0 text-info">{{ category.training_data_count|default:0 }}</h5>
+                            <small class="text-muted">{% trans "Training" %}</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-transparent">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            {{ category.created_at|date:"M d, Y" }}
+                        </small>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="{% url 'ai_knowledge:edit_category' category.id %}" 
+                               class="btn btn-outline-primary" title="{% trans 'Edit Category' %}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'ai_knowledge:document_list' %}?category={{ category.id }}" 
+                               class="btn btn-outline-success" title="{% trans 'View Documents' %}">
+                                <i class="fas fa-file"></i>
+                            </a>
+                            {% if category.document_count == 0 %}
+                            <button class="btn btn-outline-danger" 
+                                    onclick="deleteCategory({{ category.id }}, '{{ category.name|escapejs }}')" 
+                                    title="{% trans 'Delete Category' %}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            {% else %}
+                            <button class="btn btn-outline-secondary" disabled 
+                                    title="{% trans 'Cannot delete category with documents' %}">
+                                <i class="fas fa-lock"></i>
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-folder-open fa-4x text-muted mb-4"></i>
+                    <h4 class="text-muted">{% trans "No categories found" %}</h4>
+                    <p class="text-muted mb-4">
+                        {% if request.GET.search %}
+                            {% trans "No categories match your search criteria." %}
+                        {% else %}
+                            {% trans "Start by creating categories to organize your documents." %}
+                        {% endif %}
+                    </p>
+                    <div class="btn-group" role="group">
+                        <a href="{% url 'ai_knowledge:category_create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>
+                            {% trans "Create Category" %}
+                        </a>
+                        {% if request.GET.search %}
+                        <a href="{% url 'ai_knowledge:category_list' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            {% trans "Clear Search" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Pagination -->
+{% if is_paginated %}
+<nav aria-label="Categories pagination" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page=1">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.previous_page_number }}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.next_page_number }}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.sort %}sort={{ request.GET.sort }}&{% endif %}page={{ page_obj.paginator.num_pages }}">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+<!-- Category Statistics Modal -->
+<div class="modal fade" id="categoryStatsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    {% trans "Category Statistics" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="categoryDocumentsChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="categoryKnowledgeChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h6>{% trans "Category Overview" %}</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Category" %}</th>
+                                        <th>{% trans "Documents" %}</th>
+                                        <th>{% trans "Knowledge Entries" %}</th>
+                                        <th>{% trans "Training Data" %}</th>
+                                        <th>{% trans "Created" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoryStatsTable">
+                                    <!-- Stats will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Delete category
+function deleteCategory(categoryId, categoryName) {
+    if (confirm('Are you sure you want to delete the category "' + categoryName + '"? This action cannot be undone.')) {
+        fetch('/ai-knowledge/categories/' + categoryId + '/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error deleting category: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Error deleting category');
+        });
+    }
+}
+
+// Show category statistics
+function showCategoryStats() {
+    fetch('/ai-knowledge/api/categories/stats/')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.success) {
+                displayCategoryStats(data.stats);
+                const modal = new bootstrap.Modal(document.getElementById('categoryStatsModal'));
+                modal.show();
+            } else {
+                alert('Error loading category statistics');
+            }
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+            alert('Error loading category statistics');
+        });
+}
+
+// Display category statistics
+function displayCategoryStats(stats) {
+    // Update table
+    const tableBody = document.getElementById('categoryStatsTable');
+    tableBody.innerHTML = '';
+    
+    stats.categories.forEach(function(category) {
+        const row = document.createElement('tr');
+        row.innerHTML = 
+            '<td><i class="fas fa-folder me-2" style="color: ' + (category.color || '#6c757d') + ';"></i>' + category.name + '</td>' +
+            '<td><span class="badge bg-primary">' + category.document_count + '</span></td>' +
+            '<td><span class="badge bg-success">' + category.knowledge_count + '</span></td>' +
+            '<td><span class="badge bg-info">' + category.training_count + '</span></td>' +
+            '<td>' + new Date(category.created_at).toLocaleDateString() + '</td>';
+        tableBody.appendChild(row);
+    });
+    
+    // Create charts
+    createCategoryCharts(stats);
+}
+
+// Create category charts
+function createCategoryCharts(stats) {
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+    
+    // Documents chart
+    const docCtx = document.getElementById('categoryDocumentsChart').getContext('2d');
+    new Chart(docCtx, {
+        type: 'doughnut',
+        data: {
+            labels: stats.categories.map(function(cat) { return cat.name; }),
+            datasets: [{
+                data: stats.categories.map(function(cat) { return cat.document_count; }),
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Documents by Category'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+    
+    // Knowledge entries chart
+    const knowledgeCtx = document.getElementById('categoryKnowledgeChart').getContext('2d');
+    new Chart(knowledgeCtx, {
+        type: 'doughnut',
+        data: {
+            labels: stats.categories.map(function(cat) { return cat.name; }),
+            datasets: [{
+                data: stats.categories.map(function(cat) { return cat.knowledge_count; }),
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Knowledge Entries by Category'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+</script>
+{% endblock %}

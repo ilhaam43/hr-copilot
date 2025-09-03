@@ -1,0 +1,115 @@
+HR Chatbot Comprehensive Test Report
+Generated: 2025-08-31 20:31:52
+
+Total Tests: 38
+Passed: 22 (57.9%)
+Failed: 16 (42.1%)
+
+[PASS] Basic Intent: Halo
+
+[FAIL] Basic Intent: Berapa sisa cuti saya?
+  Expected: leave_balance
+  Actual: unknown
+
+[PASS] Basic Intent: Help me
+
+[FAIL] Basic Intent: Informasi gaji saya
+  Expected: payroll_inquiry
+  Actual: unknown
+
+[FAIL] Basic Intent: Cek absensi
+  Expected: attendance_check
+  Actual: unknown
+
+[PASS] Basic Intent: Kebijakan perusahaan
+
+[PASS] Basic Intent: Jadwal training
+
+[FAIL] Comprehensive Search: performance management best practices
+  Expected: Relevant response or suggestions
+  Actual: Success: False, Has data: False
+
+[PASS] Comprehensive Search: employee onboarding process
+
+[FAIL] Comprehensive Search: compliance requirements for hiring
+  Expected: Relevant response or suggestions
+  Actual: Success: False, Has data: False
+
+[PASS] Comprehensive Search: diversity and inclusion policies
+
+[PASS] Comprehensive Search: remote work guidelines
+
+[FAIL] Comprehensive Search: salary benchmarking data
+  Expected: Relevant response or suggestions
+  Actual: Success: False, Has data: False
+
+[PASS] Comprehensive Search: learning and development programs
+
+[PASS] Comprehensive Search: employee engagement strategies
+
+[PASS] Data Source: Training Data
+
+[FAIL] Data Source: Extended FAQ
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: False
+
+[FAIL] Data Source: HR Domain Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: True
+
+[FAIL] Data Source: Industry Best Practices
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: True
+
+[FAIL] Data Source: Compliance Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: False
+
+[FAIL] Data Source: Lifecycle Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: True
+
+[FAIL] Data Source: Advanced Scenarios
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: False
+
+[FAIL] Data Source: Multilingual Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: True
+
+[PASS] Data Source: Industry Data
+
+[FAIL] Data Source: Analytics Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: False
+
+[FAIL] Data Source: Technology Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: False
+
+[FAIL] Data Source: Metrics Data
+  Expected: Properly initialized with data and search capability
+  Actual: Has data: False, Has search: False
+
+[PASS] Multilingual (English): Hello, how are you?
+
+[PASS] Multilingual (Indonesian): Halo, apa kabar?
+
+[PASS] Multilingual (Indonesian): Berapa sisa cuti saya?
+
+[PASS] Multilingual (English): What is the company policy?
+
+[PASS] Multilingual (Indonesian): Bagaimana cara mengajukan cuti?
+
+[PASS] Edge Case: ''
+
+[PASS] Edge Case: '   '
+
+[PASS] Edge Case: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+
+[PASS] Edge Case: '!@#$%^&*()'
+
+[PASS] Edge Case: 'xyz123abc'
+
+[PASS] Edge Case: 'SQL injection attempt; DROP TABLE users;'
+

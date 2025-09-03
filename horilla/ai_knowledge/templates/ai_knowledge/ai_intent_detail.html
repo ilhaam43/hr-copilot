@@ -1,0 +1,786 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ intent.name }} - AI Intent{% endblock %}
+
+{% block page_title %}{% trans "AI Intent Detail" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item">
+    <a href="{% url 'ai_knowledge:ai_intent_list' %}">{% trans "AI Intents" %}</a>
+</li>
+<li class="breadcrumb-item active">{{ intent.name|truncatechars:50 }}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'ai_knowledge:ai_intent_edit' intent.id %}" class="btn btn-primary">
+        <i class="fas fa-edit me-2"></i>
+        {% trans "Edit" %}
+    </a>
+    {% if intent.is_active %}
+    <button class="btn btn-warning" onclick="toggleIntent(false)">
+        <i class="fas fa-pause me-2"></i>
+        {% trans "Deactivate" %}
+    </button>
+    {% else %}
+    <button class="btn btn-success" onclick="toggleIntent(true)">
+        <i class="fas fa-play me-2"></i>
+        {% trans "Activate" %}
+    </button>
+    {% endif %}
+    <button class="btn btn-outline-info" onclick="testIntent()">
+        <i class="fas fa-flask me-2"></i>
+        {% trans "Test" %}
+    </button>
+    <button class="btn btn-outline-danger" onclick="deleteIntent()">
+        <i class="fas fa-trash me-2"></i>
+        {% trans "Delete" %}
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Main Content -->
+    <div class="col-lg-8">
+        <!-- Intent Information -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    {% trans "Intent Information" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Name:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <h5 class="mb-0">{{ intent.name }}</h5>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Description:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="mb-0">{{ intent.description|default:"No description provided" }}</p>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Status:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {% if intent.is_active %}
+                        <span class="badge bg-success">
+                            <i class="fas fa-check me-1"></i>
+                            {% trans "Active" %}
+                        </span>
+                        {% else %}
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-pause me-1"></i>
+                            {% trans "Inactive" %}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Confidence Threshold:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-info" style="width: {{ intent.confidence_threshold }}%">
+                                {{ intent.confidence_threshold|floatformat:1 }}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Source Documents:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {% if intent.source_documents.exists %}
+                            {% for doc in intent.source_documents.all %}
+                                <div class="mb-1">
+                                    <a href="{% url 'ai_knowledge:document_detail' doc.id %}" class="text-decoration-none">
+                                        <i class="fas fa-file me-1"></i>
+                                        {{ doc.title }}
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                        <span class="text-muted">{% trans "Manual creation" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Created:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <small class="text-muted">
+                            {{ intent.created_at|date:"M d, Y H:i" }}
+                            {% if intent.created_by %}
+                            {% trans "by" %} {{ intent.created_by.get_full_name|default:intent.created_by.username }}
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Last Updated:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <small class="text-muted">
+                            {{ intent.updated_at|date:"M d, Y H:i" }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Training Examples -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-comments me-2"></i>
+                    {% trans "Training Examples" %}
+                </h6>
+                <button class="btn btn-sm btn-primary" onclick="addExample()">
+                    <i class="fas fa-plus me-1"></i>
+                    {% trans "Add Example" %}
+                </button>
+            </div>
+            <div class="card-body">
+                {% if intent.training_examples.all %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Example Text" %}</th>
+                                <th>{% trans "Confidence" %}</th>
+                                <th>{% trans "Actions" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for example in intent.training_examples.all %}
+                            <tr>
+                                <td>{{ example.text|truncatechars:100 }}</td>
+                                <td>
+                                    <span class="badge bg-success">{{ example.confidence_score|floatformat:1 }}%</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary" onclick="editExample({{ example.id }})">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteExample({{ example.id }})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-comments fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">{% trans "No training examples yet. Add some examples to improve intent recognition." %}</p>
+                    <button class="btn btn-primary" onclick="addExample()">
+                        <i class="fas fa-plus me-2"></i>
+                        {% trans "Add First Example" %}
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Response Templates -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-reply me-2"></i>
+                    {% trans "Response Templates" %}
+                </h6>
+                <button class="btn btn-sm btn-primary" onclick="addResponse()">
+                    <i class="fas fa-plus me-1"></i>
+                    {% trans "Add Response" %}
+                </button>
+            </div>
+            <div class="card-body">
+                {% if intent.response_templates.all %}
+                {% for response in intent.response_templates.all %}
+                <div class="card mb-3 border-left-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h6 class="card-title">{{ response.title|default:"Response Template" }}</h6>
+                                <p class="card-text">{{ response.content|linebreaks }}</p>
+                                {% if response.conditions %}
+                                <small class="text-muted">
+                                    <i class="fas fa-filter me-1"></i>
+                                    {% trans "Conditions:" %} {{ response.conditions }}
+                                </small>
+                                {% endif %}
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-primary" onclick="editResponse({{ response.id }})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteResponse({{ response.id }})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-reply fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">{% trans "No response templates yet. Add responses for this intent." %}</p>
+                    <button class="btn btn-primary" onclick="addResponse()">
+                        <i class="fas fa-plus me-2"></i>
+                        {% trans "Add First Response" %}
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- Quick Actions -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-bolt me-2"></i>
+                    {% trans "Quick Actions" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary" onclick="trainIntent()">
+                        <i class="fas fa-brain me-2"></i>
+                        {% trans "Train Intent" %}
+                    </button>
+                    <button class="btn btn-outline-success" onclick="generateExamples()">
+                        <i class="fas fa-magic me-2"></i>
+                        {% trans "Generate Examples" %}
+                    </button>
+                    <button class="btn btn-outline-info" onclick="exportIntent()">
+                        <i class="fas fa-download me-2"></i>
+                        {% trans "Export Intent" %}
+                    </button>
+                    <button class="btn btn-outline-warning" onclick="duplicateIntent()">
+                        <i class="fas fa-copy me-2"></i>
+                        {% trans "Duplicate" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    {% trans "Statistics" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-primary">{{ intent.usage_count|default:0 }}</div>
+                        <small class="text-muted">{% trans "Times Triggered" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-success">{{ intent.accuracy_rate|default:0 }}%</div>
+                        <small class="text-muted">{% trans "Accuracy" %}</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-info">{{ intent.training_examples.count }}</div>
+                        <small class="text-muted">{% trans "Examples" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-warning">{{ intent.response_templates.count }}</div>
+                        <small class="text-muted">{% trans "Responses" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Performance Metrics -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    {% trans "Performance Metrics" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>{% trans "Precision" %}</span>
+                        <span>{{ intent.precision_score|default:0|floatformat:1 }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" style="width: {{ intent.precision_score|default:0 }}%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>{% trans "Recall" %}</span>
+                        <span>{{ intent.recall_score|default:0|floatformat:1 }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" style="width: {{ intent.recall_score|default:0 }}%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>{% trans "F1 Score" %}</span>
+                        <span>{{ intent.f1_score|default:0|floatformat:1 }}%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" style="width: {{ intent.f1_score|default:0 }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        {% if intent.activity_log %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-history me-2"></i>
+                    {% trans "Recent Activity" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    {% for activity in intent.activity_log %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6 class="timeline-title">{{ activity.action }}</h6>
+                            <p class="timeline-text">{{ activity.description|truncatechars:50 }}</p>
+                            <small class="text-muted">
+                                {{ activity.created_at|timesince }} {% trans "ago" %}
+                                {% if activity.user %}
+                                {% trans "by" %} {{ activity.user.username }}
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Test Intent Modal -->
+<div class="modal fade" id="testIntentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-flask me-2"></i>
+                    {% trans "Test Intent" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Test Input:" %}</label>
+                    <textarea class="form-control" id="testInput" rows="3" 
+                              placeholder="{% trans 'Enter text to test intent recognition...' %}"></textarea>
+                </div>
+                <div id="testResults" class="mt-3" style="display: none;">
+                    <h6>{% trans "Test Results:" %}</h6>
+                    <div class="alert alert-info" id="intentResult"></div>
+                    <div class="alert alert-success" id="confidenceResult"></div>
+                    <div class="alert alert-warning" id="responseResult"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="runIntentTest()">
+                    <i class="fas fa-play me-2"></i>
+                    {% trans "Test" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Example Modal -->
+<div class="modal fade" id="addExampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus me-2"></i>
+                    {% trans "Add Training Example" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Example Text:" %}</label>
+                    <textarea class="form-control" id="exampleText" rows="3" 
+                              placeholder="{% trans 'Enter example text that should trigger this intent...' %}"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="saveExample()">
+                    <i class="fas fa-save me-2"></i>
+                    {% trans "Save" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+.timeline-marker {
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 15px;
+    width: 2px;
+    height: calc(100% + 5px);
+    background-color: #e3e6f0;
+}
+.timeline-title {
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.timeline-text {
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #6c757d;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Store intent ID
+window.intentId = {{ intent.id|default:0 }};
+
+// Test intent
+function testIntent() {
+    new bootstrap.Modal(document.getElementById('testIntentModal')).show();
+}
+
+// Run intent test
+function runIntentTest() {
+    const input = document.getElementById('testInput').value;
+    if (!input.trim()) {
+        alert('Please enter test input');
+        return;
+    }
+    
+    fetch('/ai-knowledge/api/test-intent/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            intent_id: window.intentId,
+            test_input: input
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('intentResult').innerHTML = 
+            'Detected Intent: <strong>' + data.intent + '</strong>';
+        document.getElementById('confidenceResult').innerHTML = 
+            'Confidence: <strong>' + data.confidence + '%</strong>';
+        document.getElementById('responseResult').innerHTML = 
+            'Response: <strong>' + data.response + '</strong>';
+        document.getElementById('testResults').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to test intent');
+    });
+}
+
+// Toggle intent status
+function toggleIntent(activate) {
+    const action = activate ? 'activate' : 'deactivate';
+    if (confirm('Are you sure you want to ' + action + ' this intent?')) {
+        fetch('/ai-knowledge/api/toggle-intent/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                intent_id: window.intentId,
+                activate: activate
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Intent ' + action + 'd successfully');
+                location.reload();
+            } else {
+                alert('Failed to ' + action + ' intent: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to ' + action + ' intent');
+        });
+    }
+}
+
+// Add example
+function addExample() {
+    new bootstrap.Modal(document.getElementById('addExampleModal')).show();
+}
+
+// Save example
+function saveExample() {
+    const text = document.getElementById('exampleText').value;
+    if (!text.trim()) {
+        alert('Please enter example text');
+        return;
+    }
+    
+    fetch('/ai-knowledge/api/add-training-example/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            intent_id: window.intentId,
+            example_text: text
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Training example added successfully');
+            location.reload();
+        } else {
+            alert('Failed to add example: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to add example');
+    });
+}
+
+// Train intent
+function trainIntent() {
+    if (confirm('Train this intent with current examples?')) {
+        fetch('/ai-knowledge/api/train-intent/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                intent_id: window.intentId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Intent training started successfully');
+                location.reload();
+            } else {
+                alert('Failed to start training: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to train intent');
+        });
+    }
+}
+
+// Generate examples
+function generateExamples() {
+    if (confirm('Generate training examples automatically?')) {
+        fetch('/ai-knowledge/api/generate-intent-examples/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                intent_id: window.intentId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Training examples generated successfully');
+                location.reload();
+            } else {
+                alert('Failed to generate examples: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to generate examples');
+        });
+    }
+}
+
+// Export intent
+function exportIntent() {
+    window.location.href = '/ai-knowledge/api/intent/' + window.intentId + '/export/';
+}
+
+// Duplicate intent
+function duplicateIntent() {
+    if (confirm('Create a duplicate of this intent?')) {
+        window.location.href = '/ai-knowledge/intents/create/?duplicate=' + window.intentId;
+    }
+}
+
+// Delete intent
+function deleteIntent() {
+    if (confirm('Are you sure you want to delete this intent? This action cannot be undone.')) {
+        fetch('/ai-knowledge/api/intent/' + window.intentId + '/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Intent deleted successfully');
+                window.location.href = '/ai-knowledge/intents/';
+            } else {
+                alert('Failed to delete intent: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete intent');
+        });
+    }
+}
+
+// Edit example
+function editExample(exampleId) {
+    window.location.href = '/ai-knowledge/training-examples/' + exampleId + '/edit/';
+}
+
+// Delete example
+function deleteExample(exampleId) {
+    if (confirm('Delete this training example?')) {
+        fetch('/ai-knowledge/api/training-example/' + exampleId + '/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Failed to delete example: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete example');
+        });
+    }
+}
+
+// Add response
+function addResponse() {
+    window.location.href = '/ai-knowledge/response-templates/create/?intent=' + window.intentId;
+}
+
+// Edit response
+function editResponse(responseId) {
+    window.location.href = '/ai-knowledge/response-templates/' + responseId + '/edit/';
+}
+
+// Delete response
+function deleteResponse(responseId) {
+    if (confirm('Delete this response template?')) {
+        fetch('/ai-knowledge/api/response-template/' + responseId + '/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Failed to delete response: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete response');
+        });
+    }
+}
+</script>
+{% endblock %}

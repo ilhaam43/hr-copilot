@@ -1,0 +1,209 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% trans "Budget Categories" %}
+{% endblock %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <div class="oh-main-container">
+        <div class="oh-main-content">
+            <!-- Page Header -->
+            <div class="oh-title-container">
+                <div class="oh-title-path">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'budget-dashboard' %}">{% trans "Budget Control" %}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                {% trans "Categories" %}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="oh-title">
+                    <h1 class="oh-title-text">{% trans "Budget Categories" %}</h1>
+                    <div class="oh-title-actions">
+                        {% if perms.budget_control.add_budgetcategory %}
+                            <a href="{% url 'category-create' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> {% trans "Add Category" %}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories List -->
+            <div class="oh-card">
+                <div class="oh-card__body">
+                    {% if categories %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Name" %}</th>
+                                        <th>{% trans "Description" %}</th>
+                                        <th>{% trans "Budgets Count" %}</th>
+                                        <th>{% trans "Total Amount" %}</th>
+                                        <th>{% trans "Created" %}</th>
+                                        <th>{% trans "Status" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="oh-avatar oh-avatar--sm me-2" style="background-color: {{ category.color|default:'#007bff' }}">
+                                                    <i class="fas fa-tag text-white"></i>
+                                                </div>
+                                                <div>
+                                                    <strong>{{ category.name }}</strong>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">{{ category.description|default:"-"|truncatechars:50 }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-info">{{ category.budget_set.count }}</span>
+                                        </td>
+                                        <td>
+                                            <strong class="text-primary">${{ category.total_budget_amount|floatformat:2 }}</strong>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ category.created_at|date:"M d, Y" }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if category.is_active %}badge-success{% else %}badge-secondary{% endif %}">
+                                                {% if category.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                    {% trans "Actions" %}
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'category-detail' category.id %}">
+                                                            <i class="fas fa-eye"></i> {% trans "View" %}
+                                                        </a>
+                                                    </li>
+                                                    {% if perms.budget_control.change_budgetcategory %}
+                                                    <li>
+                                                        <a class="dropdown-item" href="{% url 'category-edit' category.id %}">
+                                                            <i class="fas fa-edit"></i> {% trans "Edit" %}
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    {% if perms.budget_control.delete_budgetcategory and category.budget_set.count == 0 %}
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li>
+                                                        <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('{{ category.id }}', '{{ category.name }}')">
+                                                            <i class="fas fa-trash"></i> {% trans "Delete" %}
+                                                        </a>
+                                                    </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        {% if is_paginated %}
+                        <nav aria-label="{% trans 'Categories pagination' %}">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1">&laquo; {% trans "First" %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+                                    </li>
+                                {% endif %}
+                                
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        {% trans "Page" %} {{ page_obj.number }} {% trans "of" %} {{ page_obj.paginator.num_pages }}
+                                    </span>
+                                </li>
+                                
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{% trans "Last" %} &raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    {% else %}
+                        <!-- Empty State -->
+                        <div class="text-center py-5">
+                            <div class="oh-empty-state">
+                                <div class="oh-empty-state__icon">
+                                    <i class="fas fa-tags fa-3x text-muted"></i>
+                                </div>
+                                <div class="oh-empty-state__content">
+                                    <h4 class="oh-empty-state__title">{% trans "No Categories Found" %}</h4>
+                                    <p class="oh-empty-state__description">
+                                        {% trans "You haven't created any budget categories yet. Categories help organize your budgets by type or purpose." %}
+                                    </p>
+                                    {% if perms.budget_control.add_budgetcategory %}
+                                        <a href="{% url 'category-create' %}" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> {% trans "Create Your First Category" %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">{% trans "Confirm Delete" %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Cancel" %}</button>
+                <form id="deleteForm" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function confirmDelete(categoryId, categoryName) {
+    $('#deleteMessage').text('{% trans "Are you sure you want to delete the category" %} "' + categoryName + '"? {% trans "This action cannot be undone." %}');
+    $('#deleteForm').attr('action', '/budget-control/categories/' + categoryId + '/delete/');
+    $('#deleteModal').modal('show');
+}
+</script>
+{% endblock %}

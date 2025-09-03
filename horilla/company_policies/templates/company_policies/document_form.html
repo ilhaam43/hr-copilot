@@ -1,0 +1,317 @@
+{% extends 'company_policies/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block policy_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        {% if form.instance.pk %}
+            {% trans "Edit Dokumen" %}: {{ form.instance.title }}
+        {% else %}
+            {% trans "Tambah Dokumen Kebijakan Baru" %}
+        {% endif %}
+    </h2>
+    <a href="{% url 'company_policies:dashboard' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> {% trans "Kembali" %}
+    </a>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Basic Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle"></i> {% trans "Informasi Dasar" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.title.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.category.errors }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.version.id_for_label }}">{{ form.version.label }}</label>
+                                {{ form.version }}
+                                {% if form.version.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.version.errors }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                                {{ form.status }}
+                                {% if form.status.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.status.errors }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="{{ form.effective_date.id_for_label }}">{{ form.effective_date.label }}</label>
+                                {{ form.effective_date }}
+                                {% if form.effective_date.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.effective_date.errors }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="{{ form.expiry_date.id_for_label }}">{{ form.expiry_date.label }}</label>
+                                {{ form.expiry_date }}
+                                {% if form.expiry_date.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.expiry_date.errors }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.document_file.id_for_label }}">{{ form.document_file.label }}</label>
+                        {{ form.document_file }}
+                        {% if form.document_file.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.document_file.errors }}
+                        </div>
+                        {% endif %}
+                        {% if form.instance.document_file %}
+                        <small class="form-text text-muted">
+                            {% trans "File saat ini:" %} 
+                            <a href="{{ form.instance.document_file.url }}" target="_blank">
+                                {{ form.instance.document_file.name|slice:"20:" }}
+                            </a>
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-file-alt"></i> {% trans "Konten Dokumen" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.content.errors }}
+                        </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            {% trans "Masukkan konten lengkap dokumen kebijakan. Gunakan format yang jelas dan terstruktur." %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SOP Content -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list-ol"></i> {% trans "Standard Operating Procedure (SOP)" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="{{ form.sop_content.id_for_label }}">{{ form.sop_content.label }}</label>
+                        {{ form.sop_content }}
+                        {% if form.sop_content.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.sop_content.errors }}
+                        </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            {% trans "Masukkan langkah-langkah operasional yang harus diikuti untuk menerapkan kebijakan ini." %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monitoring Mechanism -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line"></i> {% trans "Mekanisme Monitoring" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="{{ form.monitoring_mechanism.id_for_label }}">{{ form.monitoring_mechanism.label }}</label>
+                        {{ form.monitoring_mechanism }}
+                        {% if form.monitoring_mechanism.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.monitoring_mechanism.errors }}
+                        </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            {% trans "Jelaskan bagaimana kepatuhan terhadap kebijakan ini akan dimonitor dan dievaluasi." %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <!-- Additional Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-cog"></i> {% trans "Informasi Tambahan" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="{{ form.legal_basis.id_for_label }}">{{ form.legal_basis.label }}</label>
+                        {{ form.legal_basis }}
+                        {% if form.legal_basis.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.legal_basis.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.scope.id_for_label }}">{{ form.scope.label }}</label>
+                        {{ form.scope }}
+                        {% if form.scope.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.scope.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-check">
+                            {{ form.applicable_to_all }}
+                            <label class="form-check-label" for="{{ form.applicable_to_all.id_for_label }}">
+                                {{ form.applicable_to_all.label }}
+                            </label>
+                        </div>
+                        {% if form.applicable_to_all.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.applicable_to_all.errors }}
+                        </div>
+                        {% endif %}
+                        <small class="form-text text-muted">
+                            {% trans "Centang jika kebijakan ini berlaku untuk semua karyawan." %}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guidelines -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-lightbulb"></i> {% trans "Panduan" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <h6>{% trans "Tips Penulisan:" %}</h6>
+                    <ul class="small text-muted">
+                        <li>{% trans "Gunakan bahasa yang jelas dan mudah dipahami" %}</li>
+                        <li>{% trans "Struktur dokumen dengan heading dan sub-heading" %}</li>
+                        <li>{% trans "Sertakan contoh konkret jika diperlukan" %}</li>
+                        <li>{% trans "Pastikan konsistensi dengan kebijakan lain" %}</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">{% trans "Format File:" %}</h6>
+                    <ul class="small text-muted">
+                        <li>{% trans "PDF untuk dokumen final" %}</li>
+                        <li>{% trans "DOC/DOCX untuk dokumen draft" %}</li>
+                        <li>{% trans "Maksimal ukuran file: 10MB" %}</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="card">
+                <div class="card-body">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-save"></i>
+                        {% if form.instance.pk %}
+                            {% trans "Update Dokumen" %}
+                        {% else %}
+                            {% trans "Simpan Dokumen" %}
+                        {% endif %}
+                    </button>
+                    <a href="{% url 'company_policies:dashboard' %}" class="btn btn-secondary btn-block mt-2">
+                        <i class="fas fa-times"></i> {% trans "Batal" %}
+                    </a>
+                    
+                    {% if form.instance.pk %}
+                    <hr>
+                    <div class="text-center">
+                        <small class="text-muted">
+                            {% trans "Dibuat:" %} {{ form.instance.created_at|date:"d M Y H:i" }}<br>
+                            {% trans "Diperbarui:" %} {{ form.instance.updated_at|date:"d M Y H:i" }}
+                        </small>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+// Auto-resize textareas
+document.addEventListener('DOMContentLoaded', function() {
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(function(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+        
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    });
+});
+</script>
+{% endblock %}

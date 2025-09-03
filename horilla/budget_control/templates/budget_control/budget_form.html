@@ -1,0 +1,261 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% if object %}
+        {% trans "Edit Budget" %}
+    {% else %}
+        {% trans "Create Budget" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <div class="oh-main-container">
+        <div class="oh-main-content">
+            <!-- Page Header -->
+            <div class="oh-title-container">
+                <div class="oh-title-path">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'budget-dashboard' %}">{% trans "Budget Control" %}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'budget-list' %}">{% trans "Budgets" %}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                {% if object %}
+                                    {% trans "Edit" %}
+                                {% else %}
+                                    {% trans "Create" %}
+                                {% endif %}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="oh-title">
+                    <h1 class="oh-title-text">
+                        {% if object %}
+                            {% trans "Edit Budget" %}: {{ object.name }}
+                        {% else %}
+                            {% trans "Create New Budget" %}
+                        {% endif %}
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="oh-card">
+                <div class="oh-card__body">
+                    <form method="post" class="oh-form">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <!-- Basic Information -->
+                            <div class="col-md-6">
+                                <fieldset class="oh-fieldset">
+                                    <legend class="oh-fieldset__legend">{% trans "Basic Information" %}</legend>
+                                    
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.name.id_for_label }}" class="oh-form-label">
+                                            {{ form.name.label }}
+                                            {% if form.name.field.required %}<span class="text-danger">*</span>{% endif %}
+                                        </label>
+                                        {{ form.name }}
+                                        {% if form.name.errors %}
+                                            <div class="oh-form-error">{{ form.name.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.description.id_for_label }}" class="oh-form-label">
+                                            {{ form.description.label }}
+                                        </label>
+                                        {{ form.description }}
+                                        {% if form.description.errors %}
+                                            <div class="oh-form-error">{{ form.description.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.department.id_for_label }}" class="oh-form-label">
+                                            {{ form.department.label }}
+                                            {% if form.department.field.required %}<span class="text-danger">*</span>{% endif %}
+                                        </label>
+                                        {{ form.department }}
+                                        {% if form.department.errors %}
+                                            <div class="oh-form-error">{{ form.department.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.category.id_for_label }}" class="oh-form-label">
+                                            {{ form.category.label }}
+                                            {% if form.category.field.required %}<span class="text-danger">*</span>{% endif %}
+                                        </label>
+                                        {{ form.category }}
+                                        {% if form.category.errors %}
+                                            <div class="oh-form-error">{{ form.category.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <!-- Budget Details -->
+                            <div class="col-md-6">
+                                <fieldset class="oh-fieldset">
+                                    <legend class="oh-fieldset__legend">{% trans "Budget Details" %}</legend>
+                                    
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.total_amount.id_for_label }}" class="oh-form-label">
+                                            {{ form.total_amount.label }}
+                                            {% if form.total_amount.field.required %}<span class="text-danger">*</span>{% endif %}
+                                        </label>
+                                        {{ form.total_amount }}
+                                        {% if form.total_amount.errors %}
+                                            <div class="oh-form-error">{{ form.total_amount.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.start_date.id_for_label }}" class="oh-form-label">
+                                            {{ form.start_date.label }}
+                                            {% if form.start_date.field.required %}<span class="text-danger">*</span>{% endif %}
+                                        </label>
+                                        {{ form.start_date }}
+                                        {% if form.start_date.errors %}
+                                            <div class="oh-form-error">{{ form.start_date.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="oh-form-group">
+                                        <label for="{{ form.end_date.id_for_label }}" class="oh-form-label">
+                                            {{ form.end_date.label }}
+                                            {% if form.end_date.field.required %}<span class="text-danger">*</span>{% endif %}
+                                        </label>
+                                        {{ form.end_date }}
+                                        {% if form.end_date.errors %}
+                                            <div class="oh-form-error">{{ form.end_date.errors }}</div>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if object %}
+                                        <div class="oh-form-group">
+                                            <label for="{{ form.status.id_for_label }}" class="oh-form-label">
+                                                {{ form.status.label }}
+                                            </label>
+                                            {{ form.status }}
+                                            {% if form.status.errors %}
+                                                <div class="oh-form-error">{{ form.status.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <!-- Current Budget Status (for edit mode) -->
+                        {% if object %}
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="oh-card oh-card--info">
+                                        <div class="oh-card__header">
+                                            <h5 class="oh-card__title">{% trans "Current Budget Status" %}</h5>
+                                        </div>
+                                        <div class="oh-card__body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="oh-stats oh-stats--small">
+                                                        <div class="oh-stats__content">
+                                                            <h4 class="oh-stats__number">${{ object.total_amount|floatformat:2 }}</h4>
+                                                            <p class="oh-stats__label">{% trans "Total Budget" %}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="oh-stats oh-stats--small">
+                                                        <div class="oh-stats__content">
+                                                            <h4 class="oh-stats__number">${{ object.allocated_amount|floatformat:2 }}</h4>
+                                                            <p class="oh-stats__label">{% trans "Allocated" %}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="oh-stats oh-stats--small">
+                                                        <div class="oh-stats__content">
+                                                            <h4 class="oh-stats__number">${{ object.spent_amount|floatformat:2 }}</h4>
+                                                            <p class="oh-stats__label">{% trans "Spent" %}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="oh-stats oh-stats--small">
+                                                        <div class="oh-stats__content">
+                                                            <h4 class="oh-stats__number">${{ object.remaining_amount|floatformat:2 }}</h4>
+                                                            <p class="oh-stats__label">{% trans "Remaining" %}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Form Actions -->
+                        <div class="oh-form-actions mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                {% if object %}
+                                    {% trans "Update Budget" %}
+                                {% else %}
+                                    {% trans "Create Budget" %}
+                                {% endif %}
+                            </button>
+                            <a href="{% url 'budget-list' %}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> {% trans "Cancel" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Date picker initialization
+    if ($.fn.datepicker) {
+        $('#id_start_date, #id_end_date').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true
+        });
+    }
+    
+    // Form validation
+    $('form').on('submit', function(e) {
+        var startDate = new Date($('#id_start_date').val());
+        var endDate = new Date($('#id_end_date').val());
+        
+        if (startDate >= endDate) {
+            e.preventDefault();
+            alert('{% trans "End date must be after start date" %}');
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}

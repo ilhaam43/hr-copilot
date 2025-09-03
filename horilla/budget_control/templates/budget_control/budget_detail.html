@@ -1,0 +1,314 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {{ budget.name }} - {% trans "Budget Detail" %}
+{% endblock %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <div class="oh-main-container">
+        <div class="oh-main-content">
+            <!-- Page Header -->
+            <div class="oh-title-container">
+                <div class="oh-title-path">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'budget-dashboard' %}">{% trans "Budget Control" %}</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'budget-list' %}">{% trans "Budgets" %}</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                {{ budget.name }}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="oh-title">
+                    <h1 class="oh-title-text">{{ budget.name }}</h1>
+                    <div class="oh-title-actions">
+                        {% if budget.status == 'draft' or budget.status == 'approved' %}
+                            <a href="{% url 'budget-update' budget.id %}" class="btn btn-primary">
+                                <i class="fas fa-edit"></i> {% trans "Edit" %}
+                            </a>
+                        {% endif %}
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                {% trans "More Actions" %}
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'budget-list' %}"><i class="fas fa-list"></i> {% trans "Back to List" %}</a></li>
+                                {% if budget.status == 'active' %}
+                                    <li><a class="dropdown-item" href="{% url 'expense-create' %}?budget={{ budget.id }}"><i class="fas fa-plus"></i> {% trans "Add Expense" %}</a></li>
+                                {% endif %}
+                                {% if budget.status == 'draft' %}
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger" href="{% url 'budget-delete' budget.id %}"><i class="fas fa-trash"></i> {% trans "Delete" %}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Overview -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="oh-card oh-card--stats">
+                        <div class="oh-card__body">
+                            <div class="oh-stats">
+                                <div class="oh-stats__icon oh-stats__icon--primary">
+                                    <i class="fas fa-wallet"></i>
+                                </div>
+                                <div class="oh-stats__content">
+                                    <h3 class="oh-stats__number">${{ budget.total_amount|floatformat:2 }}</h3>
+                                    <p class="oh-stats__label">{% trans "Total Budget" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="oh-card oh-card--stats">
+                        <div class="oh-card__body">
+                            <div class="oh-stats">
+                                <div class="oh-stats__icon oh-stats__icon--info">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="oh-stats__content">
+                                    <h3 class="oh-stats__number">${{ budget.allocated_amount|floatformat:2 }}</h3>
+                                    <p class="oh-stats__label">{% trans "Allocated" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="oh-card oh-card--stats">
+                        <div class="oh-card__body">
+                            <div class="oh-stats">
+                                <div class="oh-stats__icon oh-stats__icon--warning">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="oh-stats__content">
+                                    <h3 class="oh-stats__number">${{ budget.spent_amount|floatformat:2 }}</h3>
+                                    <p class="oh-stats__label">{% trans "Spent" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="oh-card oh-card--stats">
+                        <div class="oh-card__body">
+                            <div class="oh-stats">
+                                <div class="oh-stats__icon oh-stats__icon--success">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                                <div class="oh-stats__content">
+                                    <h3 class="oh-stats__number">${{ budget.remaining_amount|floatformat:2 }}</h3>
+                                    <p class="oh-stats__label">{% trans "Remaining" %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Utilization -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="oh-card">
+                        <div class="oh-card__header">
+                            <h4 class="oh-card__title">{% trans "Budget Utilization" %}</h4>
+                        </div>
+                        <div class="oh-card__body">
+                            <div class="progress mb-3" style="height: 30px;">
+                                <div class="progress-bar {% if budget.utilization_percentage > 90 %}bg-danger{% elif budget.utilization_percentage > 75 %}bg-warning{% else %}bg-success{% endif %}" 
+                                     role="progressbar" 
+                                     style="width: {{ budget.utilization_percentage }}%" 
+                                     aria-valuenow="{{ budget.utilization_percentage }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    {{ budget.utilization_percentage|floatformat:1 }}% {% trans "Utilized" %}
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <small class="text-muted">{% trans "Budget Period" %}</small><br>
+                                    <strong>{{ budget.start_date }} - {{ budget.end_date }}</strong>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">{% trans "Status" %}</small><br>
+                                    <span class="badge badge-{% if budget.status == 'active' %}success{% elif budget.status == 'approved' %}info{% elif budget.status == 'completed' %}secondary{% elif budget.status == 'cancelled' %}danger{% else %}warning{% endif %}">
+                                        {{ budget.get_status_display }}
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted">{% trans "Created By" %}</small><br>
+                                    <strong>{{ budget.created_by.employee_first_name }} {{ budget.created_by.employee_last_name }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Information -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="oh-card">
+                        <div class="oh-card__header">
+                            <h4 class="oh-card__title">{% trans "Budget Information" %}</h4>
+                        </div>
+                        <div class="oh-card__body">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>{% trans "Department" %}:</strong></td>
+                                    <td>{{ budget.department.department }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Category" %}:</strong></td>
+                                    <td>{{ budget.category.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Description" %}:</strong></td>
+                                    <td>{{ budget.description|default:"-" }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Created Date" %}:</strong></td>
+                                    <td>{{ budget.created_at|date:"M d, Y H:i" }}</td>
+                                </tr>
+                                {% if budget.approved_by %}
+                                <tr>
+                                    <td><strong>{% trans "Approved By" %}:</strong></td>
+                                    <td>{{ budget.approved_by.employee_first_name }} {{ budget.approved_by.employee_last_name }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="oh-card">
+                        <div class="oh-card__header">
+                            <h4 class="oh-card__title">{% trans "Budget Breakdown" %}</h4>
+                        </div>
+                        <div class="oh-card__body">
+                            <canvas id="budgetChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Expenses -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="oh-card">
+                        <div class="oh-card__header">
+                            <h4 class="oh-card__title">{% trans "Recent Expenses" %}</h4>
+                            <div class="oh-card__actions">
+                                {% if budget.status == 'active' %}
+                                    <a href="{% url 'expense-create' %}?budget={{ budget.id }}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-plus"></i> {% trans "Add Expense" %}
+                                    </a>
+                                {% endif %}
+                                <a href="{% url 'expense-list' %}?budget={{ budget.id }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-list"></i> {% trans "View All" %}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="oh-card__body">
+                            {% if recent_expenses %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>{% trans "Employee" %}</th>
+                                                <th>{% trans "Description" %}</th>
+                                                <th>{% trans "Amount" %}</th>
+                                                <th>{% trans "Date" %}</th>
+                                                <th>{% trans "Status" %}</th>
+                                                <th>{% trans "Actions" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for expense in recent_expenses %}
+                                            <tr>
+                                                <td>{{ expense.employee.employee_first_name }} {{ expense.employee.employee_last_name }}</td>
+                                                <td>{{ expense.description|truncatechars:50 }}</td>
+                                                <td>${{ expense.amount|floatformat:2 }}</td>
+                                                <td>{{ expense.expense_date|date:"M d, Y" }}</td>
+                                                <td>
+                                                    <span class="badge badge-{% if expense.status == 'approved' %}success{% elif expense.status == 'rejected' %}danger{% elif expense.status == 'paid' %}info{% else %}warning{% endif %}">
+                                                        {{ expense.get_status_display }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {% if expense.status == 'pending' %}
+                                                        <a href="{% url 'expense-approve' expense.id %}" class="btn btn-sm btn-success">
+                                                            <i class="fas fa-check"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-4">
+                                    <i class="fas fa-receipt fa-2x text-muted mb-3"></i>
+                                    <h5 class="text-muted">{% trans "No expenses yet" %}</h5>
+                                    <p class="text-muted">{% trans "Expenses will appear here once submitted" %}</p>
+                                    {% if budget.status == 'active' %}
+                                        <a href="{% url 'expense-create' %}?budget={{ budget.id }}" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> {% trans "Add First Expense" %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+$(document).ready(function() {
+    // Budget breakdown chart
+    var ctx = document.getElementById('budgetChart').getContext('2d');
+    var budgetChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['{% trans "Spent" %}', '{% trans "Remaining" %}'],
+            datasets: [{
+                data: [{{ budget.spent_amount }}, {{ budget.remaining_amount }}],
+                backgroundColor: [
+                    '#dc3545',
+                    '#28a745'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

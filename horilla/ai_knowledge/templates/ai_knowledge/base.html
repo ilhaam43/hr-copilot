@@ -1,0 +1,340 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AI Knowledge Management{% endblock %} - HR Copilot</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+            --light-bg: #f8fafc;
+            --dark-text: #1e293b;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            min-height: 100vh;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 12px 20px;
+            margin: 4px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+        
+        .main-content {
+            padding: 20px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .stat-card.success {
+            background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+        }
+        
+        .stat-card.warning {
+            background: linear-gradient(135deg, var(--warning-color) 0%, #d97706 100%);
+        }
+        
+        .stat-card.info {
+            background: linear-gradient(135deg, var(--info-color) 0%, #0891b2 100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1d4ed8 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .progress {
+            height: 8px;
+            border-radius: 10px;
+            background-color: rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            border-radius: 10px;
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+        
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .table thead th {
+            background-color: var(--light-bg);
+            border: none;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+        
+        .search-box {
+            border-radius: 25px;
+            border: 2px solid #e2e8f0;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .upload-area.dragover {
+            border-color: var(--success-color);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -250px;
+                width: 250px;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .sidebar.show {
+                left: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0">
+                <div class="sidebar">
+                    <div class="p-3">
+                        <h4 class="text-white mb-4">
+                            <i class="fas fa-brain me-2"></i>
+                            AI Knowledge
+                        </h4>
+                    </div>
+                    
+                    <nav class="nav flex-column px-3">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:dashboard' %}">
+                            <i class="fas fa-tachometer-alt me-2"></i>
+                            {% trans "Dashboard" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'upload' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:upload_document' %}">
+                            <i class="fas fa-upload me-2"></i>
+                            {% trans "Upload Document" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'document' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:document_list' %}">
+                            <i class="fas fa-file-alt me-2"></i>
+                            {% trans "Documents" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'knowledge' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:knowledge_base_list' %}">
+                            <i class="fas fa-database me-2"></i>
+                            {% trans "Knowledge Base" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'training' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:training_data_list' %}">
+                            <i class="fas fa-graduation-cap me-2"></i>
+                            {% trans "Training Data" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'intent' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:ai_intent_list' %}">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            {% trans "AI Intents" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'categor' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:category_list' %}">
+                            <i class="fas fa-tags me-2"></i>
+                            {% trans "Categories" %}
+                        </a>
+                        
+                        <a class="nav-link {% if 'analytics' in request.resolver_match.url_name %}active{% endif %}" 
+                           href="{% url 'ai_knowledge:analytics' %}">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            {% trans "Analytics" %}
+                        </a>
+                        
+                        <hr class="text-white-50 my-3">
+                        
+                        <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">
+                            <i class="fas fa-cog me-2"></i>
+                            {% trans "Admin Panel" %}
+                        </a>
+                        
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home me-2"></i>
+                            {% trans "Back to HR System" %}
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <div class="main-content">
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-primary d-md-none mb-3" type="button" 
+                            onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <!-- Breadcrumb -->
+                    {% block breadcrumb %}
+                    <nav aria-label="breadcrumb" class="mb-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'ai_knowledge:dashboard' %}">{% trans "AI Knowledge" %}</a>
+                            </li>
+                            {% block breadcrumb_items %}{% endblock %}
+                        </ol>
+                    </nav>
+                    {% endblock %}
+                    
+                    <!-- Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <!-- Page Header -->
+                    {% block page_header %}
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 mb-0">{% block page_title %}AI Knowledge Management{% endblock %}</h1>
+                        {% block page_actions %}{% endblock %}
+                    </div>
+                    {% endblock %}
+                    
+                    <!-- Main Content -->
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+        
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.querySelector('[onclick="toggleSidebar()"]');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !toggleBtn.contains(e.target)) {
+                sidebar.classList.remove('show');
+            }
+        });
+        
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

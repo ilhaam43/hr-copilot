@@ -1,0 +1,268 @@
+{% extends 'company_policies/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block policy_content %}
+<div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+        <h2>{{ document.title }}</h2>
+        <div class="mt-2">
+            <span class="policy-category-badge policy-category-{{ document.category.category_type }}">
+                {{ document.category.name }}
+            </span>
+            <span class="policy-status policy-status-{{ document.status }} ml-2">
+                {{ document.get_status_display }}
+            </span>
+        </div>
+    </div>
+    <div>
+        <a href="{% url 'company_policies:dashboard' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {% trans "Kembali" %}
+        </a>
+        {% if perms.company_policies.change_companypolicydocument %}
+        <a href="{% url 'company_policies:document_edit' document.id %}" class="btn btn-primary ml-2">
+            <i class="fas fa-edit"></i> {% trans "Edit" %}
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <!-- Document Content -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-file-alt"></i> {% trans "Konten Dokumen" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if document.content %}
+                <div class="document-content">
+                    {{ document.content|linebreaks }}
+                </div>
+                {% else %}
+                <p class="text-muted">{% trans "Tidak ada konten yang tersedia." %}</p>
+                {% endif %}
+                
+                {% if document.document_file %}
+                <div class="mt-3">
+                    <a href="{{ document.document_file.url }}" class="btn btn-outline-primary" target="_blank">
+                        <i class="fas fa-download"></i> {% trans "Unduh Dokumen" %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- SOP Content -->
+        {% if document.sop_content %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list-ol"></i> {% trans "Standard Operating Procedure (SOP)" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="sop-content">
+                    {{ document.sop_content|linebreaks }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Monitoring Mechanism -->
+        {% if document.monitoring_mechanism %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line"></i> {% trans "Mekanisme Monitoring" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="monitoring-content">
+                    {{ document.monitoring_mechanism|linebreaks }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Acknowledgment Section -->
+        {% if user.is_authenticated %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-check-circle"></i> {% trans "Acknowledgment" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if user_acknowledgment %}
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    {% trans "Anda telah mengakui dokumen ini pada" %} 
+                    {{ user_acknowledgment.acknowledged_at|date:"d M Y H:i" }}
+                    {% if user_acknowledgment.notes %}
+                    <br><strong>{% trans "Catatan:" %}</strong> {{ user_acknowledgment.notes }}
+                    {% endif %}
+                </div>
+                {% else %}
+                <form method="post" action="{% url 'company_policies:acknowledge_policy' document.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="notes">{% trans "Catatan (Opsional)" %}</label>
+                        <textarea name="notes" id="notes" class="form-control" rows="3" 
+                                placeholder="{% trans 'Tambahkan catatan acknowledgment...' %}"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> {% trans "Acknowledge Dokumen" %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-md-4">
+        <!-- Document Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle"></i> {% trans "Informasi Dokumen" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td><strong>{% trans "Versi:" %}</strong></td>
+                        <td>{{ document.version }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{% trans "Status:" %}</strong></td>
+                        <td>
+                            <span class="policy-status policy-status-{{ document.status }}">
+                                {{ document.get_status_display }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% if document.effective_date %}
+                    <tr>
+                        <td><strong>{% trans "Tanggal Berlaku:" %}</strong></td>
+                        <td>{{ document.effective_date|date:"d M Y" }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if document.expiry_date %}
+                    <tr>
+                        <td><strong>{% trans "Tanggal Berakhir:" %}</strong></td>
+                        <td>{{ document.expiry_date|date:"d M Y" }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if document.legal_basis %}
+                    <tr>
+                        <td><strong>{% trans "Dasar Hukum:" %}</strong></td>
+                        <td>{{ document.legal_basis }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if document.scope %}
+                    <tr>
+                        <td><strong>{% trans "Ruang Lingkup:" %}</strong></td>
+                        <td>{{ document.scope }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>{% trans "Berlaku untuk Semua:" %}</strong></td>
+                        <td>
+                            {% if document.applicable_to_all %}
+                                <i class="fas fa-check text-success"></i> {% trans "Ya" %}
+                            {% else %}
+                                <i class="fas fa-times text-danger"></i> {% trans "Tidak" %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{% trans "Dibuat:" %}</strong></td>
+                        <td>{{ document.created_at|date:"d M Y H:i" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{% trans "Diperbarui:" %}</strong></td>
+                        <td>{{ document.updated_at|date:"d M Y H:i" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Acknowledgment Statistics -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-pie"></i> {% trans "Statistik Acknowledgment" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-success">{{ acknowledgment_count }}</div>
+                        <small class="text-muted">{% trans "Total Acknowledge" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-primary">{{ acknowledgment_rate }}%</div>
+                        <small class="text-muted">{% trans "Tingkat Acknowledge" %}</small>
+                    </div>
+                </div>
+                
+                {% if recent_acknowledgments %}
+                <hr>
+                <h6>{% trans "Acknowledge Terbaru:" %}</h6>
+                <div class="list-group list-group-flush">
+                    {% for ack in recent_acknowledgments %}
+                    <div class="list-group-item px-0 py-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ ack.user.get_full_name|default:ack.user.username }}</strong>
+                                <br>
+                                <small class="text-muted">{{ ack.acknowledged_at|date:"d M Y H:i" }}</small>
+                            </div>
+                            <i class="fas fa-check-circle text-success"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Related Documents -->
+        {% if related_documents %}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-link"></i> {% trans "Dokumen Terkait" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    {% for related in related_documents %}
+                    <a href="{% url 'company_policies:document_detail' related.id %}" 
+                       class="list-group-item list-group-item-action px-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ related.title }}</strong>
+                                <br>
+                                <small class="text-muted">{{ related.category.name }}</small>
+                            </div>
+                            <span class="policy-status policy-status-{{ related.status }}">
+                                {{ related.get_status_display }}
+                            </span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- CSRF Token for AJAX -->
+{% csrf_token %}
+{% endblock %}

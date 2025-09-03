@@ -1,0 +1,188 @@
+{% extends 'index.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Approve Expense" %} - {{ expense.description|truncatechars:50 }}{% endblock %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'budget-dashboard' %}">{% trans "Budget Control" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'expense-list' %}">{% trans "Expenses" %}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Approve Expense" %}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Expense Details -->
+        <div class="col-md-8">
+            <div class="oh-card">
+                <div class="oh-card__header">
+                    <h5 class="oh-card__title">{% trans "Expense Details" %}</h5>
+                </div>
+                <div class="oh-card__body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">{% trans "Budget" %}</label>
+                                <div class="fw-bold">{{ expense.budget.name }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted">{% trans "Employee" %}</label>
+                                <div class="fw-bold">{{ expense.employee.employee_first_name }} {{ expense.employee.employee_last_name }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted">{% trans "Amount" %}</label>
+                                <div class="fw-bold text-primary fs-5">${{ expense.amount|floatformat:2 }}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">{% trans "Expense Date" %}</label>
+                                <div class="fw-bold">{{ expense.expense_date|date:"M d, Y" }}</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted">{% trans "Current Status" %}</label>
+                                <div>
+                                    <span class="badge badge-{% if expense.status == 'approved' %}success{% elif expense.status == 'rejected' %}danger{% elif expense.status == 'paid' %}info{% else %}warning{% endif %}">
+                                        {{ expense.get_status_display }}
+                                    </span>
+                                </div>
+                            </div>
+                            {% if expense.allocation %}
+                            <div class="mb-3">
+                                <label class="form-label text-muted">{% trans "Allocation" %}</label>
+                                <div class="fw-bold">{{ expense.allocation.purpose }}</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-muted">{% trans "Description" %}</label>
+                        <div class="fw-bold">{{ expense.description }}</div>
+                    </div>
+
+                    {% if expense.receipt %}
+                    <div class="mb-3">
+                        <label class="form-label text-muted">{% trans "Receipt" %}</label>
+                        <div class="mt-2">
+                            <img src="{{ expense.receipt.url }}" alt="{% trans 'Receipt' %}" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                        </div>
+                        <div class="mt-2">
+                            <a href="{{ expense.receipt.url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-external-link-alt me-1"></i>
+                                {% trans "View Full Size" %}
+                            </a>
+                            <a href="{{ expense.receipt.url }}" download class="btn btn-sm btn-outline-secondary ms-2">
+                                <i class="fas fa-download me-1"></i>
+                                {% trans "Download" %}
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Approval Form -->
+        <div class="col-md-4">
+            <div class="oh-card">
+                <div class="oh-card__header">
+                    <h5 class="oh-card__title">{% trans "Approval Action" %}</h5>
+                </div>
+                <div class="oh-card__body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.status.id_for_label }}" class="form-label">{{ form.status.label }}</label>
+                            {{ form.status }}
+                            {% if form.status.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.status.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.remarks.id_for_label }}" class="form-label">{{ form.remarks.label }}</label>
+                            {{ form.remarks }}
+                            {% if form.remarks.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ form.remarks.errors.0 }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">{% trans "Add any comments or reasons for your decision" %}</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check me-1"></i>
+                                {% trans "Update Status" %}
+                            </button>
+                            <a href="{% url 'expense-list' %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i>
+                                {% trans "Cancel" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Budget Information -->
+            <div class="oh-card mt-3">
+                <div class="oh-card__header">
+                    <h6 class="oh-card__title">{% trans "Budget Information" %}</h6>
+                </div>
+                <div class="oh-card__body">
+                    <div class="mb-2">
+                        <small class="text-muted">{% trans "Total Budget" %}</small>
+                        <div class="fw-bold">${{ expense.budget.total_amount|floatformat:2 }}</div>
+                    </div>
+                    <div class="mb-2">
+                        <small class="text-muted">{% trans "Spent Amount" %}</small>
+                        <div class="fw-bold">${{ expense.budget.spent_amount|floatformat:2 }}</div>
+                    </div>
+                    <div class="mb-2">
+                        <small class="text-muted">{% trans "Remaining" %}</small>
+                        <div class="fw-bold text-{% if expense.budget.remaining_amount >= 0 %}success{% else %}danger{% endif %}">
+                            ${{ expense.budget.remaining_amount|floatformat:2 }}
+                        </div>
+                    </div>
+                    <div class="progress mt-2" style="height: 8px;">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: {{ expense.budget.utilization_percentage }}%;" 
+                             aria-valuenow="{{ expense.budget.utilization_percentage }}" 
+                             aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                    <small class="text-muted">{{ expense.budget.utilization_percentage|floatformat:1 }}% {% trans "utilized" %}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    // Auto-focus on status field
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusField = document.getElementById('{{ form.status.id_for_label }}');
+        if (statusField) {
+            statusField.focus();
+        }
+    });
+
+    // Show confirmation for rejection
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const status = document.getElementById('{{ form.status.id_for_label }}').value;
+        if (status === 'rejected') {
+            if (!confirm('{% trans "Are you sure you want to reject this expense?" %}')) {
+                e.preventDefault();
+            }
+        }
+    });
+</script>
+{% endblock %}

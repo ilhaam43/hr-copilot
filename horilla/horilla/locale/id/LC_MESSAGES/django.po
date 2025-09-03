@@ -1,0 +1,277 @@
+# Indonesian translation for Horilla HRMS
+# Copyright (C) 2024 Horilla
+# This file is distributed under the same license as the Horilla package.
+# Translator: Horilla Team <support@horilla.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horilla HRMS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-17 09:48+0530\n"
+"PO-Revision-Date: 2025-01-17 09:48+0530\n"
+"Last-Translator: Horilla Team <support@horilla.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# Common translations
+msgid "Settings"
+msgstr "Pengaturan"
+
+msgid "Dashboard"
+msgstr "Dasbor"
+
+msgid "Employee"
+msgstr "Karyawan"
+
+msgid "Attendance"
+msgstr "Kehadiran"
+
+msgid "Leave"
+msgstr "Cuti"
+
+msgid "Recruitment"
+msgstr "Rekrutmen"
+
+msgid "Payroll"
+msgstr "Penggajian"
+
+msgid "Asset"
+msgstr "Aset"
+
+msgid "Performance"
+msgstr "Kinerja"
+
+msgid "Onboarding"
+msgstr "Orientasi"
+
+msgid "Reports"
+msgstr "Laporan"
+
+msgid "Login"
+msgstr "Masuk"
+
+msgid "Logout"
+msgstr "Keluar"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Cancel"
+msgstr "Batal"
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Search"
+msgstr "Cari"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Export"
+msgstr "Ekspor"
+
+msgid "Import"
+msgstr "Impor"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Phone"
+msgstr "Telepon"
+
+msgid "Address"
+msgstr "Alamat"
+
+msgid "Department"
+msgstr "Departemen"
+
+msgid "Position"
+msgstr "Posisi"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Time"
+msgstr "Waktu"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Inactive"
+msgstr "Tidak Aktif"
+
+msgid "Pending"
+msgstr "Menunggu"
+
+msgid "Approved"
+msgstr "Disetujui"
+
+msgid "Rejected"
+msgstr "Ditolak"
+
+msgid "Company"
+msgstr "Perusahaan"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Password"
+msgstr "Kata Sandi"
+
+msgid "Confirm Password"
+msgstr "Konfirmasi Kata Sandi"
+
+msgid "First Name"
+msgstr "Nama Depan"
+
+msgid "Last Name"
+msgstr "Nama Belakang"
+
+msgid "Username"
+msgstr "Nama Pengguna"
+
+msgid "Role"
+msgstr "Peran"
+
+msgid "Permissions"
+msgstr "Izin"
+
+msgid "General Settings"
+msgstr "Pengaturan Umum"
+
+msgid "Language"
+msgstr "Bahasa"
+
+msgid "Timezone"
+msgstr "Zona Waktu"
+
+msgid "Currency"
+msgstr "Mata Uang"
+
+msgid "Shift Schedule Template"
+msgstr "Template Jadwal Shift"
+
+msgid "Employee Name"
+msgstr "Nama Karyawan"
+
+msgid "Shift Type"
+msgstr "Jenis Shift"
+
+msgid "Working Hours"
+msgstr "Jam Kerja"
+
+msgid "Special Notes"
+msgstr "Catatan Khusus"
+
+msgid "Supervisor Approval"
+msgstr "Persetujuan Supervisor"
+
+msgid "Approved by"
+msgstr "Disetujui oleh"
+
+msgid "Approval Date"
+msgstr "Tanggal Persetujuan"
+
+msgid "Signature"
+msgstr "Tanda Tangan"
+
+msgid "Print"
+msgstr "Cetak"
+
+msgid "Download"
+msgstr "Unduh"
+
+msgid "You dont have access to the feature"
+msgstr "Anda tidak memiliki akses ke fitur ini"
+
+msgid "Success"
+msgstr "Berhasil"
+
+msgid "Error"
+msgstr "Kesalahan"
+
+msgid "Warning"
+msgstr "Peringatan"
+
+msgid "Information"
+msgstr "Informasi"
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "Loading..."
+msgstr "Memuat..."
+
+msgid "Please wait..."
+msgstr "Mohon tunggu..."
+
+msgid "Required field"
+msgstr "Bidang wajib"
+
+msgid "Invalid input"
+msgstr "Input tidak valid"
+
+msgid "File uploaded successfully"
+msgstr "File berhasil diunggah"
+
+msgid "File upload failed"
+msgstr "Gagal mengunggah file"
+
+msgid "Data saved successfully"
+msgstr "Data berhasil disimpan"
+
+msgid "Data deleted successfully"
+msgstr "Data berhasil dihapus"
+
+msgid "Operation completed successfully"
+msgstr "Operasi berhasil diselesaikan"
+
+msgid "Operation failed"
+msgstr "Operasi gagal"
+
+msgid "Access denied"
+msgstr "Akses ditolak"
+
+msgid "Session expired"
+msgstr "Sesi berakhir"
+
+msgid "Please login again"
+msgstr "Silakan masuk kembali"
+
+msgid "Invalid credentials"
+msgstr "Kredensial tidak valid"
+
+msgid "Account locked"
+msgstr "Akun terkunci"
+
+msgid "Password changed successfully"
+msgstr "Kata sandi berhasil diubah"
+
+msgid "Profile updated successfully"
+msgstr "Profil berhasil diperbarui"
+
+msgid "Settings updated successfully"
+msgstr "Pengaturan berhasil diperbarui"

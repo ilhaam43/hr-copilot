@@ -1,0 +1,536 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Processing Logs - AI Knowledge Management{% endblock %}
+
+{% block page_title %}{% trans "Processing Logs" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">{% trans "Processing Logs" %}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <button class="btn btn-outline-primary" onclick="refreshLogs()">
+        <i class="fas fa-sync me-2"></i>
+        {% trans "Refresh" %}
+    </button>
+    <button class="btn btn-outline-success" onclick="exportLogs()">
+        <i class="fas fa-download me-2"></i>
+        {% trans "Export Logs" %}
+    </button>
+    <button class="btn btn-outline-danger" onclick="clearOldLogs()">
+        <i class="fas fa-trash me-2"></i>
+        {% trans "Clear Old Logs" %}
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Filters -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <i class="fas fa-filter me-2"></i>
+            {% trans "Filters" %}
+        </h6>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">{% trans "Document" %}</label>
+                <select name="document" class="form-select">
+                    <option value="">{% trans "All Documents" %}</option>
+                    {% for doc in documents %}
+                    <option value="{{ doc.id }}" {% if request.GET.document == doc.id|stringformat:'s' %}selected{% endif %}>
+                        {{ doc.title|truncatechars:50 }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">{% trans "Status" %}</label>
+                <select name="status" class="form-select">
+                    <option value="">{% trans "All Status" %}</option>
+                    <option value="success" {% if request.GET.status == 'success' %}selected{% endif %}>{% trans "Success" %}</option>
+                    <option value="error" {% if request.GET.status == 'error' %}selected{% endif %}>{% trans "Error" %}</option>
+                    <option value="warning" {% if request.GET.status == 'warning' %}selected{% endif %}>{% trans "Warning" %}</option>
+                    <option value="info" {% if request.GET.status == 'info' %}selected{% endif %}>{% trans "Info" %}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">{% trans "Processing Step" %}</label>
+                <select name="step" class="form-select">
+                    <option value="">{% trans "All Steps" %}</option>
+                    <option value="upload" {% if request.GET.step == 'upload' %}selected{% endif %}>{% trans "Upload" %}</option>
+                    <option value="extraction" {% if request.GET.step == 'extraction' %}selected{% endif %}>{% trans "Text Extraction" %}</option>
+                    <option value="knowledge" {% if request.GET.step == 'knowledge' %}selected{% endif %}>{% trans "Knowledge Generation" %}</option>
+                    <option value="training" {% if request.GET.step == 'training' %}selected{% endif %}>{% trans "Training Data" %}</option>
+                    <option value="intent" {% if request.GET.step == 'intent' %}selected{% endif %}>{% trans "Intent Generation" %}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">{% trans "Date Range" %}</label>
+                <select name="date_range" class="form-select">
+                    <option value="">{% trans "All Time" %}</option>
+                    <option value="today" {% if request.GET.date_range == 'today' %}selected{% endif %}>{% trans "Today" %}</option>
+                    <option value="week" {% if request.GET.date_range == 'week' %}selected{% endif %}>{% trans "This Week" %}</option>
+                    <option value="month" {% if request.GET.date_range == 'month' %}selected{% endif %}>{% trans "This Month" %}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">&nbsp;</label>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>
+                        {% trans "Filter" %}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            {% trans "Successful" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ stats.success_count|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            {% trans "Errors" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ stats.error_count|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            {% trans "Warnings" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ stats.warning_count|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            {% trans "Total Logs" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ stats.total_count|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Processing Logs -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <i class="fas fa-history me-2"></i>
+            {% trans "Processing Logs" %}
+            <span class="badge bg-secondary ms-2">{{ logs.count }} {% trans "entries" %}</span>
+        </h6>
+    </div>
+    <div class="card-body">
+        {% if logs %}
+        <div class="table-responsive">
+            <table class="table table-bordered" id="logsTable">
+                <thead>
+                    <tr>
+                        <th width="15%">{% trans "Timestamp" %}</th>
+                        <th width="20%">{% trans "Document" %}</th>
+                        <th width="10%">{% trans "Step" %}</th>
+                        <th width="8%">{% trans "Status" %}</th>
+                        <th width="35%">{% trans "Message" %}</th>
+                        <th width="8%">{% trans "Duration" %}</th>
+                        <th width="4%">{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr class="log-entry" data-log-id="{{ log.id }}">
+                        <td>
+                            <small class="text-muted">
+                                {{ log.timestamp|date:"M d, Y H:i:s" }}
+                            </small>
+                        </td>
+                        <td>
+                            {% if log.document %}
+                            <a href="{% url 'ai_knowledge:document_detail' log.document.id %}" class="text-decoration-none">
+                                <i class="fas fa-file me-1"></i>
+                                {{ log.document.title|truncatechars:30 }}
+                            </a>
+                            {% else %}
+                            <span class="text-muted">{% trans "System" %}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary">{{ log.processing_step|default:"general" }}</span>
+                        </td>
+                        <td>
+                            {% if log.status == 'success' %}
+                            <span class="badge bg-success">
+                                <i class="fas fa-check me-1"></i>
+                                {% trans "Success" %}
+                            </span>
+                            {% elif log.status == 'error' %}
+                            <span class="badge bg-danger">
+                                <i class="fas fa-times me-1"></i>
+                                {% trans "Error" %}
+                            </span>
+                            {% elif log.status == 'warning' %}
+                            <span class="badge bg-warning">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                {% trans "Warning" %}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-info">
+                                <i class="fas fa-info me-1"></i>
+                                {% trans "Info" %}
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="log-message" data-full-message="{{ log.message|escape }}">
+                                {{ log.message|truncatechars:80 }}
+                                {% if log.message|length > 80 %}
+                                <button class="btn btn-link btn-sm p-0 ms-1" onclick="toggleMessage(this)">
+                                    <small>{% trans "Show more" %}</small>
+                                </button>
+                                {% endif %}
+                            </div>
+                            {% if log.error_details %}
+                            <div class="mt-1">
+                                <button class="btn btn-outline-danger btn-sm" onclick="showErrorDetails('{{ log.id }}')">                                    <i class="fas fa-bug me-1"></i>
+                                    {% trans "Error Details" %}
+                                </button>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if log.processing_time %}
+                            <small class="text-muted">{{ log.processing_time|floatformat:2 }}s</small>
+                            {% else %}
+                            <small class="text-muted">-</small>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-outline-primary btn-sm" onclick="viewLogDetails('{{ log.id }}')"
+                                        title="{% trans 'View Details' %}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <nav aria-label="{% trans 'Logs pagination' %}">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page=1">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ num }}">{{ num }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.paginator.num_pages }}">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+        
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">{% trans "No processing logs found" %}</h5>
+            <p class="text-muted">{% trans "Logs will appear here as documents are processed." %}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Log Details Modal -->
+<div class="modal fade" id="logDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% trans "Log Details" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="logDetailsContent">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Details Modal -->
+<div class="modal fade" id="errorDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-bug me-2"></i>
+                    {% trans "Error Details" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="errorDetailsContent">
+                <!-- Content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+.border-left-danger {
+    border-left: 0.25rem solid #e74a3b !important;
+}
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+.log-entry:hover {
+    background-color: #f8f9fc;
+}
+.log-message {
+    word-break: break-word;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle message display
+function toggleMessage(button) {
+    const messageDiv = button.parentElement;
+    const fullMessage = messageDiv.getAttribute('data-full-message');
+    const isExpanded = button.textContent.includes('Show less');
+    
+    if (isExpanded) {
+        messageDiv.innerHTML = fullMessage.substring(0, 77) + '...' + 
+            '<button class="btn btn-link btn-sm p-0 ms-1" onclick="toggleMessage(this)">' +
+            '<small>Show more</small></button>';
+    } else {
+        messageDiv.innerHTML = fullMessage + 
+            '<button class="btn btn-link btn-sm p-0 ms-1" onclick="toggleMessage(this)">' +
+            '<small>Show less</small></button>';
+    }
+}
+
+// View log details
+function viewLogDetails(logId) {
+    fetch('/ai-knowledge/api/logs/' + logId + '/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('logDetailsContent').innerHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>General Information</h6>
+                        <table class="table table-sm">
+                            <tr><td><strong>ID:</strong></td><td>${data.id}</td></tr>
+                            <tr><td><strong>Timestamp:</strong></td><td>${data.timestamp}</td></tr>
+                            <tr><td><strong>Status:</strong></td><td><span class="badge bg-${data.status === 'success' ? 'success' : data.status === 'error' ? 'danger' : data.status === 'warning' ? 'warning' : 'info'}">${data.status}</span></td></tr>
+                            <tr><td><strong>Processing Step:</strong></td><td>${data.processing_step || 'N/A'}</td></tr>
+                            <tr><td><strong>Processing Time:</strong></td><td>${data.processing_time ? data.processing_time + 's' : 'N/A'}</td></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Document Information</h6>
+                        <table class="table table-sm">
+                            <tr><td><strong>Document:</strong></td><td>${data.document ? data.document.title : 'System'}</td></tr>
+                            <tr><td><strong>File Size:</strong></td><td>${data.document ? data.document.file_size : 'N/A'}</td></tr>
+                            <tr><td><strong>Language:</strong></td><td>${data.document ? data.document.language : 'N/A'}</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6>Message</h6>
+                        <div class="alert alert-light">
+                            ${data.message}
+                        </div>
+                    </div>
+                </div>
+            `;
+            new bootstrap.Modal(document.getElementById('logDetailsModal')).show();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to load log details');
+        });
+}
+
+// Show error details
+function showErrorDetails(logId) {
+    fetch('/ai-knowledge/api/logs/' + logId + '/error-details/')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('errorDetailsContent').innerHTML = `
+                <div class="alert alert-danger">
+                    <h6><i class="fas fa-exclamation-triangle me-2"></i>Error Information</h6>
+                    <p><strong>Type:</strong> ${data.error_type || 'Unknown'}</p>
+                    <p><strong>Message:</strong> ${data.error_message}</p>
+                </div>
+                <div class="mt-3">
+                    <h6>Stack Trace</h6>
+                    <pre class="bg-light p-3" style="max-height: 400px; overflow-y: auto;">${data.stack_trace || 'No stack trace available'}</pre>
+                </div>
+                <div class="mt-3">
+                    <h6>Context</h6>
+                    <pre class="bg-light p-3">${JSON.stringify(data.context || {}, null, 2)}</pre>
+                </div>
+            `;
+            new bootstrap.Modal(document.getElementById('errorDetailsModal')).show();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to load error details');
+        });
+}
+
+// Refresh logs
+function refreshLogs() {
+    location.reload();
+}
+
+// Export logs
+function exportLogs() {
+    const params = new URLSearchParams(window.location.search);
+    window.location.href = '/ai-knowledge/api/logs/export/?' + params.toString();
+}
+
+// Clear old logs
+function clearOldLogs() {
+    if (confirm('Are you sure you want to clear old logs? This action cannot be undone.')) {
+        fetch('/ai-knowledge/api/logs/clear-old/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Old logs cleared successfully');
+                location.reload();
+            } else {
+                alert('Failed to clear logs: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to clear logs');
+        });
+    }
+}
+</script>
+{% endblock %}

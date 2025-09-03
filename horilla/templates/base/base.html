@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load i18n %}
+{% load horillafilters %}
+
+{% block content %}
+<div class="oh-wrapper">
+    <div class="oh-main-wrapper">
+        <div class="oh-card">
+            <div class="oh-card__header">
+                <h4 class="oh-card__title">{% block title %}{% endblock %}</h4>
+            </div>
+            <div class="oh-card__body">
+                {% block main_content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

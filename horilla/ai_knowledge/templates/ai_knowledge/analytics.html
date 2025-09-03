@@ -1,0 +1,937 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Analytics - AI Knowledge Management{% endblock %}
+
+{% block page_title %}{% trans "Analytics Dashboard" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item active">{% trans "Analytics" %}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <button class="btn btn-outline-primary" onclick="refreshAnalytics()">
+        <i class="fas fa-sync me-2"></i>
+        {% trans "Refresh Data" %}
+    </button>
+    <button class="btn btn-outline-success" onclick="exportReport()">
+        <i class="fas fa-download me-2"></i>
+        {% trans "Export Report" %}
+    </button>
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fas fa-calendar me-2"></i>
+            {% trans "Time Range" %}
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="?period=7d">{% trans "Last 7 Days" %}</a></li>
+            <li><a class="dropdown-item" href="?period=30d">{% trans "Last 30 Days" %}</a></li>
+            <li><a class="dropdown-item" href="?period=90d">{% trans "Last 90 Days" %}</a></li>
+            <li><a class="dropdown-item" href="?period=1y">{% trans "Last Year" %}</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Overview Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            {% trans "Total Documents" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalDocuments">
+                            {{ analytics.total_documents|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-file fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            {% trans "Knowledge Entries" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalKnowledge">
+                            {{ analytics.total_kb_entries|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-brain fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            {% trans "AI Intents" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalIntents">
+                            {{ analytics.total_intents|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-lightbulb fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            {% trans "Processing Queue" %}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="processingQueue">
+                            {{ analytics.processing_queue|default:0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Document Upload Trends -->
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-chart-line me-2"></i>
+                    {% trans "Document Upload Trends" %}
+                </h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow">
+                        <a class="dropdown-item" href="#" onclick="changeChartType('line')">{% trans "Line Chart" %}</a>
+                        <a class="dropdown-item" href="#" onclick="changeChartType('bar')">{% trans "Bar Chart" %}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="uploadTrendsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Document Status Distribution -->
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-chart-pie me-2"></i>
+                    {% trans "Document Status" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance Metrics -->
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    {% trans "Processing Performance" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="text-center">
+                            <div class="h4 mb-0 text-success">{{ analytics.avg_processing_time|default:"0.0" }}s</div>
+                            <small class="text-muted">{% trans "Avg Processing Time" %}</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center">
+                            <div class="h4 mb-0 text-info">{{ analytics.success_rate|default:"0" }}%</div>
+                            <small class="text-muted">{% trans "Success Rate" %}</small>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="text-center">
+                            <div class="h4 mb-0 text-warning">{{ analytics.failed_documents|default:0 }}</div>
+                            <small class="text-muted">{% trans "Failed Documents" %}</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center">
+                            <div class="h4 mb-0 text-primary">{{ analytics.processed_today|default:0 }}</div>
+                            <small class="text-muted">{% trans "Processed Today" %}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    {% trans "Knowledge Base Growth" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <canvas id="knowledgeGrowthChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Training Data Progress -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-brain me-2"></i>
+                    {% trans "Training Data Progress" %}
+                </h6>
+                <button class="btn btn-sm btn-outline-primary" id="refreshTrainingProgress">
+                    <i class="fas fa-sync-alt me-1"></i>
+                    {% trans "Refresh" %}
+                </button>
+            </div>
+            <div class="card-body">
+                <!-- Training Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <div class="h3 mb-0" id="totalTrainingData">{{ analytics.training_stats.total|default:0 }}</div>
+                                <small>{% trans "Total Training Data" %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <div class="h3 mb-0" id="completedTrainingData">{{ analytics.training_stats.completed|default:0 }}</div>
+                                <small>{% trans "Completed" %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <div class="h3 mb-0" id="inProgressTrainingData">{{ analytics.training_stats.in_progress|default:0 }}</div>
+                                <small>{% trans "In Progress" %}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body text-center">
+                                <div class="h3 mb-0" id="pendingTrainingData">{{ analytics.training_stats.pending|default:0 }}</div>
+                                <small>{% trans "Pending" %}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overall Progress Bar -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="font-weight-bold">{% trans "Overall Training Progress" %}</span>
+                        <span class="badge badge-primary" id="overallProgressPercent">
+                            {{ analytics.training_stats.progress_percentage|default:0|floatformat:1 }}%
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                             id="overallProgressBar"
+                             style="width: 0%" data-progress="{{ analytics.training_stats.progress_percentage|default:0 }}">
+                            {{ analytics.training_stats.progress_percentage|default:0|floatformat:1 }}%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Training Processes -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="font-weight-bold mb-3">
+                            <i class="fas fa-cogs me-2"></i>
+                            {% trans "Active Training Processes" %}
+                        </h6>
+                        <div id="activeTrainingProcesses">
+                            {% for process in analytics.active_training_processes %}
+                            <div class="card mb-2 border-left-warning">
+                                <div class="card-body py-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>{{ process.question|truncatechars:50 }}</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                {% trans "Stage" %}: {{ process.training_stage|default:"Initializing" }}
+                                            </small>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="progress" style="width: 100px; height: 15px;">
+                                                <div class="progress-bar bg-warning" 
+                                                     style="width: 0%" data-progress="{{ process.training_progress|default:0 }}"></div>
+                                            </div>
+                                            <small>{{ process.training_progress|default:0|floatformat:0 }}%</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="text-center text-muted py-3">
+                                <i class="fas fa-check-circle fa-2x mb-2"></i>
+                                <br>
+                                {% trans "No active training processes" %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h6 class="font-weight-bold mb-3">
+                            <i class="fas fa-file-alt me-2"></i>
+                            {% trans "Processing Documents" %}
+                        </h6>
+                        <div id="processingDocuments">
+                            {% for doc in analytics.processing_documents %}
+                            <div class="card mb-2 border-left-info">
+                                <div class="card-body py-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>{{ doc.title|truncatechars:40 }}</strong>
+                                            <br>
+                                            <small class="text-muted">
+                                                {% trans "Stage" %}: {{ doc.processing_stage|default:"Processing" }}
+                                            </small>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="progress" style="width: 100px; height: 15px;">
+                                                <div class="progress-bar bg-info" 
+                                                     style="width: 0%" data-progress="{{ doc.processing_progress|default:0 }}"></div>
+                                            </div>
+                                            <small>{{ doc.processing_progress|default:0|floatformat:0 }}%</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="text-center text-muted py-3">
+                                <i class="fas fa-check-circle fa-2x mb-2"></i>
+                                <br>
+                                {% trans "No documents being processed" %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Analytics -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-folder me-2"></i>
+                    {% trans "Category Analytics" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="categoryAnalyticsTable">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Category" %}</th>
+                                <th>{% trans "Documents" %}</th>
+                                <th>{% trans "Knowledge Entries" %}</th>
+                                <th>{% trans "Training Data" %}</th>
+                                <th>{% trans "AI Intents" %}</th>
+                                <th>{% trans "Avg Processing Time" %}</th>
+                                <th>{% trans "Success Rate" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in analytics.category_stats %}
+                            <tr>
+                                <td>
+                                    <i class="fas fa-folder me-2" style="color: #6c757d;" data-color="{{ category.color|default:'#6c757d' }}"></i>
+                                    {{ category.name }}
+                                </td>
+                                <td><span class="badge bg-primary">{{ category.document_count }}</span></td>
+                                <td><span class="badge bg-success">{{ category.knowledge_count }}</span></td>
+                                <td><span class="badge bg-info">{{ category.training_count }}</span></td>
+                                <td><span class="badge bg-warning">{{ category.intent_count }}</span></td>
+                                <td>{{ category.avg_processing_time|floatformat:2 }}s</td>
+                                <td>
+                                    <div class="progress" style="height: 20px;">
+                                        {% if category.success_rate > 80 %}
+                                        <div class="progress-bar bg-success" 
+                                             style="width: 0%" data-progress="{{ category.success_rate }}">
+                                            {{ category.success_rate|floatformat:1 }}%
+                                        </div>
+                                        {% else %}
+                                        <div class="progress-bar bg-warning" 
+                                             style="width: 0%" data-progress="{{ category.success_rate }}">
+                                            {{ category.success_rate|floatformat:1 }}%
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    {% trans "No category data available" %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-history me-2"></i>
+                    {% trans "Recent Activity" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    {% for activity in analytics.recent_activities %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-{{ activity.type|default:'primary' }}"></div>
+                        <div class="timeline-content">
+                            <h6 class="timeline-title">{{ activity.title }}</h6>
+                            <p class="timeline-text">{{ activity.description }}</p>
+                            <small class="text-muted">
+                                <i class="fas fa-clock me-1"></i>
+                                {{ activity.timestamp|timesince }} {% trans "ago" %}
+                            </small>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center text-muted py-4">
+                        <i class="fas fa-inbox fa-3x mb-3"></i>
+                        <p>{% trans "No recent activity" %}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+.timeline-marker {
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 17px;
+    width: 2px;
+    height: calc(100% + 13px);
+    background-color: #e3e6f0;
+}
+.timeline-title {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.timeline-text {
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #6c757d;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Chart data from Django
+window.analyticsData = {
+    uploadTrends: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        data: [10, 15, 8, 22, 18, 25]
+    },
+    statusDistribution: {
+        labels: ['Processed', 'Processing', 'Failed', 'Pending'],
+        data: [65, 15, 10, 10]
+    },
+    knowledgeGrowth: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        data: [45, 52, 61, 78]
+    }
+};
+
+let uploadTrendsChart;
+let statusChart;
+let knowledgeGrowthChart;
+
+// Initialize charts when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCharts();
+});
+
+// Initialize all charts
+function initializeCharts() {
+    createUploadTrendsChart();
+    createStatusChart();
+    createKnowledgeGrowthChart();
+}
+
+// Create upload trends chart
+function createUploadTrendsChart() {
+    const ctx = document.getElementById('uploadTrendsChart').getContext('2d');
+    
+    uploadTrendsChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: window.analyticsData.uploadTrends.labels,
+            datasets: [{
+                label: 'Documents Uploaded',
+                data: window.analyticsData.uploadTrends.data,
+                borderColor: '#4e73df',
+                backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                borderWidth: 2,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#e3e6f0'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: '#e3e6f0'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Create status distribution chart
+function createStatusChart() {
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    
+    statusChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: window.analyticsData.statusDistribution.labels,
+            datasets: [{
+                data: window.analyticsData.statusDistribution.data,
+                backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b', '#36b9cc'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+// Create knowledge growth chart
+function createKnowledgeGrowthChart() {
+    const ctx = document.getElementById('knowledgeGrowthChart').getContext('2d');
+    
+    knowledgeGrowthChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: window.analyticsData.knowledgeGrowth.labels,
+            datasets: [{
+                label: 'Knowledge Entries',
+                data: window.analyticsData.knowledgeGrowth.data,
+                backgroundColor: '#1cc88a',
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#e3e6f0'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Change chart type
+function changeChartType(type) {
+    if (uploadTrendsChart) {
+        uploadTrendsChart.destroy();
+    }
+    
+    const ctx = document.getElementById('uploadTrendsChart').getContext('2d');
+    
+    uploadTrendsChart = new Chart(ctx, {
+        type: type,
+        data: {
+            labels: window.analyticsData.uploadTrends.labels,
+            datasets: [{
+                label: 'Documents Uploaded',
+                data: window.analyticsData.uploadTrends.data,
+                borderColor: '#4e73df',
+                backgroundColor: type === 'line' ? 'rgba(78, 115, 223, 0.1)' : '#4e73df',
+                borderWidth: 2,
+                fill: type === 'line'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#e3e6f0'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: type === 'line' ? '#e3e6f0' : 'transparent'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Refresh analytics data
+function refreshAnalytics() {
+    location.reload();
+}
+
+// Export analytics report
+function exportReport() {
+    window.location.href = '/ai-knowledge/api/analytics/export/';
+}
+
+// Training Progress Functions
+function refreshTrainingProgress() {
+    const refreshBtn = document.getElementById('refreshTrainingProgress');
+    const originalText = refreshBtn.innerHTML;
+    
+    // Show loading state
+    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Loading...';
+    refreshBtn.disabled = true;
+    
+    // Fetch updated training progress data
+    fetch('/ai-knowledge/api/training-progress/')
+        .then(response => response.json())
+        .then(data => {
+            updateTrainingProgressUI(data);
+        })
+        .catch(error => {
+            console.error('Error fetching training progress:', error);
+            // Show error message in a less intrusive way
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-warning alert-dismissible fade show mt-2';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Failed to refresh training progress data. Please try again later.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            // Insert error message after the refresh button
+            const refreshBtn = document.getElementById('refreshTrainingProgress');
+            refreshBtn.parentNode.insertBefore(errorDiv, refreshBtn.nextSibling);
+            
+            // Auto-remove error message after 5 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.remove();
+                }
+            }, 5000);
+        })
+        .finally(() => {
+            // Restore button state
+            refreshBtn.innerHTML = originalText;
+            refreshBtn.disabled = false;
+        });
+}
+
+function updateTrainingProgressUI(data) {
+    // Update training statistics
+    document.getElementById('totalTrainingData').textContent = data.training_stats.total;
+    document.getElementById('completedTrainingData').textContent = data.training_stats.completed;
+    document.getElementById('inProgressTrainingData').textContent = data.training_stats.in_progress;
+    document.getElementById('pendingTrainingData').textContent = data.training_stats.pending;
+    
+    // Update overall progress
+    const progressPercent = data.training_stats.progress_percentage;
+    document.getElementById('overallProgressPercent').textContent = progressPercent.toFixed(1) + '%';
+    document.getElementById('overallProgressBar').style.width = progressPercent + '%';
+    document.getElementById('overallProgressBar').textContent = progressPercent.toFixed(1) + '%';
+    
+    // Update active training processes
+    updateActiveTrainingProcesses(data.active_training_processes);
+    
+    // Update processing documents
+    updateProcessingDocuments(data.processing_documents);
+}
+
+function updateActiveTrainingProcesses(processes) {
+    const container = document.getElementById('activeTrainingProcesses');
+    
+    if (processes.length === 0) {
+        container.innerHTML = `
+            <div class="text-center text-muted py-3">
+                <i class="fas fa-check-circle fa-2x mb-2"></i>
+                <br>
+                No active training processes
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    processes.forEach(process => {
+        html += `
+            <div class="card mb-2 border-left-warning">
+                <div class="card-body py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${process.question.substring(0, 50)}${process.question.length > 50 ? '...' : ''}</strong>
+                            <br>
+                            <small class="text-muted">
+                                Stage: ${process.training_stage || 'Initializing'}
+                            </small>
+                        </div>
+                        <div class="text-right">
+                            <div class="progress" style="width: 100px; height: 15px;">
+                                <div class="progress-bar bg-warning" 
+                                     style="width: ${process.training_progress || 0}%"></div>
+                            </div>
+                            <small>${Math.round(process.training_progress || 0)}%</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+function updateProcessingDocuments(documents) {
+    const container = document.getElementById('processingDocuments');
+    
+    if (documents.length === 0) {
+        container.innerHTML = `
+            <div class="text-center text-muted py-3">
+                <i class="fas fa-check-circle fa-2x mb-2"></i>
+                <br>
+                No documents being processed
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    documents.forEach(doc => {
+        html += `
+            <div class="card mb-2 border-left-info">
+                <div class="card-body py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${doc.title.substring(0, 40)}${doc.title.length > 40 ? '...' : ''}</strong>
+                            <br>
+                            <small class="text-muted">
+                                Stage: ${doc.processing_stage || 'Processing'}
+                            </small>
+                        </div>
+                        <div class="text-right">
+                            <div class="progress" style="width: 100px; height: 15px;">
+                                <div class="progress-bar bg-info" 
+                                     style="width: ${doc.processing_progress || 0}%"></div>
+                            </div>
+                            <small>${Math.round(doc.processing_progress || 0)}%</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// Auto-refresh training progress every 30 seconds
+let trainingProgressInterval;
+
+function startAutoRefresh() {
+    trainingProgressInterval = setInterval(refreshTrainingProgress, 30000);
+}
+
+function stopAutoRefresh() {
+    if (trainingProgressInterval) {
+        clearInterval(trainingProgressInterval);
+    }
+}
+
+// Initialize progress bars and colors from data attributes
+function initializeProgressBars() {
+    // Set progress bars width from data-progress attributes
+    document.querySelectorAll('[data-progress]').forEach(element => {
+        const progress = element.getAttribute('data-progress');
+        if (progress !== null) {
+            element.style.width = progress + '%';
+        }
+    });
+    
+    // Set colors from data-color attributes
+    document.querySelectorAll('[data-color]').forEach(element => {
+        const color = element.getAttribute('data-color');
+        if (color) {
+            element.style.color = color;
+        }
+    });
+}
+
+// Initialize training progress functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize progress bars and colors
+    initializeProgressBars();
+    
+    // Bind refresh button
+    const refreshBtn = document.getElementById('refreshTrainingProgress');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', refreshTrainingProgress);
+    }
+    
+    // Start auto-refresh
+    startAutoRefresh();
+});
+
+// Stop auto-refresh when page is hidden
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        stopAutoRefresh();
+    } else {
+        startAutoRefresh();
+    }
+});
+
+</script>
+{% endblock %}

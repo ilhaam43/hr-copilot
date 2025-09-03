@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ========= Konfigurasi (bisa di-override lewat ENV saat run) =========
+AI_DIR="${AI_DIR:-$HOME/hrcopilot/ai}"
+BACKEND_PORT="${BACKEND_PORT:-8001}"
+QDRANT_PORT="${QDRANT_PORT:-6333}"
+PRESIDIO_PORT="${PRESIDIO_PORT:-3000}"
+EMBED_MODEL="${EMBED_MODEL:-nomic-embed-text}"
+GEN_MODEL="${GEN_MODEL:-llama3.2:3b-instruct}"
+LOG_DIR="${LOG_DIR:-$HOME/hrcopilot/logs}"
+[[ $(uname -m) == "arm64" ]] && PLATFORM_FLAG="--platform=linux/amd64" || PLATFORM_FLAG=""
+
+mkdir -p "$LOG_DIR"
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "ERROR: '$1' tidak ditemukan."; exit 1; }; }
+need curl; need jq; need docker; need ollama; need lsof
+
+echo "==> Pastikan Ollama jalan…"
+if ! pgrep -f "/ollama serve" >/dev/null 2>&1; then
+  (nohup ollama serve >>"$LOG_DIR/ollama.log" 2>&1 & echo $! >"$LOG_DIR/ollama.pid") || true
+  sleep 2
+fi
+
+echo "==> Pastikan model embedding tersedia: $EMBED_MODEL"
+ollama list 2>/dev/null | awk '{print $1}' | grep -qx "$EMBED_MODEL" || ollama pull "$EMBED_MODEL" >/dev/null
+
+embed_len() {
+  local model="$1"
+  local json
+  json="$(curl -s http://127.0.0.1:11434/api/embeddings \
+            -H 'Content-Type: application/json' \
+            -d "{\"model\":\"${model}\",\"input\":\"dim check\"}")"
+  # simpan untuk debug bila perlu
+  echo "$json" > "$LOG_DIR/emb_check_${model//[:\/]/_}.json"
+  # dukung dua format: {embedding:[...]} atau {data:[{embedding:[...]}]}
+  local len
+  len="$(echo "$json" | jq '(.embedding // (.data[0].embedding)) | length' 2>/dev/null || echo 0)"
+  echo "${len:-0}"
+}
+
+echo "==> Cek panjang embedding dari Ollama…"
+EMBLEN=$(embed_len "$EMBED_MODEL")
+
+if [[ "$EMBLEN" -eq 0 ]]; then
+  echo "!! $EMBED_MODEL mengembalikan embedding kosong. Coba fallback 'mxbai-embed-large'…"
+  ollama list 2>/dev/null | awk '{print $1}' | grep -qx "mxbai-embed-large" || ollama pull mxbai-embed-large >/dev/null
+  TESTLEN=$(embed_len "mxbai-embed-large")
+  if [[ "$TESTLEN" -gt 0 ]]; then
+    EMBED_MODEL="mxbai-embed-large"
+    EMBLEN="$TESTLEN"
+    echo "   ✓ Fallback OK: pakai EMBED_MODEL=$EMBED_MODEL (dim=$EMBLEN)"
+  else
+    echo "ERROR: kedua model mengembalikan embedding 0."
+    echo "  Lihat debug JSON: $LOG_DIR/emb_check_${EMBED_MODEL//[:\/]/_}.json dan $LOG_DIR/emb_check_mxbai-embed-large.json"
+    exit 1
+  fi
+else
+  echo "   ✓ $EMBED_MODEL dim=$EMBLEN"
+fi
+
+echo "==> Nyalakan Qdrant di :$QDRANT_PORT"
+if ! docker ps --format '{{.Names}}' | grep -q '^qdrant$'; then
+  if docker ps -a --format '{{.Names}}' | grep -q '^qdrant$'; then docker start qdrant >/dev/null
+  else docker run -d --name qdrant -p ${QDRANT_PORT}:6333 -v "$HOME/hrcopilot/.qdrant:/qdrant/storage" qdrant/qdrant:latest >/dev/null
+  fi
+fi
+
+echo "==> Nyalakan Presidio di :$PRESIDIO_PORT"
+if ! docker ps --format '{{.Names}}' | grep -q '^presidio$'; then
+  if docker ps -a --format '{{.Names}}' | grep -q '^presidio$'; then docker start presidio >/dev/null
+  else docker run -d $PLATFORM_FLAG --name presidio -p ${PRESIDIO_PORT}:3000 mcr.microsoft.com/presidio-analyzer:latest >/dev/null
+  fi
+fi
+
+echo "==> Nyalakan Backend AI (FastAPI) di :$BACKEND_PORT"
+cd "$AI_DIR"
+python3 -m venv .venv >/dev/null 2>&1 || true
+source .venv/bin/activate
+pip -q install fastapi uvicorn qdrant-client requests pypdf python-multipart
+
+export QDRANT_URL="http://127.0.0.1:${QDRANT_PORT}"
+export PRESIDIO_URL="http://127.0.0.1:${PRESIDIO_PORT}"
+export GEN_MODEL="$GEN_MODEL"
+export EMBED_MODEL="$EMBED_MODEL"
+export MIN_SIM="${MIN_SIM:-0.28}"
+
+# Bebaskan port bila terpakai
+PID_ON_PORT=$(lsof -nP -iTCP:${BACKEND_PORT} -sTCP:LISTEN -t || true)
+[[ -n "$PID_ON_PORT" ]] && kill -15 "$PID_ON_PORT" || true
+sleep 1
+
+nohup uvicorn --app-dir "$AI_DIR" hrcopilot_service:app --host 0.0.0.0 --port ${BACKEND_PORT} \
+  >> "$LOG_DIR/ai.log" 2>&1 & echo $! > "$LOG_DIR/ai.pid"
+sleep 2
+
+echo "== Health checks =="
+curl -s "http://127.0.0.1:${BACKEND_PORT}/healthz" || true; echo
+curl -s "http://127.0.0.1:${QDRANT_PORT}/collections" >/dev/null && echo "✓ Qdrant OK :${QDRANT_PORT}"
+curl -s -X POST "http://127.0.0.1:${PRESIDIO_PORT}/analyze" -H 'Content-Type: application/json' \
+  -d '{"text":"a@b.com 0812345678","language":"en","entities":["EMAIL_ADDRESS","PHONE_NUMBER"]}' >/dev/null && echo "✓ Presidio OK :${PRESIDIO_PORT}"
+
+echo "== URLs =="
+echo "Horilla:   http://127.0.0.1:8000"
+echo "Backend:   http://127.0.0.1:${BACKEND_PORT}/healthz"
+echo "Qdrant:    http://127.0.0.1:${QDRANT_PORT}"
+echo "Logs:      ${LOG_DIR}/ai.log   (tail -f …)"
+echo "Embed:     model=${EMBED_MODEL} dim=${EMBLEN}"

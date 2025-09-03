@@ -1,0 +1,678 @@
+{% extends 'ai_knowledge/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ entry.title }} - Knowledge Base{% endblock %}
+
+{% block page_title %}{% trans "Knowledge Base Entry" %}{% endblock %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item">
+    <a href="{% url 'ai_knowledge:knowledge_base_list' %}">{% trans "Knowledge Base" %}</a>
+</li>
+<li class="breadcrumb-item active">{{ entry.title|truncatechars:50 }}</li>
+{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'ai_knowledge:edit_knowledge_entry' entry.id %}" class="btn btn-primary">
+        <i class="fas fa-edit me-2"></i>
+        {% trans "Edit" %}
+    </a>
+    <button class="btn btn-outline-success" onclick="duplicateEntry()">
+        <i class="fas fa-copy me-2"></i>
+        {% trans "Duplicate" %}
+    </button>
+    <button class="btn btn-outline-info" onclick="exportEntry()">
+        <i class="fas fa-download me-2"></i>
+        {% trans "Export" %}
+    </button>
+    <button class="btn btn-outline-danger" onclick="deleteEntry()">
+        <i class="fas fa-trash me-2"></i>
+        {% trans "Delete" %}
+    </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Main Content -->
+    <div class="col-lg-8">
+        <!-- Entry Information -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% trans "Entry Information" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Title:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <h5 class="mb-0">{{ entry.title }}</h5>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Category:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {% if entry.category %}
+                        <span class="badge bg-primary">{{ entry.category.name }}</span>
+                        {% else %}
+                        <span class="text-muted">{% trans "No category" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Source Document:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {% if entry.source_document %}
+                        <a href="{% url 'ai_knowledge:document_detail' entry.source_document.id %}" class="text-decoration-none">
+                            <i class="fas fa-file me-1"></i>
+                            {{ entry.source_document.title }}
+                        </a>
+                        {% else %}
+                        <span class="text-muted">{% trans "Manual entry" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Confidence Score:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="progress" style="height: 20px;">
+                            {% if entry.confidence_score > 80 %}
+                            <div class="progress-bar bg-success" 
+                                 style="width: {{ entry.confidence_score }}%">
+                                {{ entry.confidence_score|floatformat:1 }}%
+                            </div>
+                            {% else %}
+                            <div class="progress-bar bg-warning" 
+                                 style="width: {{ entry.confidence_score }}%">
+                                {{ entry.confidence_score|floatformat:1 }}%
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Created:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <small class="text-muted">
+                            {{ entry.created_at|date:"M d, Y H:i" }}
+                            {% if entry.created_by %}
+                            {% trans "by" %} {{ entry.created_by.get_full_name|default:entry.created_by.username }}
+                            {% endif %}
+                        </small>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>{% trans "Last Updated:" %}</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <small class="text-muted">
+                            {{ entry.updated_at|date:"M d, Y H:i" }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-file-text me-2"></i>
+                    {% trans "Content" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="content-display">
+                    {{ entry.content|linebreaks }}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Keywords and Tags -->
+        {% if entry.keywords %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-tags me-2"></i>
+                    {% trans "Keywords" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                {% for keyword in entry.keywords.all %}
+                <span class="badge bg-secondary me-1 mb-1">{{ keyword.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Related Entries -->
+        {% if related_entries %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-link me-2"></i>
+                    {% trans "Related Entries" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for related in related_entries %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-left-primary h-100">
+                            <div class="card-body py-2">
+                                <h6 class="card-title mb-1">
+                                    <a href="{% url 'ai_knowledge:knowledge_base_detail' related.id %}" class="text-decoration-none">
+                                        {{ related.title|truncatechars:50 }}
+                                    </a>
+                                </h6>
+                                <p class="card-text small text-muted mb-1">
+                                    {{ related.content|truncatechars:100 }}
+                                </p>
+                                <small class="text-muted">
+                                    {% trans "Similarity:" %} {{ related.similarity_score|floatformat:1 }}%
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- Quick Actions -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-bolt me-2"></i>
+                    {% trans "Quick Actions" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary" onclick="testSimilarity()">
+                        <i class="fas fa-search me-2"></i>
+                        {% trans "Test Similarity" %}
+                    </button>
+                    <button class="btn btn-outline-success" onclick="generateTrainingData()">
+                        <i class="fas fa-robot me-2"></i>
+                        {% trans "Generate Training Data" %}
+                    </button>
+                    <button class="btn btn-outline-info" onclick="createIntent()">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        {% trans "Create AI Intent" %}
+                    </button>
+                    <button class="btn btn-outline-warning" onclick="improveContent()">
+                        <i class="fas fa-magic me-2"></i>
+                        {% trans "Improve Content" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    {% trans "Statistics" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-primary">{{ entry.usage_count|default:0 }}</div>
+                        <small class="text-muted">{% trans "Times Used" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-success">{{ entry.feedback_score|default:0 }}</div>
+                        <small class="text-muted">{% trans "Avg Rating" %}</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-info">{{ entry.content|length }}</div>
+                        <small class="text-muted">{% trans "Characters" %}</small>
+                    </div>
+                    <div class="col-6">
+                        <div class="h4 mb-0 text-warning">{{ entry.content|wordcount }}</div>
+                        <small class="text-muted">{% trans "Words" %}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Version History -->
+        {% if entry.version_history %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-history me-2"></i>
+                    {% trans "Version History" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    {% for version in entry.version_history %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6 class="timeline-title">{% trans "Version" %} {{ version.version }}</h6>
+                            <p class="timeline-text">{{ version.change_summary|truncatechars:50 }}</p>
+                            <small class="text-muted">
+                                {{ version.created_at|timesince }} {% trans "ago" %}
+                                {% if version.created_by %}
+                                {% trans "by" %} {{ version.created_by.username }}
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Feedback -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-comments me-2"></i>
+                    {% trans "Feedback" %}
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Rate this entry:" %}</label>
+                    <div class="rating" id="entryRating">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Comments:" %}</label>
+                    <textarea class="form-control" id="feedbackComment" rows="3" 
+                              placeholder="{% trans 'Share your thoughts about this entry...' %}"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="submitFeedback()">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    {% trans "Submit Feedback" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Test Similarity Modal -->
+<div class="modal fade" id="similarityTestModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-search me-2"></i>
+                    {% trans "Test Similarity" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Enter text to test similarity:" %}</label>
+                    <textarea class="form-control" id="similarityText" rows="4" 
+                              placeholder="{% trans 'Enter text to compare with this knowledge entry...' %}"></textarea>
+                </div>
+                <div id="similarityResults" class="mt-3" style="display: none;">
+                    <h6>{% trans "Similarity Results:" %}</h6>
+                    <div class="alert alert-info" id="similarityScore"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="runSimilarityTest()">
+                    <i class="fas fa-play me-2"></i>
+                    {% trans "Test" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+.content-display {
+    line-height: 1.6;
+    font-size: 14px;
+}
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+.timeline-marker {
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 15px;
+    width: 2px;
+    height: calc(100% + 5px);
+    background-color: #e3e6f0;
+}
+.timeline-title {
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.timeline-text {
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #6c757d;
+}
+.rating {
+    font-size: 20px;
+}
+.rating i {
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.rating i:hover,
+.rating i.active {
+    color: #ffc107;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Store entry data
+window.entryData = {
+    id: {{ entry.id|default:0|safe }}
+};
+</script>
+<script>
+let currentRating = 0;
+
+// Initialize rating system
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('#entryRating i');
+    stars.forEach((star, index) => {
+        star.addEventListener('click', function() {
+            currentRating = index + 1;
+            updateStars();
+        });
+        
+        star.addEventListener('mouseover', function() {
+            highlightStars(index + 1);
+        });
+    });
+    
+    document.getElementById('entryRating').addEventListener('mouseleave', function() {
+        updateStars();
+    });
+});
+
+// Update star display
+function updateStars() {
+    const stars = document.querySelectorAll('#entryRating i');
+    stars.forEach((star, index) => {
+        if (index < currentRating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+// Highlight stars on hover
+function highlightStars(rating) {
+    const stars = document.querySelectorAll('#entryRating i');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.style.color = '#ffc107';
+        } else {
+            star.style.color = '#ddd';
+        }
+    });
+}
+
+// Test similarity
+function testSimilarity() {
+    new bootstrap.Modal(document.getElementById('similarityTestModal')).show();
+}
+
+// Run similarity test
+function runSimilarityTest() {
+    const text = document.getElementById('similarityText').value;
+    if (!text.trim()) {
+        alert('Please enter text to test');
+        return;
+    }
+    
+    fetch('/ai-knowledge/api/similarity-test/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            entry_id: window.entryData.id,
+            test_text: text
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('similarityScore').innerHTML = 
+            'Similarity Score: <strong>' + data.similarity_score + '%</strong><br>' +
+            'Confidence: <strong>' + data.confidence + '</strong>';
+        document.getElementById('similarityResults').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to test similarity');
+    });
+}
+
+// Generate training data
+function generateTrainingData() {
+    if (confirm('Generate training data from this knowledge entry?')) {
+        fetch('/ai-knowledge/api/generate-training-data/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                entry_id: window.entryData.id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Training data generated successfully');
+            } else {
+                alert('Failed to generate training data: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to generate training data');
+        });
+    }
+}
+
+// Create AI intent
+function createIntent() {
+    if (confirm('Create AI intent from this knowledge entry?')) {
+        fetch('/ai-knowledge/api/create-intent/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                entry_id: window.entryData.id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('AI intent created successfully');
+                window.location.href = '/ai-knowledge/intents/' + data.intent_id + '/';
+            } else {
+                alert('Failed to create intent: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to create intent');
+        });
+    }
+}
+
+// Improve content
+function improveContent() {
+    if (confirm('Use AI to improve this content?')) {
+        fetch('/ai-knowledge/api/improve-content/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({
+                entry_id: window.entryData.id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Content improvement suggestions generated');
+            } else {
+                alert('Failed to improve content: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to improve content');
+        });
+    }
+}
+
+// Submit feedback
+function submitFeedback() {
+    const comment = document.getElementById('feedbackComment').value;
+    
+    if (currentRating === 0) {
+        alert('Please select a rating');
+        return;
+    }
+    
+    fetch('/ai-knowledge/api/submit-feedback/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            entry_id: window.entryData.id,
+            rating: currentRating,
+            comment: comment
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Feedback submitted successfully');
+            document.getElementById('feedbackComment').value = '';
+            currentRating = 0;
+            updateStars();
+        } else {
+            alert('Failed to submit feedback: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to submit feedback');
+    });
+}
+
+// Duplicate entry
+function duplicateEntry() {
+    if (confirm('Create a duplicate of this entry?')) {
+        window.location.href = '/ai-knowledge/knowledge-base/create/?duplicate=' + window.entryData.id;
+    }
+}
+
+// Export entry
+function exportEntry() {
+    window.location.href = '/ai-knowledge/api/knowledge-base/' + window.entryData.id + '/export/';
+}
+
+// Delete entry
+function deleteEntry() {
+    if (confirm('Are you sure you want to delete this entry? This action cannot be undone.')) {
+        fetch('/ai-knowledge/api/knowledge-base/' + window.entryData.id + '/delete/', {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Entry deleted successfully');
+                window.location.href = '/ai-knowledge/knowledge-base/';
+            } else {
+                alert('Failed to delete entry: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete entry');
+        });
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,254 @@
+{% extends 'company_policies/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block policy_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>{% trans "Training Kebijakan" %}</h2>
+    {% if perms.company_policies.add_policytraining %}
+    <a href="{% url 'company_policies:training_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> {% trans "Tambah Training" %}
+    </a>
+    {% endif %}
+</div>
+
+<!-- Search and Filter -->
+<div class="search-form mb-4">
+    <form method="get">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <input type="text" name="search" value="{{ request.GET.search }}" 
+                       placeholder="{% trans 'Cari training...' %}" class="form-control">
+            </div>
+            <div class="form-group col-md-3">
+                <select name="status" class="form-control">
+                    <option value="">{% trans "Semua Status" %}</option>
+                    <option value="scheduled" {% if request.GET.status == 'scheduled' %}selected{% endif %}>
+                        {% trans "Terjadwal" %}
+                    </option>
+                    <option value="ongoing" {% if request.GET.status == 'ongoing' %}selected{% endif %}>
+                        {% trans "Berlangsung" %}
+                    </option>
+                    <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>
+                        {% trans "Selesai" %}
+                    </option>
+                    <option value="cancelled" {% if request.GET.status == 'cancelled' %}selected{% endif %}>
+                        {% trans "Dibatalkan" %}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <select name="category" class="form-control">
+                    <option value="">{% trans "Semua Kategori" %}</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" 
+                            {% if request.GET.category == category.id|stringformat:'s' %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-outline-primary btn-block">
+                    <i class="fas fa-search"></i> {% trans "Cari" %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Training Cards -->
+<div class="row">
+    {% for training in trainings %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="policy-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="policy-category-badge policy-category-{{ training.policy_category.category_type }}">
+                    {{ training.policy_category.name }}
+                </span>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                            type="button" data-toggle="dropdown">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'company_policies:training_detail' training.id %}">
+                            <i class="fas fa-eye"></i> {% trans "Detail" %}
+                        </a>
+                        {% if perms.company_policies.change_policytraining %}
+                        <a class="dropdown-item" href="{% url 'company_policies:training_edit' training.id %}">
+                            <i class="fas fa-edit"></i> {% trans "Edit" %}
+                        </a>
+                        {% endif %}
+                        {% if perms.company_policies.delete_policytraining %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" 
+                           href="{% url 'company_policies:training_delete' training.id %}"
+                           onclick="return confirm('Apakah Anda yakin ingin menghapus training ini?')">
+                            <i class="fas fa-trash"></i> {% trans "Hapus" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <h5 class="mb-3">{{ training.title }}</h5>
+            
+            {% if training.description %}
+            <p class="text-muted mb-3">{{ training.description|truncatewords:15 }}</p>
+            {% endif %}
+            
+            <div class="mb-3">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="small text-muted">{% trans "Status" %}</div>
+                        <span class="policy-status policy-status-{{ training.status }}">
+                            {{ training.get_status_display }}
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <div class="small text-muted">{% trans "Peserta" %}</div>
+                        <div class="font-weight-bold">{{ training.participants.count }}</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="small text-muted">{% trans "Durasi" %}</div>
+                        <div class="font-weight-bold">{{ training.duration_hours }}h</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <small class="text-muted">
+                    <i class="fas fa-calendar"></i> 
+                    {% if training.scheduled_date %}
+                        {{ training.scheduled_date|date:"d M Y" }}
+                    {% else %}
+                        {% trans "Belum dijadwalkan" %}
+                    {% endif %}
+                </small>
+                <br>
+                <small class="text-muted">
+                    <i class="fas fa-clock"></i> 
+                    {% if training.scheduled_time %}
+                        {{ training.scheduled_time|time:"H:i" }}
+                    {% else %}
+                        {% trans "Waktu belum ditentukan" %}
+                    {% endif %}
+                </small>
+                {% if training.location %}
+                <br>
+                <small class="text-muted">
+                    <i class="fas fa-map-marker-alt"></i> {{ training.location }}
+                </small>
+                {% endif %}
+            </div>
+            
+            <!-- Progress Bar -->
+            {% if training.status == 'ongoing' or training.status == 'completed' %}
+            <div class="mb-3">
+                {% with completion_rate=training.get_completion_rate %}
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <small class="text-muted">{% trans "Progress" %}</small>
+                    <small class="text-muted">{{ completion_rate }}%</small>
+                </div>
+                <div class="progress" style="height: 6px;">
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ completion_rate }}%;" 
+                         aria-valuenow="{{ completion_rate }}" 
+                         aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                {% endwith %}
+            </div>
+            {% endif %}
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'company_policies:training_detail' training.id %}" 
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-eye"></i> {% trans "Detail" %}
+                </a>
+                
+                {% if user.is_authenticated %}
+                    {% if user in training.participants.all %}
+                        {% with participant=training.get_participant_status %}
+                        {% if participant.status == 'completed' %}
+                            <span class="text-success small">
+                                <i class="fas fa-check-circle"></i> {% trans "Selesai" %}
+                                {% if participant.score %}
+                                    ({{ participant.score }})
+                                {% endif %}
+                            </span>
+                        {% elif participant.status == 'in_progress' %}
+                            <span class="text-warning small">
+                                <i class="fas fa-clock"></i> {% trans "Sedang Berlangsung" %}
+                            </span>
+                        {% else %}
+                            <span class="text-info small">
+                                <i class="fas fa-user-check"></i> {% trans "Terdaftar" %}
+                            </span>
+                        {% endif %}
+                        {% endwith %}
+                    {% else %}
+                        {% if training.status == 'scheduled' or training.status == 'ongoing' %}
+                        <a href="{% url 'company_policies:training_join' training.id %}" 
+                           class="btn btn-sm btn-success">
+                            <i class="fas fa-user-plus"></i> {% trans "Daftar" %}
+                        </a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="text-center py-5">
+            <i class="fas fa-chalkboard-teacher fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">{% trans "Tidak ada training" %}</h4>
+            <p class="text-muted">{% trans "Belum ada training kebijakan yang tersedia." %}</p>
+            {% if perms.company_policies.add_policytraining %}
+            <a href="{% url 'company_policies:training_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> {% trans "Tambah Training Pertama" %}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+{% if trainings.has_other_pages %}
+<nav aria-label="{% trans 'Navigasi halaman' %}">
+    <ul class="pagination justify-content-center">
+        {% if trainings.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.status %}status={{ request.GET.status }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}page={{ trainings.previous_page_number }}">
+                    {% trans "Sebelumnya" %}
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in trainings.paginator.page_range %}
+            {% if trainings.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% elif num > trainings.number|add:'-3' and num < trainings.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.status %}status={{ request.GET.status }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if trainings.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}{% if request.GET.status %}status={{ request.GET.status }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}page={{ trainings.next_page_number }}">
+                    {% trans "Selanjutnya" %}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

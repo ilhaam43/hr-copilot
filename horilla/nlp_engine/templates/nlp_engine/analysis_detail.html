@@ -1,0 +1,285 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Analysis Detail #{{ analysis.id }} - NLP Engine{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title mb-0">Analysis Detail #{{ analysis.id }}</h4>
+                    <div>
+                        <a href="{% url 'nlp_engine:analysis_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                        <a href="{% url 'nlp_engine:analyze_text' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Analysis
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Analysis Metadata -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white">
+                                    <h6 class="mb-0">Analysis Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>ID:</strong></td>
+                                            <td>{{ analysis.id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Source Type:</strong></td>
+                                            <td><span class="badge bg-secondary">{{ analysis.get_source_type_display }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Source ID:</strong></td>
+                                            <td>{{ analysis.source_id|default:"N/A" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Analyzed By:</strong></td>
+                                            <td>
+                                                {% if analysis.analyzed_by %}
+                                                    {{ analysis.analyzed_by.get_full_name|default:analysis.analyzed_by.username }}
+                                                {% else %}
+                                                    <span class="text-muted">System</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Employee:</strong></td>
+                                            <td>
+                                                {% if analysis.employee %}
+                                                    {{ analysis.employee.get_full_name }}
+                                                {% else %}
+                                                    <span class="text-muted">N/A</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Created:</strong></td>
+                                            <td>{{ analysis.created_at }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Updated:</strong></td>
+                                            <td>{{ analysis.updated_at }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-header bg-success text-white">
+                                    <h6 class="mb-0">Processing Statistics</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Word Count:</strong></td>
+                                            <td>{{ analysis.word_count|default:"0" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sentence Count:</strong></td>
+                                            <td>{{ analysis.sentence_count|default:"0" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Processing Time:</strong></td>
+                                            <td>{{ analysis.processing_time|floatformat:3|default:"0" }}s</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Language:</strong></td>
+                                            <td>
+                                                {% if analysis.language_detected %}
+                                                    {{ analysis.language_detected|upper }}
+                                                    {% if analysis.language_confidence %}
+                                                        ({{ analysis.language_confidence|floatformat:1 }}%)
+                                                    {% endif %}
+                                                {% else %}
+                                                    <span class="text-muted">Unknown</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Configuration:</strong></td>
+                                            <td>
+                                                {% if analysis.configuration_used %}
+                                                    {{ analysis.configuration_used.name }}
+                                                {% else %}
+                                                    <span class="text-muted">Default</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Original Text -->
+                    <div class="card border-primary mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0">Original Text</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="bg-light p-3 rounded">
+                                <p class="mb-0">{{ analysis.text_content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Processed Text -->
+                    {% if analysis.processed_text %}
+                        <div class="card border-secondary mb-4">
+                            <div class="card-header bg-secondary text-white">
+                                <h6 class="mb-0">Processed Text</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="bg-light p-3 rounded">
+                                    <p class="mb-0">{{ analysis.processed_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Sentiment Analysis -->
+                    <div class="card border-warning mb-4">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0">Sentiment Analysis</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    {% if analysis.sentiment == 'positive' %}
+                                        <i class="fas fa-smile fa-4x text-success mb-2"></i>
+                                    {% elif analysis.sentiment == 'negative' %}
+                                        <i class="fas fa-frown fa-4x text-danger mb-2"></i>
+                                    {% else %}
+                                        <i class="fas fa-meh fa-4x text-warning mb-2"></i>
+                                    {% endif %}
+                                    <h5>
+                                        <span class="badge bg-{% if analysis.sentiment == 'positive' %}success{% elif analysis.sentiment == 'negative' %}danger{% else %}warning{% endif %}">
+                                            {{ analysis.sentiment|title|default:"Neutral" }}
+                                        </span>
+                                    </h5>
+                                </div>
+                                <div class="col-md-8">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Sentiment Score:</strong></td>
+                                            <td>{{ analysis.sentiment_score|floatformat:4|default:"0" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Confidence:</strong></td>
+                                            <td>
+                                                {{ analysis.sentiment_confidence|floatformat:2|default:"0" }}%
+                                                <div class="progress mt-1" style="height: 10px;">
+                                                    <div class="progress-bar bg-{% if analysis.sentiment == 'positive' %}success{% elif analysis.sentiment == 'negative' %}danger{% else %}warning{% endif %}" 
+                                                         style="width: {{ analysis.sentiment_confidence|default:0 }}%;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Named Entities -->
+                    <div class="card border-info mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0">Named Entities</h6>
+                        </div>
+                        <div class="card-body">
+                            {% if analysis.entityextraction_set.all %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Entity Text</th>
+                                                <th>Entity Type</th>
+                                                <th>Confidence</th>
+                                                <th>Start Position</th>
+                                                <th>End Position</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for entity in analysis.entityextraction_set.all %}
+                                                <tr>
+                                                    <td><strong>{{ entity.entity_text }}</strong></td>
+                                                    <td><span class="badge bg-secondary">{{ entity.entity_type }}</span></td>
+                                                    <td>{{ entity.confidence_score|floatformat:2 }}%</td>
+                                                    <td>{{ entity.start_position }}</td>
+                                                    <td>{{ entity.end_position }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="text-muted mb-0">No named entities found in this text.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Intent Classifications -->
+                    <div class="card border-success mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">Intent Classifications</h6>
+                        </div>
+                        <div class="card-body">
+                            {% if analysis.intentclassification_set.all %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Intent</th>
+                                                <th>Confidence</th>
+                                                <th>Context</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for intent in analysis.intentclassification_set.all %}
+                                                <tr>
+                                                    <td><span class="badge bg-primary">{{ intent.intent_name }}</span></td>
+                                                    <td>
+                                                        {{ intent.confidence_score|floatformat:2 }}%
+                                                        <div class="progress mt-1" style="height: 8px;">
+                                                            <div class="progress-bar bg-primary" style="width: {{ intent.confidence_score }}%;"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ intent.context_data|default:"N/A" }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="text-muted mb-0">No intents classified for this text.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Metadata -->
+                    {% if analysis.metadata %}
+                        <div class="card border-dark">
+                            <div class="card-header bg-dark text-white">
+                                <h6 class="mb-0">Additional Metadata</h6>
+                            </div>
+                            <div class="card-body">
+                                <pre class="bg-light p-3 rounded"><code>{{ analysis.metadata }}</code></pre>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

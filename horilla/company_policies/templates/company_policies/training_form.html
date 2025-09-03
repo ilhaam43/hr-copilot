@@ -1,0 +1,396 @@
+{% extends 'company_policies/base.html' %}
+{% load i18n %}
+
+{% block title %}{% if form.instance.pk %}{% trans "Edit Training" %}{% else %}{% trans "Tambah Training" %}{% endif %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-section {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .form-section h5 {
+        color: #495057;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e9ecef;
+    }
+    .form-group label {
+        font-weight: 600;
+        color: #495057;
+    }
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    .help-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+    .required-field::after {
+        content: " *";
+        color: #dc3545;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>
+                    {% if form.instance.pk %}
+                        <i class="fas fa-edit"></i> {% trans "Edit Training" %}
+                    {% else %}
+                        <i class="fas fa-plus"></i> {% trans "Tambah Training Baru" %}
+                    {% endif %}
+                </h2>
+                <a href="{% url 'company_policies:training_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> {% trans "Kembali" %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Informasi Dasar Training -->
+                <div class="form-section">
+                    <h5><i class="fas fa-info-circle"></i> {% trans "Informasi Dasar" %}</h5>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.title.id_for_label }}" class="required-field">{{ form.title.label }}</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.title.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Masukkan judul training yang jelas dan deskriptif" %}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.description.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Jelaskan tujuan dan materi yang akan dibahas dalam training" %}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.category.id_for_label }}" class="required-field">{{ form.category.label }}</label>
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.category.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                                {{ form.status }}
+                                {% if form.status.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.status.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jadwal dan Lokasi -->
+                <div class="form-section">
+                    <h5><i class="fas fa-calendar-alt"></i> {% trans "Jadwal dan Lokasi" %}</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.start_date.id_for_label }}" class="required-field">{{ form.start_date.label }}</label>
+                                {{ form.start_date }}
+                                {% if form.start_date.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.start_date.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.end_date.id_for_label }}">{{ form.end_date.label }}</label>
+                                {{ form.end_date }}
+                                {% if form.end_date.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.end_date.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.start_time.id_for_label }}">{{ form.start_time.label }}</label>
+                                {{ form.start_time }}
+                                {% if form.start_time.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.start_time.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.end_time.id_for_label }}">{{ form.end_time.label }}</label>
+                                {{ form.end_time }}
+                                {% if form.end_time.errors %}
+                                    <div class="text-danger mt-1">
+                                        {% for error in form.end_time.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.location.id_for_label }}">{{ form.location.label }}</label>
+                        {{ form.location }}
+                        {% if form.location.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.location.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Masukkan lokasi training (ruang meeting, alamat, atau platform online)" %}</div>
+                    </div>
+                </div>
+
+                <!-- Materi Training -->
+                <div class="form-section">
+                    <h5><i class="fas fa-book"></i> {% trans "Materi Training" %}</h5>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.content.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Detail materi yang akan disampaikan dalam training" %}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.materials.id_for_label }}">{{ form.materials.label }}</label>
+                        {{ form.materials }}
+                        {% if form.materials.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.materials.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Upload file materi training (PDF, PPT, DOC)" %}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Pengaturan Training -->
+                <div class="form-section">
+                    <h5><i class="fas fa-cogs"></i> {% trans "Pengaturan" %}</h5>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.max_participants.id_for_label }}">{{ form.max_participants.label }}</label>
+                        {{ form.max_participants }}
+                        {% if form.max_participants.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.max_participants.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Maksimal peserta yang dapat mengikuti training" %}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.duration_hours.id_for_label }}">{{ form.duration_hours.label }}</label>
+                        {{ form.duration_hours }}
+                        {% if form.duration_hours.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.duration_hours.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Durasi training dalam jam" %}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            {{ form.is_mandatory }}
+                            <label class="form-check-label" for="{{ form.is_mandatory.id_for_label }}">
+                                {{ form.is_mandatory.label }}
+                            </label>
+                        </div>
+                        {% if form.is_mandatory.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.is_mandatory.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Centang jika training ini wajib diikuti" %}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            {{ form.requires_certificate }}
+                            <label class="form-check-label" for="{{ form.requires_certificate.id_for_label }}">
+                                {{ form.requires_certificate.label }}
+                            </label>
+                        </div>
+                        {% if form.requires_certificate.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.requires_certificate.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="help-text">{% trans "Centang jika training ini memberikan sertifikat" %}</div>
+                    </div>
+                </div>
+
+                <!-- Panduan -->
+                <div class="form-section">
+                    <h5><i class="fas fa-lightbulb"></i> {% trans "Panduan" %}</h5>
+                    <div class="alert alert-info">
+                        <h6>{% trans "Tips Membuat Training:" %}</h6>
+                        <ul class="mb-0">
+                            <li>{% trans "Gunakan judul yang jelas dan menarik" %}</li>
+                            <li>{% trans "Jelaskan tujuan pembelajaran dengan spesifik" %}</li>
+                            <li>{% trans "Tentukan durasi yang realistis" %}</li>
+                            <li>{% trans "Siapkan materi yang mudah dipahami" %}</li>
+                            <li>{% trans "Atur jadwal yang tidak bentrok" %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="row">
+            <div class="col-12">
+                <div class="form-section">
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'company_policies:training_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i> {% trans "Batal" %}
+                        </a>
+                        <div>
+                            {% if form.instance.pk %}
+                                <button type="submit" name="action" value="save" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> {% trans "Simpan Perubahan" %}
+                                </button>
+                            {% else %}
+                                <button type="submit" name="action" value="save" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> {% trans "Buat Training" %}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Auto-resize textarea
+    $('textarea').each(function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+    
+    $('textarea').on('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+    
+    // Date picker initialization
+    if ($('input[type="date"]').length) {
+        $('input[type="date"]').each(function() {
+            if (!$(this).val()) {
+                var today = new Date().toISOString().split('T')[0];
+                $(this).attr('min', today);
+            }
+        });
+    }
+    
+    // Form validation
+    $('form').on('submit', function(e) {
+        var isValid = true;
+        var requiredFields = $(this).find('[required]');
+        
+        requiredFields.each(function() {
+            if (!$(this).val()) {
+                isValid = false;
+                $(this).addClass('is-invalid');
+            } else {
+                $(this).removeClass('is-invalid');
+            }
+        });
+        
+        if (!isValid) {
+            e.preventDefault();
+            alert('Mohon lengkapi semua field yang wajib diisi.');
+        }
+    });
+});
+</script>
+{% endblock %}
