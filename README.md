@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # HR Chatbot System
 
 🤖 **Sistem Chatbot HR Cerdas dengan Dukungan AI/LLM**
@@ -169,3 +170,7 @@ Jika Anda mengalami masalah atau memiliki pertanyaan:
 ---
 
 **Dibuat dengan ❤️ oleh HR Chatbot Development Team**
+=======
+# hr-copilot
+HR Copilot
+>>>>>>> bf3da128326fd40c2734d20d80840e687b9dc642
